@@ -1,0 +1,38 @@
+TOKEN
+- WORD
+- SEPERATOR
+	- "
+	- '
+- OPERATOR
+	- PIPE
+	- AND
+	- OR
+
+AST(Abstract Syntax Tree) - BNF
+
+<name>			::=	WORD
+
+<args>			::= WORD
+				|	WORD <args>
+
+<cmd_line>		::=	<cmd>
+				|	'(' <cmd_line> ')'
+				|	<cmd_line> '|'  <cmd_line>
+				|	<cmd_line> '||' <cmd_line>
+				|	<cmd_line> '&&' <cmd_line>
+
+<cmd>			::=	<simple_cmd>
+				|	<redirects> <simple_cmd>
+
+<simple_cmd>	::=	<name>
+				|	<name> <args>
+
+<redirects>		::=	<io_redirect>
+				|	<io_redirect> <redirects>
+
+<io_redirect>	::=	'<'		<name>
+				|	'<<'	<name>
+				|	'>'		<name>
+				|	'>>'	<name>
+
+토큰화 -> 트리 -> 확장
