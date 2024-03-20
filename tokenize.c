@@ -6,79 +6,65 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 13:32:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:19:21 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *str)
+int	token_len(char *str)
 {
-	size_t	len;
+	int		len;
+	char	quote_type;
 
 	len = 0;
 	while (str[len])
+	{
+		if (ft_strchr("()<>|&", str[0]))
+		{
+			while (str[len] == str[0])
+				len++;
+			break ;
+		}
+		if (str[len] == '\'' || str[len] == '"')
+		{
+			quote_type = str[len];
+			len++;
+			while (str[len] != quote_type)
+				len++;
+		}
+		if (ft_strchr("()<>|& ", str[len]))
+			break ;
 		len++;
+	}
 	return (len);
 }
 
-char	*ft_strchr(const char *str, int val)
+void	tokenizer(t_token **token, char *str)
 {
-	size_t	len;
+	int		len;
+	t_token	*new;
 
-	val %= 256;
-	len = ft_strlen(str);
-	if (!val)
-		return ((char *)str + len);
 	while (*str)
 	{
-		if (*str == val)
-			return ((char *)str);
-		str++;
+		if (*str == ' ')
+			while (*str == ' ')
+				str++;
+		else
+		{
+			len = token_len(str);
+			if (*str == '(' || *str == ')')
+				new = token_new(str, len, sep);
+			else if (*str == '|' || *str == '&')
+				new = token_new(str, len, con_op);
+			else if (*str == '<' || *str == '>')
+				new = token_new(str, len, re_op);
+			else
+				new = token_new(str, len, word);
+			str += len;
+			token_add_back(token, new);
+		}
 	}
-	return (NULL);
-}
-
-int	count_token(char *str)
-{
-	int		cnt;
-	int		idx;
-	char	sep;
-	char	*meta = "<>()|& ";
-
-	if (*str == ' ')
-		cnt = 0;
-	else
-		cnt = 1;
-	idx = 1;
-	while (str[idx])
-	{
-		sep = 0;
-		if (sep == 0 && (str[idx] == '\'' || str[idx] == '"'))
-		{
-			sep = str[idx];
-			idx++;
-			while (sep != 0 && str[idx] != sep)
-				idx++;
-			sep = 0;
-		}
-		// if (str[idx] == ' ' && str[idx - 1] != ' ' && !ft_strchr(meta, str[idx - 1]))
-		// {
-		// 	printf("%3d,%3d:%s\n", idx, cnt, str + idx);
-		// 	cnt++;
-		// }
-		if (!ft_strchr(meta, str[idx]) && ft_strchr(meta, str[idx - 1]))
-		{
-			printf("%3d,%3d:%s\n", idx ,cnt, str + idx);
-			cnt++;
-		}
-		if (ft_strchr(meta, str[idx]) != ft_strchr(meta, str[idx - 1]))
-		{
-			printf("%3d,%3d:%s\n", idx ,cnt, str + idx);
-			cnt++;
-		}
-		idx++;
-	}
-	return (cnt);
 }

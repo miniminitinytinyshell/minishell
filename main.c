@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 13:09:05 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:13:04 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int	main(void)
 {
-	char	*cmd = "(<<infile pwd . || ls -al *.c) && (cat input | awk '{count}END{print count}' && echo Hello World > outfile)";
+	char	*cmd = "((ls&&pwd)>>infile<a<<b>c||(<< infile pwd . || ls -al *.c)) && (cat input | awk '{count}END{print count}' && echo Hello World > outfile)";
 
 	// while (1)
 	// {
@@ -30,6 +30,17 @@ int	main(void)
 	// 	proc_cmd(cmd);
 	// 	free(cmd);
 	// }
-	printf("%d\n", count_token(cmd));
+	t_token *token;
+	char	*token_type[4] = {"word", "sep", "con_op", "re_op"};
+
+	token = NULL;
+	tokenizer(&token, cmd);
+	printf("%7s  %40s\n", "type", "data");
+	printf("-------  ------------------------------------------\n");
+	while (token)
+	{
+		printf("%-7s  [%-40s]\n", token_type[token->type], token->data);
+		token = token->next;
+	}
 	return (0);
 }
