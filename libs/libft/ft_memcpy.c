@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function.h                                         :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:20:32 by hyeunkim         ###   ########.fr       */
+/*   Created: 2023/10/05 14:44:05 by hyeunkim          #+#    #+#             */
+/*   Updated: 2023/10/19 13:06:02 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTION_H
-# define FUNCTION_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+void	*ft_memcpy(void *dst, const void *src, size_t size)
+{
+	char	*temp_d;
+	char	*temp_s;
+	size_t	idx;
 
-// TOKENIZE
-void	tokenizer(t_token **token, char *str);
-// TOKEN UTIL
-t_token	*token_new(char *data_start, int len, t_token_type type);
-void	token_add_back(t_token **token, t_token *new);
-void	token_clear(t_token **token);
-#endif
+	idx = 0;
+	temp_d = (char *)dst;
+	temp_s = (char *)src;
+	while (idx < size && (dst || src))
+	{
+		temp_d[idx] = temp_s[idx];
+		idx++;
+	}
+	return (dst);
+}

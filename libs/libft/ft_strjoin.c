@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function.h                                         :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:20:32 by hyeunkim         ###   ########.fr       */
+/*   Created: 2023/10/09 05:24:26 by hyeunkim          #+#    #+#             */
+/*   Updated: 2023/10/15 18:48:22 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTION_H
-# define FUNCTION_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_strjoin(char const *str1, char const *str2)
+{
+	char	*result;
+	size_t	len_total;
 
-// TOKENIZE
-void	tokenizer(t_token **token, char *str);
-// TOKEN UTIL
-t_token	*token_new(char *data_start, int len, t_token_type type);
-void	token_add_back(t_token **token, t_token *new);
-void	token_clear(t_token **token);
-#endif
+	len_total = ft_strlen(str1) + ft_strlen(str2) + 1;
+	result = ft_calloc(len_total, sizeof(char));
+	if (!result)
+		return (NULL);
+	ft_strlcpy(result, (char *)str1, ft_strlen(str1) + 1);
+	ft_strlcat(result, (char *)str2, len_total);
+	return (result);
+}

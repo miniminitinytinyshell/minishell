@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function.h                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:20:32 by hyeunkim         ###   ########.fr       */
+/*   Created: 2023/10/06 12:05:07 by hyeunkim          #+#    #+#             */
+/*   Updated: 2023/10/19 14:03:00 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTION_H
-# define FUNCTION_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_strchr(const char *str, int val)
+{
+	size_t	len;
 
-// TOKENIZE
-void	tokenizer(t_token **token, char *str);
-// TOKEN UTIL
-t_token	*token_new(char *data_start, int len, t_token_type type);
-void	token_add_back(t_token **token, t_token *new);
-void	token_clear(t_token **token);
-#endif
+	val %= 256;
+	len = ft_strlen(str);
+	if (!val)
+		return ((char *)str + len);
+	while (*str)
+	{
+		if (*str == val)
+			return ((char *)str);
+		str++;
+	}
+	return (NULL);
+}

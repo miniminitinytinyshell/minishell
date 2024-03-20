@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function.h                                         :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:20:32 by hyeunkim         ###   ########.fr       */
+/*   Created: 2023/10/06 11:42:33 by hyeunkim          #+#    #+#             */
+/*   Updated: 2023/10/19 14:05:47 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTION_H
-# define FUNCTION_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-// TOKENIZE
-void	tokenizer(t_token **token, char *str);
-// TOKEN UTIL
-t_token	*token_new(char *data_start, int len, t_token_type type);
-void	token_add_back(t_token **token, t_token *new);
-void	token_clear(t_token **token);
-#endif
+int	ft_tolower(int c)
+{
+	if ('A' <= c && c <= 'Z')
+		c += 32;
+	return (c);
+}

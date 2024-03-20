@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function.h                                         :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:20:32 by hyeunkim         ###   ########.fr       */
+/*   Created: 2023/10/06 12:42:17 by hyeunkim          #+#    #+#             */
+/*   Updated: 2023/10/13 14:48:10 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCTION_H
-# define FUNCTION_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+void	*ft_memchr(const void *str, int val, size_t size)
+{
+	size_t			idx;
+	unsigned char	temp_val;
+	unsigned char	*temp_str;
 
-// TOKENIZE
-void	tokenizer(t_token **token, char *str);
-// TOKEN UTIL
-t_token	*token_new(char *data_start, int len, t_token_type type);
-void	token_add_back(t_token **token, t_token *new);
-void	token_clear(t_token **token);
-#endif
+	idx = 0;
+	temp_val = (unsigned char) val;
+	temp_str = (unsigned char *)str;
+	while (idx < size)
+	{
+		if (temp_str[idx] == temp_val)
+			return ((void *)(str + idx));
+		idx++;
+	}
+	return (NULL);
+}

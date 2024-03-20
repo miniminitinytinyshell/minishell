@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 17:20:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/19 17:24:22 by jaeblee          ###   ########.fr       */
+/*   Created: 2023/10/05 14:39:04 by hyeunkim          #+#    #+#             */
+/*   Updated: 2023/10/26 20:37:08 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+void	ft_bzero(void *dst, size_t size)
 {
-	char *argv[3] = {"ls", "-l", (char*)NULL};
-
-	execve("/bin/ls", argv, NULL);
-	return (0);
+	ft_memset(dst, 0, size);
 }

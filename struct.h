@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 13:27:37 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:17:39 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,20 @@
 
 typedef enum e_token_type
 {
-	word = 1,
+	word = 0,
 	sep,
-	op,
+	con_op,
+	re_op,
 }	t_token_type;
+//sep: (, )
+//con_op: |, ||, &&
+//re_op: <, <<, >, >>
 
 typedef struct s_token
 {
-	int		type;
-	char	*data;
+	t_token_type	type;
+	char			*data;
+	struct s_token	*next;
 }	t_token;
 // token type macro
 // $같은 경우는 tree 만드는 과정에서 token type 변경
@@ -45,11 +50,12 @@ typedef enum e_parse_type
 
 typedef struct s_tree
 {
-	int				type;
-	char			*data[2];
+	t_parse_type	type;
+	char			*data;
+	struct s_token	*token;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
 // data[0] origin;
-// data[1] with_expansion;
+// data: with_expansion;
 #endif
