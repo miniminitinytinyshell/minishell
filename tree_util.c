@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 17:20:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/19 17:24:22 by jaeblee          ###   ########.fr       */
+/*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
+/*   Updated: 2024/03/20 18:00:54 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "struct.h"
+#include "function.h"
 
-int	main(int ac, char **av, char **envp)
+t_tree	*init_tree(void)
 {
-	char *argv[3] = {"ls", "-l", (char*)NULL};
+	t_tree	*temp;
 
-	execve("/bin/ls", argv, NULL);
-	return (0);
+	temp = (t_tree *)malloc(sizeof(t_tree));
+	temp->left = NULL;
+	temp->right = NULL;
+	return (temp);
 }

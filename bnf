@@ -24,16 +24,16 @@ AST(Abstract Syntax Tree) - BNF
 				|	WORD <args>
 // 명령어 인자
 
-<standard_cmd>			::=	<simple_cmd>
-				|	<redirects> <simple_cmd>
-// 단순 명령어나 리다이렉션을 가지는 상태
-
 <simple_cmd>	::=	<name>
 				|	<name> <args>
 // 명령어 (+ 인자)
 
-<compound_cmd>	::=	<cmd>
-				|	'(' <compound_cmd> ')'
+<standard_cmd>	::=	<simple_cmd>
+				|	<redirects> <simple_cmd>
+// 단순 명령어나 리다이렉션을 가지는 상태
+
+<compound_cmd>	::=	<standard_cmd>
+				|	<redirect> '(' <compound_cmd> ')'
 				|	<compound_cmd> '|'  <compound_cmd>
 				|	<compound_cmd> '||' <compound_cmd>
 				|	<compound_cmd> '&&' <compound_cmd>
