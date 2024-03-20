@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:19:21 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:56:27 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,28 @@ int	token_len(char *str)
 	char	quote_type;
 
 	len = 0;
-	while (str[len])
+	if (str[0] == '(' || str[0] == ')')
+		len = 1;
+	else if (ft_strchr("<>|&", str[0]))
 	{
-		if (ft_strchr("()<>|&", str[0]))
-		{
-			while (str[len] == str[0])
-				len++;
-			break ;
-		}
-		if (str[len] == '\'' || str[len] == '"')
-		{
-			quote_type = str[len];
+		while (str[len] && str[len] == str[0])
 			len++;
-			while (str[len] != quote_type)
+	}
+	else
+	{
+		while (str[len])
+		{
+			if (str[len] == '\'' || str[len] == '"')
+			{
+				quote_type = str[len];
 				len++;
+				while (str[len] && str[len] != quote_type)
+					len++;
+			}
+			len++;
+			if (ft_strchr("()<>|& ", str[len]))
+				break ;
 		}
-		if (ft_strchr("()<>|& ", str[len]))
-			break ;
-		len++;
 	}
 	return (len);
 }
