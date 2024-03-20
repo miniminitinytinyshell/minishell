@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/19 20:34:39 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:24:58 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 # include <unistd.h>
 
 // TOKENIZE
-int	cnt_token(char *str);
+int	count_token(char *str);
+
 #endif

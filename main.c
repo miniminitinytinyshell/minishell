@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/19 22:55:41 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:09:05 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int	main(void)
 	// 	proc_cmd(cmd);
 	// 	free(cmd);
 	// }
-	printf("%d\n", cnt_token(cmd));
+	printf("%d\n", count_token(cmd));
 	return (0);
 }

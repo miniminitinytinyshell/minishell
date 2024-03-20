@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/19 23:00:24 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:32:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,47 +40,45 @@ char	*ft_strchr(const char *str, int val)
 	return (NULL);
 }
 
-int	cnt_token(char *str)
+int	count_token(char *str)
 {
 	int		cnt;
 	int		idx;
 	char	sep;
+	char	*meta = "<>()|& ";
 
 	if (*str == ' ')
 		cnt = 0;
 	else
 		cnt = 1;
 	idx = 1;
-	sep = 0;
 	while (str[idx])
 	{
-		if (str[idx] == '(' || str[idx] ==')')
+		sep = 0;
+		if (sep == 0 && (str[idx] == '\'' || str[idx] == '"'))
 		{
-			// printf("%c", str[idx]);
-			cnt++;
-		}
-		if (str[idx] == '<' || str[idx] == '>' || str[idx] == '|')
-		{
-			cnt++;
-			// printf("%d:%s\n", idx, str + idx);
-			if (str[idx] == str[idx + 1])
-				idx++;
-			// printf("%d:%s\n", idx, str + idx);
-		}
-		if (str[idx] == ' ' && str[idx - 1] != ' ')
-		{
-			// printf("%c", str[idx - 1]);
-			cnt++;
-		}
-		if (str[idx] == '&' && str[idx + 1] == '&')
-		{
-			// printf("%c", str[idx]);
-			cnt++;
+			sep = str[idx];
 			idx++;
+			while (sep != 0 && str[idx] != sep)
+				idx++;
+			sep = 0;
+		}
+		// if (str[idx] == ' ' && str[idx - 1] != ' ' && !ft_strchr(meta, str[idx - 1]))
+		// {
+		// 	printf("%3d,%3d:%s\n", idx, cnt, str + idx);
+		// 	cnt++;
+		// }
+		if (!ft_strchr(meta, str[idx]) && ft_strchr(meta, str[idx - 1]))
+		{
+			printf("%3d,%3d:%s\n", idx ,cnt, str + idx);
+			cnt++;
+		}
+		if (ft_strchr(meta, str[idx]) != ft_strchr(meta, str[idx - 1]))
+		{
+			printf("%3d,%3d:%s\n", idx ,cnt, str + idx);
+			cnt++;
 		}
 		idx++;
-		printf("%d: %s\n", cnt, str + idx);
 	}
-	printf("\n");
 	return (cnt);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/19 20:53:30 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:27:37 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef enum e_token_type
 {
-	word = 0,
+	word = 1,
 	sep,
 	op,
 }	t_token_type;
