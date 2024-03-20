@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:13:04 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:30:54 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int	main(void)
 	tokenizer(&token, cmd);
 	printf("%7s  %40s\n", "type", "data");
 	printf("-------  ------------------------------------------\n");
-	while (token)
+	t_token	*tmp = token;
+	while (tmp)
 	{
-		printf("%-7s  [%-40s]\n", token_type[token->type], token->data);
-		token = token->next;
+		printf("%-7s  [%s\n", token_type[tmp->type], tmp->data);
+		tmp = tmp->next;
 	}
+	token_clear(&token);
 	return (0);
 }

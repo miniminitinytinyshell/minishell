@@ -1,4 +1,8 @@
 *.DS_*
+# Minishell
+.mandatory
+.bonus
+minishell
 
 # Prerequisites
 *.d
