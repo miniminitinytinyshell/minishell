@@ -1,8 +1,15 @@
 TOKEN
 - WORD
 - SEPERATOR
-	- "
-	- '
+	- "	DQ _ word 일부 (token->type = word)
+	- '	SQ _ word 일부
+	- '(' L_PR
+	- ')' R_PR
+	- < IN_TRUNC
+	- > OUT_TRUNC
+	- << HERE_DOC
+	- >> OUT_APPEND
+**quote: expansion에서 제거
 - OPERATOR
 	- PIPE
 	- AND
@@ -11,21 +18,26 @@ TOKEN
 AST(Abstract Syntax Tree) - BNF
 
 <name>			::=	WORD
+// 명령어, 파일 이름
 
 <args>			::= WORD
 				|	WORD <args>
+// 명령어 인자
 
-<cmd_line>		::=	<cmd>
-				|	'(' <cmd_line> ')'
-				|	<cmd_line> '|'  <cmd_line>
-				|	<cmd_line> '||' <cmd_line>
-				|	<cmd_line> '&&' <cmd_line>
-
-<cmd>			::=	<simple_cmd>
+<standard_cmd>			::=	<simple_cmd>
 				|	<redirects> <simple_cmd>
+// 단순 명령어나 리다이렉션을 가지는 상태
 
 <simple_cmd>	::=	<name>
 				|	<name> <args>
+// 명령어 (+ 인자)
+
+<compound_cmd>	::=	<cmd>
+				|	'(' <compound_cmd> ')'
+				|	<compound_cmd> '|'  <compound_cmd>
+				|	<compound_cmd> '||' <compound_cmd>
+				|	<compound_cmd> '&&' <compound_cmd>
+// operator로 연결된 cmd들
 
 <redirects>		::=	<io_redirect>
 				|	<io_redirect> <redirects>
@@ -36,3 +48,15 @@ AST(Abstract Syntax Tree) - BNF
 				|	'>>'	<name>
 
 토큰화 -> 트리 -> 확장
+
+-- example --
+(pwd . || ls -al *.c) && (cat input | awk “{count}END{print count} && echo Hello World)
+
+/(/pwd/./||/ls/-al/*.c/)/&&/(/cat/input/|/awk/"/{count}END{print count}/"/&&/echo/Hello/World/)/
+PR : 짝이 안 맞으면 못들어옴 (cnt(L_PR) == cnt(R_PR))
+QUOTE : \없는 애들끼리는 짝 맞아야 들어옴
+
+TOKEN (before tree)
+<SEP><WORD>*<OPER><WORD>*<SEP><OPER><SEP><WORD>*<OPER><WORD><SEP><WORD><SEP><OPER><WORD>*<SEP>
+FINAL (after tree)
+<sep_L_PR><name><args><OR><name><args><sep_R_PR><AND><sep_L_PR><name><args><PIPE><name><sep_DQ><args><sep_DQ><AND><name><args><sep_R_PR_>

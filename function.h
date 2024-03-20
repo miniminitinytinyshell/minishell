@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/19 13:43:14 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:24:58 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FUNCITON_H
+#ifndef FUNCTION_H
 # define FUNCTION_H
 
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
-// TOKEN
+// TOKENIZE
+int	count_token(char *str);
 
 #endif
