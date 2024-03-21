@@ -3,8 +3,8 @@ TOKEN
 - SEPERATOR
 	- "	DQ _ word 일부 (token->type = word)
 	- '	SQ _ word 일부
-	- '(' L_PR
-	- ')' R_PR
+	- '(' LEFT_PAR
+	- ')' RIGHT_PAR
 	- < IN_TRUNC
 	- > OUT_TRUNC
 	- << HERE_DOC

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/21 18:47:01 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/21 21:57:55 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,8 @@ void	tokenizer(t_token **token, char *str)
 		while (*str == ' ')
 			str++;
 		len = token_len(str);
-		if (*str == '(' || *str == ')')
-			new = token_new(str, len, sep);
-		else if (*str == '|' || *str == '&')
-			new = token_new(str, len, con_op);
-		else if (*str == '<' || *str == '>')
-			new = token_new(str, len, re_op);
-		else
-			new = token_new(str, len, word);
+		new = token_new(str, len, set_token_type(str, len));
 		str += len;
 		token_add_back(token, new);
 	}
-	// free(str);
-	str = NULL;
 }
