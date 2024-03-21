@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/21 14:42:26 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:26:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,17 @@ typedef enum e_parse_type
 {
 	name = 0,
 	args,
+	rdr_op,
+	redirects,
 	simple_cmd,
 	standard_cmd,
 	compound_cmd,
-	redirects,
-	io_redirect,
 }	t_parse_type;
 
 typedef struct s_tree
 {
 	t_parse_type	type;
 	char			*data;
-	struct s_token	*token;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;

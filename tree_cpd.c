@@ -6,108 +6,95 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 18:55:54 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/21 18:10:53 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	skip_separ_rdt(t_token **token)
+void	div_std_cmd(t_tree **tree, t_token *left, t_token *right, int wd)
 {
-	int		count;
-	t_token	*cur;
+	t_token *cur;
 
-	count = 1;
-	cur = *token;
-	if (cur->data[0] == ')')
-		return (0);
-	while (count > 0 && cur->next != NULL)
-	{
-		cur = cur->next;
-		if (cur->type == sep && cur->data[0] == '(')
-			count++;
-		else if (cur->type == sep && cur->data[0] == ')')
-			count--;
-	}
-	if (count != 0)
-		return (0);
-	*token = cur;
-	return (1);
-}
-
-void	cpd_separ_rdt(t_tree **tree, t_token *left, t_token *right)
-{
-	t_token	*cur;
-
-	cur = left;
-	while (cur->next == right)
-		cur = cur->next;
-	cur->next = NULL;
-	(*tree)->type = compound_cmd;
-	(*tree)->data = ft_strdup(right->data);
+	(*tree)->data = NULL;
+	(*tree)->type = standard_cmd;
 	(*tree)->left = init_tree();
 	(*tree)->right = init_tree();
-	cpd_check_rdt(&(*tree)->left, left);
-	// 두 경우의 수(Redirection이 cmd 앞/뒤) 생각해야 함
+	if (wd == 0)
+	{
+		cur = left->next;
+		right = cur->next;
+		cur->next = NULL;
+		check_redirect(&(*tree)->left, left);
+		check_smp_cmd(&(*tree)->right, right);
+	}
+	else
+	{
+		cur = right;
+		right = right->next;
+		cur->next = right->next->next;
+		right->next->next = NULL;
+		check_redirect(&(*tree)->left, right);
+		check_smp_cmd(&(*tree)->right, left);
+	}
 }
 
-int	cpd_check_rdt(t_tree **tree, t_token *token)
+void	check_std_cmd(t_tree **tree, t_token *token)
 {
-	t_token	*cur;
+	t_token *cur;
 
 	cur = token;
-	while (cur->type != re_op && cur->next != NULL)
+	if (cur->type == re_op)
+		div_std_cmd(tree, token, cur, 0);
+	while (cur->next != NULL)
 	{
-		if (cur->type = sep)
-			skip_sep(&cur);
+		if (cur->next->type == re_op)
+			break ;
 		cur = cur->next;
 	}
-	if (cur->type == re_op)
-		cpd_separ_rdt(tree, token, cur);
+	if (cur->next == NULL)
+		check_smp_cmd(tree, token);
 	else
-		cpd_check_ctl(tree, token); // 괄호 없애기 추가해야 됨
+		div_std_cmd(tree, token, cur, 1);
 }
 
-void	cpd_separ_ctl(t_tree **tree, t_token *left, t_token *right, int pr)
+void	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 {
 	t_token	*cur;
 
 	cur = right;
-	right = right->next;
+	(*tree)->data = ft_strdup(right->data);
 	(*tree)->type = compound_cmd;
-	(*tree)->data = ft_strdup(cur->data);
+	right = right->next;
 	cur = free_token(cur);
 	(*tree)->left = init_tree();
 	(*tree)->right = init_tree();
-	if (pr == 1)
-		cpd_check_rdt(&(*tree)->left, left);
+	if (pr == 0)
+		check_std_cmd(&(*tree)->left, left);
 	else
-		std_check_rdt(&(*tree)->left, left);
-	cpd_check_ctl(&(*tree)->right, right);
+		check_cpd_cmd(&(*tree)->left, left); // 괄호 없애기 추가
+	check_cpd_cmd(&(*tree)->right, right);
 }
 
-int	cpd_check_ctl(t_tree **tree, t_token *token)
+void	check_cpd_cmd(t_tree **tree, t_token *token)
 {
 	int		pr;
 	t_token	*cur;
 
 	pr = 0;
 	cur = token;
+	if (cur->type == sep)
+		skip_sep();
 	while (cur->type != con_op && cur->next != NULL)
-	{
-		if (cur->type == sep)
-		{
-			pr = skip_sep(&cur);
-			if (pr == 0)
-				return (0);
-		}
 		cur = cur->next;
-	}
 	if (cur->type == con_op)
-		sep_token(tree, token, cur, pr);
-	else if (pr == 1)
-		cpd_check_rdt(tree, token);
+		div_cpd_cmd(tree, token, cur, pr);
 	else
-		std_check_rdt();
+	{
+		if (pr == 0)
+			check_std_cmd(tree, token);
+		else
+			check_cpd_cmd(tree, token); // 괄호 없애기 추가
+	}
 }
