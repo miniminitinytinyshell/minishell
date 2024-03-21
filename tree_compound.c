@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/21 18:10:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/21 18:33:04 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	div_std_cmd(t_tree **tree, t_token *left, t_token *right, int wd)
 		right = cur->next;
 		cur->next = NULL;
 		check_redirect(&(*tree)->left, left);
-		check_smp_cmd(&(*tree)->right, right);
+		check_std_cmd(&(*tree)->right, right);
 	}
 	else
 	{
@@ -36,7 +36,7 @@ void	div_std_cmd(t_tree **tree, t_token *left, t_token *right, int wd)
 		cur->next = right->next->next;
 		right->next->next = NULL;
 		check_redirect(&(*tree)->left, right);
-		check_smp_cmd(&(*tree)->right, left);
+		check_std_cmd(&(*tree)->right, left);
 	}
 }
 
