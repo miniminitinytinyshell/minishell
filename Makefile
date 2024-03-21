@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/03/20 19:19:38 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/03/21 18:57:24 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS = -I$(LIB_DIR)
 
 LDFLAGS = -L$(LIB_DIR)
-LDLIBS = -lft
+LDLIBS = -lft -lreadline
 # **************************************************************************** #
 ifdef DEBUG
 	CFLAGS += -O0 -g3 -fsanitize=address
@@ -39,6 +39,7 @@ Q = @
 man_src = main.c\
 			tokenize.c\
 			token_util.c\
+			token_checker.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)

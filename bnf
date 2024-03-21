@@ -3,8 +3,8 @@ TOKEN
 - SEPERATOR
 	- "	DQ _ word 일부 (token->type = word)
 	- '	SQ _ word 일부
-	- '(' L_PR
-	- ')' R_PR
+	- '(' LEFT_PAR
+	- ')' RIGHT_PAR
 	- < IN_TRUNC
 	- > OUT_TRUNC
 	- << HERE_DOC
@@ -24,28 +24,24 @@ AST(Abstract Syntax Tree) - BNF
 				|	WORD <args>
 // 명령어 인자
 
+<rdr_oper>		::= '<' | '<<' | '>' | '>>'
+
+<redirects>		::=	<rdr_oper> <name>
+
 <simple_cmd>	::=	<name>
 				|	<name> <args>
 // 명령어 (+ 인자)
 
 <standard_cmd>	::=	<simple_cmd>
-				|	<redirects> <simple_cmd>
+				|	<redirects> <standard_cmd>
 // 단순 명령어나 리다이렉션을 가지는 상태
 
 <compound_cmd>	::=	<standard_cmd>
-				|	<redirect> '(' <compound_cmd> ')'
+				|	'(' <compound_cmd> ')'
 				|	<compound_cmd> '|'  <compound_cmd>
 				|	<compound_cmd> '||' <compound_cmd>
 				|	<compound_cmd> '&&' <compound_cmd>
 // operator로 연결된 cmd들
-
-<redirects>		::=	<io_redirect>
-				|	<io_redirect> <redirects>
-
-<io_redirect>	::=	'<'		<name>
-				|	'<<'	<name>
-				|	'>'		<name>
-				|	'>>'	<name>
 
 토큰화 -> 트리 -> 확장
 

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/20 19:17:39 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/21 21:49:56 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,34 @@
 # define T_WORD 0
 # define T_OPER 1
 
+// typedef	enum e_token_group
+// {
+// 	word = 0,
+// 	sep,
+// 	con_op,
+// 	rdr_op,
+// }	t_token_group;
+// sep (, )
+// con_op |, ||, &&
+// rer_op <, <<, >, >>
+
 typedef enum e_token_type
 {
 	word = 0,
-	sep,
-	con_op,
-	re_op,
+	left_par,
+	right_par,
+	pipe_op,
+	logic_or,
+	logic_and,
+	in_trunc,
+	out_trunc,
+	here_doc,
+	out_append,
 }	t_token_type;
-//sep: (, )
-//con_op: |, ||, &&
-//re_op: <, <<, >, >>
 
 typedef struct s_token
 {
+	// t_token_group	group;
 	t_token_type	type;
 	char			*data;
 	struct s_token	*next;
@@ -41,18 +56,17 @@ typedef enum e_parse_type
 {
 	name = 0,
 	args,
+	rdr_op,
+	redirects,
 	simple_cmd,
 	standard_cmd,
 	compound_cmd,
-	redirects,
-	io_redirect,
 }	t_parse_type;
 
 typedef struct s_tree
 {
 	t_parse_type	type;
 	char			*data;
-	struct s_token	*token;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
