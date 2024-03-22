@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 17:49:45 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 18:24:41 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ t_tree	*init_tree(void)
 t_token	*erase_pr(t_token *token)
 {
 	int		cnt;
-	t_token *cur;
-	t_token *temp;
+	t_token	*cur;
+	t_token	*temp;
 
 	cnt = 1;
+	cur = token;
+	while (cur->next->group == sep && cur->next->data[0] == '(')
+	{
+		cnt++;
+		cur = cur->next;
+	}
 	temp = token;
 	token = token->next;
-	cur = token;
 	temp = token_free(temp);
 	while (cur->next != NULL)
 	{
