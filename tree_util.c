@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:02:08 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:43:59 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_token	*erase_pr(t_token *token)
 	token = token->next;
 	cur = token;
 	temp = token_free(temp);
-	while (cur->next->group == sep)
+	while (cur->next->group != sep)
 		cur = cur->next;
 	temp = cur->next;
 	temp = token_free(temp);
