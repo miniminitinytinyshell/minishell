@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/03/22 14:12:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:27:49 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "function.h"
 #include "libft.h"
 
-t_token	*token_new(char *data_start, int len, t_token_type type)
+t_token	*token_new(char *data_start, int len, t_token_group group)
 {
 	t_token	*new;
 
@@ -25,7 +25,7 @@ t_token	*token_new(char *data_start, int len, t_token_type type)
 	if (!(new->data))
 		return (NULL);
 	ft_strlcpy(new->data, data_start, len + 1);
-	new->type = type;
+	new->group = group;
 	new->next = NULL;
 	return (new);
 }

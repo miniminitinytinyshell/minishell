@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/03/21 18:57:24 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/03/22 14:30:30 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ Q = @
 man_src = main.c\
 			tokenize.c\
 			token_util.c\
-			token_checker.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)
