@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:01:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:24:51 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ int case_sep(t_tree **tree, t_token *token)
 	t_token	*cur;
 
 	cur = token;
-	if (skip_sep(&token) == 0)
+	if (skip_sep(&cur) == 0)
 		return (0);
 	if (cur->next == NULL)
+	{
 		if (check_cpd_cmd(tree, erase_pr(token)) == 0)
 			return (0);
-	if (cur->next->group == con)
+	}
+	else if (cur->next->group == con)
 	{
 		if (div_cpd_cmd(tree, token, cur, true) == 0)
 			return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:17:39 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 16:28:49 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,12 @@ void	print_tree(t_tree *tree)
 	if (tree->right)
 		print_tree(tree->right);
 	if (!(tree->left) && !(tree->right))
-		printf("%s\n", tree_type[tree->type]);
+	{
+		if (tree->data != name)
+			printf("%s: %s\n", tree_type[tree->type], tree->data);
+		else
+			printf("%s\n", tree_type[tree->type]);
+	}
 }
 
 int	main(void)
