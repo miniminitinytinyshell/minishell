@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:59:26 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 16:09:48 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ int	check_std_cmd(t_tree **tree, t_token *token)
 	}
 	if (cur->next == NULL)
 	{
-		if (check_smp_cmd(tree, token))
+		if (check_smp_cmd(tree, token) == 0)
 			return (0);
 	}
 	else
 	{
-		if (div_std_cmd(tree, token, cur, 1))
+		if (div_std_cmd(tree, token, cur, 1) == 0)
 			return (0);
 	}
 	return (1);
