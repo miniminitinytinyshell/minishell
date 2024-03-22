@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/21 21:49:56 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:13:51 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # define T_WORD 0
 # define T_OPER 1
 
-// typedef	enum e_token_group
-// {
-// 	word = 0,
-// 	sep,
-// 	con_op,
-// 	rdr_op,
-// }	t_token_group;
+typedef	enum e_token_group
+{
+	word = 0,
+	sep,
+	con_op,
+	rdr_op,
+}	t_token_group;
 // sep (, )
 // con_op |, ||, &&
 // rer_op <, <<, >, >>
