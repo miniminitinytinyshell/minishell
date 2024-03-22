@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 18:24:41 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 21:46:22 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,64 @@ t_tree	*init_tree(void)
 	return (temp);
 }
 
+// t_token	*erase_pr(t_token *token)
+// {
+// 	int		cnt;
+// 	t_token	*cur;
+// 	t_token	*temp;
+
+// 	cnt = 1;
+// 	cur = token;
+// 	while (cur->next->group == sep && cur->next->data[0] == '(')
+// 	{
+// 		cnt++;
+// 		cur = cur->next;
+// 	}
+// 	temp = token;
+// 	token = token->next;
+// 	temp = token_free(temp);
+// 	while (cur->next != NULL)
+// 	{
+// 		if (cur->next->group == sep && cur->next->data[0] == '(')
+// 			cnt++;
+// 		if (cur->next->group == sep && cur->next->data[0] == ')')
+// 			cnt--;
+// 		if (cnt == 0)
+// 			break ;
+// 		cur = cur->next;
+// 	}
+// 	temp = cur->next;
+// 	temp = token_free(temp);
+// 	cur->next = NULL;
+// 	return (token);
+// }
+
 t_token	*erase_pr(t_token *token)
 {
 	int		cnt;
 	t_token	*cur;
 	t_token	*temp;
 
-	cnt = 1;
-	cur = token;
-	while (cur->next->group == sep && cur->next->data[0] == '(')
-	{
-		cnt++;
-		cur = cur->next;
-	}
 	temp = token;
 	token = token->next;
 	temp = token_free(temp);
-	while (cur->next != NULL)
+	if (token->group == sep && token->data[0] == '(')
+		cnt = 2;
+	else
+		cnt = 1;
+	cur = token;
+	while (cur->next)
 	{
-		if (cur->next->group == sep && cur->next->data[0] == '(')
+		if (cur->next->group == sep && cur->next->data[0] =='(')
 			cnt++;
 		if (cur->next->group == sep && cur->next->data[0] == ')')
 			cnt--;
 		if (cnt == 0)
-			break ;
+			break;
 		cur = cur->next;
 	}
 	temp = cur->next;
-	temp = token_free(temp);
-	cur->next = NULL;
+	cur->next = token_free(temp);
 	return (token);
 }
 
