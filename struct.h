@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 14:13:51 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:14:19 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef enum e_token_type
 
 typedef struct s_token
 {
-	// t_token_group	group;
+	t_token_group	group;
 	t_token_type	type;
 	char			*data;
 	struct s_token	*next;
