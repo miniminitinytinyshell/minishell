@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:58:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 16:05:19 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_args(t_tree **tree, t_token *token)
 	t_token	*cur;
 
 	cur = token;
-	data = ft_strdup(cur->data);
+	data = NULL;
 	while (cur != NULL)
 	{
 		if (data == NULL)

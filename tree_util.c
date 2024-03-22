@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:53:56 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:02:08 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_tree	*init_tree(void)
 	return (temp);
 }
 
-t_token	*erase_pr_pr(t_token *token)
+t_token	*erase_pr(t_token *token)
 {
 	t_token *cur;
 	t_token *temp;

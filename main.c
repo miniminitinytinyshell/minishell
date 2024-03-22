@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:49:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:06:03 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@
 
 void	print_tree(t_tree *tree)
 {
+	char	*tree_type[] = {"name", "args", "rdr_op", "redirects", "simple_cmd", "standard_cmd", "compound_cmd"};
+
 	if (tree->left)
 		print_tree(tree->left);
 	else if (tree->right)
 		print_tree(tree->right);
 	else if (!(tree->left) && !(tree->right))
-		printf("%s\n", tree->data);
+		printf("%s\n", tree_type[tree->type]);
 }
 
 int	main(void)
@@ -66,7 +68,7 @@ int	main(void)
 				tmp_tree = tree;
 				print_tree(tmp_tree);
 			}
-			token_clear(&token);
+			// token_clear(&token);
 		}
 		free(cmd);
 		cmd = NULL;

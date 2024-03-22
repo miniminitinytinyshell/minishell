@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_compound.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:57:12 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 16:01:45 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "function.h"
 // #include "libft.h"
 
-static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
+int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 {
 	t_token	*cur;
 
@@ -43,7 +43,7 @@ static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 	return (1);
 }
 
-static int case_sep(t_tree **tree, t_token *token)
+int case_sep(t_tree **tree, t_token *token)
 {
 	t_token	*cur;
 
