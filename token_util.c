@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/03/22 14:27:49 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:53:12 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ void	token_add_back(t_token **token, t_token *new)
 	curr->next = new;
 }
 
+t_token	*token_free(t_token *token)
+{
+	if (!token)
+		return (token);
+	free((token)->data);
+	free(token);
+	token = NULL;
+	return (token);
+}
+
 void	token_clear(t_token **token)
 {
 	t_token	*tmp;
@@ -52,8 +62,7 @@ void	token_clear(t_token **token)
 	while (*token)
 	{
 		tmp = (*token)->next;
-		free((*token)->data);
-		free(*token);
+		token_free(*token);
 		*token = tmp;
 	}
 	token = NULL;

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tree_compound.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:35:10 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 15:53:56 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+// #include "libft.h"
 
 static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 {
@@ -24,14 +25,14 @@ static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 	(*tree)->type = compound_cmd;
 	cur = right;
 	right = right->next;
-	cur = free_token(cur);
+	cur = token_free(cur);
 	(*tree)->left = init_tree();
 	(*tree)->right = init_tree();
 	if (pr == 0)
 		if (check_std_cmd(&(*tree)->left, left) == 0)
 			return (0);
 	else
-		if (check_cpd_cmd(&(*tree)->left, erase(left)) == 0)
+		if (check_cpd_cmd(&(*tree)->left, erase_pr(left)) == 0)
 			return (0);
 	if (check_cpd_cmd(&(*tree)->right, right) == 0)
 		return (0);
@@ -46,7 +47,7 @@ static int case_sep(t_tree **tree, t_token *token)
 	if (skip_sep(&token) == 0)
 		return (0);
 	if (cur->next == NULL)
-		if (check_cpd_cmd(tree, erase_pr(token)) == 0)
+		if (check_cpd_cmd(tree, erase_pr_pr(token)) == 0)
 			return (0);
 	if (cur->next->group == con)
 		if (div_cpd_cmd(tree, token, cur, true) == 0)

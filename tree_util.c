@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:42:31 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 15:53:56 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_tree	*init_tree(void)
 	return (temp);
 }
 
-t_token	*erase_pr(t_token *token)
+t_token	*erase_pr_pr(t_token *token)
 {
 	t_token *cur;
 	t_token *temp;
@@ -31,11 +31,11 @@ t_token	*erase_pr(t_token *token)
 	temp = token;
 	token = token->next;
 	cur = token;
-	temp = free_token(temp);
+	temp = token_free(temp);
 	while (cur->next->group == sep)
 		cur = cur->next;
 	temp = cur->next;
-	temp = free_token(temp);
+	temp = token_free(temp);
 	cur->next = NULL;
 	return (token);
 }

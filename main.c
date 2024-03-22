@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 14:31:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:49:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,24 @@
 // 	split_token();
 // }
 
+void	print_tree(t_tree *tree)
+{
+	if (tree->left)
+		print_tree(tree->left);
+	else if (tree->right)
+		print_tree(tree->right);
+	else if (!(tree->left) && !(tree->right))
+		printf("%s\n", tree->data);
+}
+
 int	main(void)
 {
 	char	*cmd;
 	t_token *token;
+	t_tree	*tree;
 	char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
+	t_token	*tmp_token;
+	t_tree	*tmp_tree;
 	// bool	token_check;
 	while (1)
 	{
@@ -37,17 +50,22 @@ int	main(void)
 		{
 			token = NULL;
 			tokenizer(&token, cmd);
-			// token_check = check_token(token);
 			printf("%7s  %18s\n", "type", "data");
 			printf("-------  ------------------------------------------\n");
-			t_token	*tmp = token;
-			while (tmp)
+			tmp_token = token;
+			while (tmp_token)
 			{
-				printf("%-7s  %s\n", token_type[tmp->group], tmp->data);
-				tmp = tmp->next;
+				printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
+				tmp_token = tmp_token->next;
 			}
-			// if (token_check == false)
-			// 	printf("####SYNTAX ERROR####\n");
+			tree = init_tree();
+			if (check_cpd_cmd(&tree, token) == 0)
+				printf("####SYNTAX ERROR####\n");
+			else
+			{
+				tmp_tree = tree;
+				print_tree(tmp_tree);
+			}
 			token_clear(&token);
 		}
 		free(cmd);
