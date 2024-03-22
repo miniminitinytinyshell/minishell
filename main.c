@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:06:03 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:17:39 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	print_tree(t_tree *tree)
 
 	if (tree->left)
 		print_tree(tree->left);
-	else if (tree->right)
+	if (tree->right)
 		print_tree(tree->right);
-	else if (!(tree->left) && !(tree->right))
+	if (!(tree->left) && !(tree->right))
 		printf("%s\n", tree_type[tree->type]);
 }
 
@@ -61,6 +61,7 @@ int	main(void)
 				tmp_token = tmp_token->next;
 			}
 			tree = init_tree();
+			printf("--------------------------tree-----------------------\n");
 			if (check_cpd_cmd(&tree, token) == 0)
 				printf("####SYNTAX ERROR####\n");
 			else
