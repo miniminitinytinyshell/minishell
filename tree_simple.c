@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:14:14 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 16:48:17 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int	check_args(t_tree **tree, t_token *token)
 		if (data == NULL)
 			data = ft_strdup(cur->data);
 		else
+		{
+			data = ft_strjoin(data, " ");
 			data = ft_strjoin(data, cur->data);
+		}
 		cur = cur->next;
 	}
 	(*tree)->data = data;
