@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:23:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/22 15:59:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ static int	div_std_cmd(t_tree **tree, t_token *left, t_token *right, int wd)
 	(*tree)->left = init_tree();
 	(*tree)->right = init_tree();
 	if (wd == 0)
+	{
 		if (case_rdr_front(tree, left, right) == 0)
 			return (0);
+	}
 	else
+	{
 		if (case_rdr_back(tree, left, right) == 0)
 			return (0);
+	}
 	return (1);
 }
 
@@ -78,10 +82,14 @@ int	check_std_cmd(t_tree **tree, t_token *token)
 		cur = cur->next;
 	}
 	if (cur->next == NULL)
+	{
 		if (check_smp_cmd(tree, token))
 			return (0);
+	}
 	else
+	{
 		if (div_std_cmd(tree, token, cur, 1))
 			return (0);
+	}
 	return (1);
 }

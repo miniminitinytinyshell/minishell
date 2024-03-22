@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:53:30 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:58:43 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_redirect(t_tree **tree, t_token *token)
 	(*tree)->right = init_tree();
 	(*tree)->right->type = name;
 	(*tree)->right->data = ft_strdup(token->next->data);
-	token_free_all(token);
+	token_clear(&token);
 	return (1);
 }
 
@@ -39,12 +39,12 @@ int	check_args(t_tree **tree, t_token *token)
 		if (data == NULL)
 			data = ft_strdup(cur->data);
 		else
-			data = ft_strjoin(cur->data);
+			data = ft_strjoin(data, cur->data);
 		cur = cur->next;
 	}
 	(*tree)->data = data;
 	(*tree)->type = args;
-	token_free_all(token);
+	token_clear(&token);
 	return (1);
 }
 
