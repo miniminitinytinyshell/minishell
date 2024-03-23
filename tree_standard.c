@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_standard.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaebin <jaebin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 17:35:33 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/23 20:28:08 by jaebin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	case_rdr_back(t_tree **tree, t_token *left, t_token *right)
 
 static int	div_std_cmd(t_tree **tree, t_token *left, t_token *right, int wd)
 {
-	t_token *cur;
+	t_token	*cur;
 
 	if (wd == 0)
 		cur = right;
@@ -80,9 +80,20 @@ static int	div_std_cmd(t_tree **tree, t_token *left, t_token *right, int wd)
 	return (1);
 }
 
+static int	pass_to_smp(t_tree **tree, t_token *token)
+{
+	(*tree)->data = NULL;
+	(*tree)->type = standard_cmd;
+	(*tree)->left = NULL;
+	(*tree)->right = init_tree();
+	if (check_smp_cmd(&(*tree)->right, token) == 0)
+		return (0);
+	return (1);
+}
+
 int	check_std_cmd(t_tree **tree, t_token *token)
 {
-	t_token *cur;
+	t_token	*cur;
 
 	cur = token;
 	if (cur->group == rdr)
@@ -100,7 +111,7 @@ int	check_std_cmd(t_tree **tree, t_token *token)
 		}
 		if (cur->next == NULL)
 		{
-			if (check_smp_cmd(tree, token) == 0)
+			if (pass_to_smp(tree, token) == 0)
 				return (0);
 		}
 		else

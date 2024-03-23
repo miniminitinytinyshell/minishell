@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaebin <jaebin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 14:46:19 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/23 20:12:43 by jaebin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	token_len_word(char *str)
 	{
 		if (str[len] == '\'' || str[len] == '"')
 		{
-				quote = str[len];
+			quote = str[len];
+			len++;
+			while (str[len] && str[len] != quote)
 				len++;
-				while (str[len] && str[len] != quote)
-					len++;
 		}
 		len++;
 	}

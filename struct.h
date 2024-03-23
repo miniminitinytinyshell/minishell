@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaebin <jaebin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:00:55 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/23 20:11:49 by jaebin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define T_WORD 0
 # define T_OPER 1
 
-typedef	enum e_token_group
+typedef enum e_token_group
 {
 	word = 0,
 	sep,

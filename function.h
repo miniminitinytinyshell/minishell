@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaebin <jaebin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:01:55 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/23 20:37:28 by jaebin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				check_redirect(t_tree **tree, t_token *token);
 // TREE Utils
 int				skip_sep(t_token **token);
 t_tree			*init_tree(void);
+t_tree			*free_tree(t_tree *tree);
 t_token			*erase_pr(t_token *token);
 
 #endif

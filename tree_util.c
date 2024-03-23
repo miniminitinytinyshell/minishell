@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaebin <jaebin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 21:46:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/23 20:37:10 by jaebin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ t_tree	*init_tree(void)
 	temp->left = NULL;
 	temp->right = NULL;
 	return (temp);
+}
+
+t_tree	*free_tree(t_tree *tree)
+{
+	if (tree->left)
+		tree->left = free_tree(tree->left);
+	if (tree->right)
+		tree->right = free_tree(tree->right);
+	if (tree->data != NULL)
+		free(tree->data);
+	free(tree);
+	tree = NULL;
+	return (tree);
 }
 
 // t_token	*erase_pr(t_token *token)
@@ -71,12 +84,12 @@ t_token	*erase_pr(t_token *token)
 	cur = token;
 	while (cur->next)
 	{
-		if (cur->next->group == sep && cur->next->data[0] =='(')
+		if (cur->next->group == sep && cur->next->data[0] == '(')
 			cnt++;
 		if (cur->next->group == sep && cur->next->data[0] == ')')
 			cnt--;
 		if (cnt == 0)
-			break;
+			break ;
 		cur = cur->next;
 	}
 	temp = cur->next;
