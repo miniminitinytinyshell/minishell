@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/21 21:49:56 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:00:55 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,35 @@
 # define T_WORD 0
 # define T_OPER 1
 
-// typedef	enum e_token_group
-// {
-// 	word = 0,
-// 	sep,
-// 	con_op,
-// 	rdr_op,
-// }	t_token_group;
+typedef	enum e_token_group
+{
+	word = 0,
+	sep,
+	con,
+	rdr,
+}	t_token_group;
 // sep (, )
 // con_op |, ||, &&
 // rer_op <, <<, >, >>
 
-typedef enum e_token_type
-{
-	word = 0,
-	left_par,
-	right_par,
-	pipe_op,
-	logic_or,
-	logic_and,
-	in_trunc,
-	out_trunc,
-	here_doc,
-	out_append,
-}	t_token_type;
+// typedef enum e_token_type
+// {
+// 	word = 0,
+// 	left_par,
+// 	right_par,
+// 	pipe_op,
+// 	logic_or,
+// 	logic_and,
+// 	in_trunc,
+// 	out_trunc,
+// 	here_doc,
+// 	out_append,
+// }	t_token_type;
 
 typedef struct s_token
 {
-	// t_token_group	group;
-	t_token_type	type;
+	t_token_group	group;
+	// t_token_type	type;
 	char			*data;
 	struct s_token	*next;
 }	t_token;

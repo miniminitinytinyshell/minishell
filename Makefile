@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/03/21 18:57:24 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/03/22 15:44:27 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,10 @@ Q = @
 man_src = main.c\
 			tokenize.c\
 			token_util.c\
-			token_checker.c\
+			tree_compound.c\
+			tree_simple.c\
+			tree_standard.c\
+			tree_util.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)
@@ -54,7 +57,7 @@ man_deps = $(man_src:.c=.d)
 # bonus_objs = $(bonus_src:.c=.o)
 # bonus_deps = $(bonus_src:.c=.d)
 
--include $(man_deps) 
+-include $(man_deps)
 #$(bonus_deps)
 # **************************************************************************** #
 .PHONY : all clean fclean re

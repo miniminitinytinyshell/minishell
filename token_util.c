@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/03/21 21:57:50 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:53:12 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,7 @@
 #include "function.h"
 #include "libft.h"
 
-t_token_type set_token_type(char *data, int len)
-{
-	if (!ft_strncmp(data, "(", len))
-		return (left_par);
-	else if (!ft_strncmp(data, ")", len))
-		return (right_par);
-	else if (!ft_strncmp(data, "||", len))
-		return (logic_or);
-	else if (!ft_strncmp(data, "&&", len))
-		return (logic_and);
-	else if (!ft_strncmp(data, "|", len))
-		return (pipe_op);
-	else if (!ft_strncmp(data, "<<", len))
-		return (here_doc);
-	else if (!ft_strncmp(data, "<", len))
-		return (in_trunc);
-	else if (!ft_strncmp(data, ">>", len))
-		return (out_append);
-	else if (!ft_strncmp(data, ">", len))
-		return (out_trunc);
-	else
-		return (word);
-}
-
-t_token	*token_new(char *data_start, int len, t_token_type type)
+t_token	*token_new(char *data_start, int len, t_token_group group)
 {
 	t_token	*new;
 
@@ -49,7 +25,7 @@ t_token	*token_new(char *data_start, int len, t_token_type type)
 	if (!(new->data))
 		return (NULL);
 	ft_strlcpy(new->data, data_start, len + 1);
-	new->type = type;
+	new->group = group;
 	new->next = NULL;
 	return (new);
 }
@@ -69,6 +45,16 @@ void	token_add_back(t_token **token, t_token *new)
 	curr->next = new;
 }
 
+t_token	*token_free(t_token *token)
+{
+	if (!token)
+		return (token);
+	free((token)->data);
+	free(token);
+	token = NULL;
+	return (token);
+}
+
 void	token_clear(t_token **token)
 {
 	t_token	*tmp;
@@ -76,8 +62,7 @@ void	token_clear(t_token **token)
 	while (*token)
 	{
 		tmp = (*token)->next;
-		free((*token)->data);
-		free(*token);
+		token_free(*token);
 		*token = tmp;
 	}
 	token = NULL;
