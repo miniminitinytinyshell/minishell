@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/24 14:57:19 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/24 18:24:26 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	token_len_meta(char *str)
 		else
 			len = 1;
 	}
+	if (str[0] == '&' && str[1] != str[0])
+		len = -1;
 	return (len);
 }
 
@@ -76,6 +78,7 @@ void	tokenizer(t_token **token, char *str)
 		while (*str == ' ')
 			str++;
 		len = token_len(str);
+		printf("%d\n", len);
 		if (len < 0)
 		{
 			token_clear(token);
