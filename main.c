@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/24 14:59:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:21:21 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_leaks(void)
 
 void	display_tree(t_tree *tree, char *indent, int check)
 {
-	char	*tree_type[] = {"name", "args", "oper", "RDR", "CMD", "STD", "CPD"};
+	char	*tree_type[] = {"name", "args", "r_op", "r_cmd", "RDR", "CMD", "STD", "CPD"};
 
 	if (tree == NULL)
 		return;
@@ -86,42 +86,33 @@ int	main(void)
 	char	indent[1024] = "";
 	// bool	token_check;
 
-	atexit(check_leaks);
 	while (1)
 	{
 		cmd = readline("this is prompt : ");
-		if (strcmp(cmd, "exit") == 0)
-		{
-			printf("exit!\n");
-			break;
-		}
+		token = NULL;
+		tokenizer(&token, cmd);
+		if (!token)
+			printf("#### SYNTAX ERROR | token ####\n");
 		else
 		{
-			token = NULL;
-			tokenizer(&token, cmd);
-			if (!token)
-				printf("#### SYNTAX ERROR | token ####\n");
+			printf("%7s  %18s\n", "type", "data");
+			printf("-------  ------------------------------------------\n");
+			tmp_token = token;
+			while (tmp_token)
+			{
+				printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
+				tmp_token = tmp_token->next;
+			}
+			tree = init_tree();
+			printf("\n--------------------------tree-----------------------\n");
+			if (check_cpd_cmd(&tree, token) == 0)
+				printf("#### SYNTAX ERROR | tree ####\n");
 			else
 			{
-				printf("%7s  %18s\n", "type", "data");
-				printf("-------  ------------------------------------------\n");
-				tmp_token = token;
-				while (tmp_token)
-				{
-					printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
-					tmp_token = tmp_token->next;
-				}
-				tree = init_tree();
-				printf("\n--------------------------tree-----------------------\n");
-				if (check_cpd_cmd(&tree, token) == 0)
-					printf("#### SYNTAX ERROR | tree ####\n");
-				else
-				{
-					tmp_tree = tree;
-					display_tree(tmp_tree, indent, 1);
-				}
-				free_tree(tree);
+				tmp_tree = tree;
+				display_tree(tmp_tree, indent, 1);
 			}
+			free_tree(tree);
 		}
 		free(cmd);
 		cmd = NULL;

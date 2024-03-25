@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/25 21:06:00 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/25 21:46:34 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,17 @@ int	check_redirect(t_tree **tree, t_token *token)
 
 	(*tree)->type = redirects;
 	(*tree)->data = NULL;
-	if (token != NULL)
+	cur = token->next->next;
+	token->next->next = NULL;
+	(*tree)->left = init_tree();
+	check_rdr_cmd(&(*tree)->left, token);
+	if (cur != NULL)
 	{
-		cur = token->next->next;
-		token->next->next = NULL;
-		(*tree)->left = init_tree();
-		check_rdr_cmd(&(*tree)->left, token);
-		if (cur != NULL)
-		{
-			(*tree)->right = init_tree();
-			check_redirect(&(*tree)->right, cur);
-		}
-		else
-			(*tree)->right = NULL;
+		(*tree)->right = init_tree();
+		check_redirect(&(*tree)->right, cur);
 	}
+	else
+		(*tree)->right = NULL;
 	return (1);
 }
 
@@ -80,15 +77,12 @@ int	check_smp_cmd(t_tree **tree, t_token *token)
 
 	(*tree)->type = simple_cmd;
 	(*tree)->data = NULL;
-	if (token != NULL)
-	{
-		cur = token->next;
-		(*tree)->left = init_tree();
-		(*tree)->left->type = name;
-		(*tree)->left->data = ft_strdup(token->data);
-		(*tree)->right = init_tree();
-		token = token_free(token);
-		check_args(&(*tree)->right, cur);
-	}
+	cur = token->next;
+	(*tree)->left = init_tree();
+	(*tree)->left->type = name;
+	(*tree)->left->data = ft_strdup(token->data);
+	(*tree)->right = init_tree();
+	token = token_free(token);
+	check_args(&(*tree)->right, cur);
 	return (1);
 }
