@@ -24,16 +24,19 @@ AST(Abstract Syntax Tree) - BNF
 				|	WORD <args>
 // 명령어 인자
 
-<rdr_oper>		::= '<' | '<<' | '>' | '>>'
+<rdr_op>		::= '<' | '<<' | '>' | '>>'
 
-<redirects>		::=	<rdr_oper> <name>
+<rdr_cmd>		::= <rdr_op> <name>
+
+<redirects>		::=	<rdr_cmd>
+				|	<rdr_cmd> <redirects>
 
 <simple_cmd>	::=	<name>
 				|	<name> <args>
 // 명령어 (+ 인자)
 
 <standard_cmd>	::=	<simple_cmd>
-				|	<redirects> <standard_cmd>
+				|	<redirects> <simple_cmd>
 // 단순 명령어나 리다이렉션을 가지는 상태
 
 <compound_cmd>	::=	<standard_cmd>

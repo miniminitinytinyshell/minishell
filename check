@@ -7,3 +7,7 @@
 7. ctrl + C, D, \ 구현 (signal)
 8. builtin 함수 구현 (echo -n, cd, pwd, export, unset, env, exit)
 9. Wildcard * 구현
+
+- 확장
+	1. ""안에 "는 다 무시
+	2. ''안에 '는 다 무시
