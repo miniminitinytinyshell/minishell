@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/23 20:51:19 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/25 21:07:21 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_token			*token_free(t_token *token);
 void			token_clear(t_token **token);
 
 // TREE
+int				div_std_cmd(t_token **left, t_token **right);
 int				check_cpd_cmd(t_tree **tree, t_token *token);
 int				check_std_cmd(t_tree **tree, t_token *token);
 int				check_smp_cmd(t_tree **tree, t_token *token);
