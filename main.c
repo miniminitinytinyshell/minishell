@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/25 22:21:21 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/26 18:11:16 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	display_tree(t_tree *tree, char *indent, int check)
 	indent[strlen(indent) - 2] = '\0';
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd;
 	t_token *token;
@@ -84,7 +84,6 @@ int	main(void)
 	t_token	*tmp_token;
 	t_tree	*tmp_tree;
 	char	indent[1024] = "";
-	// bool	token_check;
 
 	while (1)
 	{
@@ -109,6 +108,8 @@ int	main(void)
 				printf("#### SYNTAX ERROR | tree ####\n");
 			else
 			{
+				if (expand_tree(&tree, get_path(envp)) == 0)
+					printf("#### CMD/FILE ERROR | tree ####\n");
 				tmp_tree = tree;
 				display_tree(tmp_tree, indent, 1);
 			}
@@ -116,6 +117,10 @@ int	main(void)
 		}
 		free(cmd);
 		cmd = NULL;
+		// check_leaks();
 	}
+	argc = 0;
+	argv = NULL;
+	envp = NULL;
 	return (0);
 }

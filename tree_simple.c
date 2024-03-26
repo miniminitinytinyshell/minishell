@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/25 21:46:34 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:11:18 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	check_args(t_tree **tree, t_token *token)
 			data = ft_strdup(cur->data);
 		else
 		{
-			data = ft_strjoin(data, " ");
-			data = ft_strjoin(data, cur->data);
+			data = tree_strjoin(data, " ");
+			data = tree_strjoin(data, cur->data);
 		}
 		cur = cur->next;
 	}
@@ -73,16 +73,12 @@ int	check_args(t_tree **tree, t_token *token)
 
 int	check_smp_cmd(t_tree **tree, t_token *token)
 {
-	t_token	*cur;
-
 	(*tree)->type = simple_cmd;
 	(*tree)->data = NULL;
-	cur = token->next;
 	(*tree)->left = init_tree();
 	(*tree)->left->type = name;
 	(*tree)->left->data = ft_strdup(token->data);
 	(*tree)->right = init_tree();
-	token = token_free(token);
-	check_args(&(*tree)->right, cur);
+	check_args(&(*tree)->right, token);
 	return (1);
 }

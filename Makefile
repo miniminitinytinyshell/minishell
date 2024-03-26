@@ -6,7 +6,7 @@
 #    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/03/25 22:20:21 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/03/26 16:57:55 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 # **************************************************************************** #
 LIB_DIR = ./libs/libft
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -g -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS = -I$(LIB_DIR)
 
 LDFLAGS = -L$(LIB_DIR)
@@ -43,6 +43,8 @@ man_src = main.c\
 			tree_simple.c\
 			tree_standard.c\
 			tree_util.c\
+			expand.c\
+			expand_util.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/24 18:24:26 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:37:51 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	tokenizer(t_token **token, char *str)
 		while (*str == ' ')
 			str++;
 		len = token_len(str);
-		printf("%d\n", len);
+		// printf("%d\n", len);
 		if (len < 0)
 		{
 			token_clear(token);

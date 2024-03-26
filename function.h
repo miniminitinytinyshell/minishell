@@ -6,13 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/25 21:07:21 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:04:48 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FUNCTION_H
 # define FUNCTION_H
 
+# include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -42,8 +43,14 @@ int				check_redirect(t_tree **tree, t_token *token);
 
 // TREE Utils
 int				skip_sep(t_token **token);
+char			*tree_strjoin(char *str1, char const *str2);
 t_tree			*init_tree(void);
 t_tree			*free_tree(t_tree *tree);
 t_token			*erase_pr(t_token *token);
+
+// EXPAND
+int				expand_tree(t_tree **tree, char **path);
+char			**get_path(char **envp);
+char			*get_cmd_path(char *cmd, char **path);
 
 #endif

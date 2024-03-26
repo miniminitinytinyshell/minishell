@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/23 20:51:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:19:18 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 			return (0);
 	}
 	else
-	{
 		if (check_cpd_cmd(&(*tree)->left, erase_pr(left)) == 0)
 			return (0);
-	}
 	if (check_cpd_cmd(&(*tree)->right, right) == 0)
 		return (0);
 	return (1);
@@ -93,17 +91,20 @@ static int	case_etc(t_tree **tree, t_token *token)
 
 int	check_cpd_cmd(t_tree **tree, t_token *token)
 {
-	if (token->group == con)
+	if (token == NULL)
 		return (0);
+	if (token->group == con)
+	{
+		token_clear(&token);
+		return (0);
+	}
 	if (token->group == sep)
 	{
 		if (case_sep(tree, token) == 0)
 			return (0);
 	}
 	else
-	{
 		if (case_etc(tree, token) == 0)
 			return (0);
-	}
 	return (1);
 }
