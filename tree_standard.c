@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:51:17 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/25 21:45:45 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:31:17 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	check_std_cmd(t_tree **tree, t_token *token)
 	t_token	*left;
 	t_token	*right;
 
+	if (token == NULL)
+		return (0);
 	left = NULL;
 	right = token;
 	(*tree)->data = NULL;

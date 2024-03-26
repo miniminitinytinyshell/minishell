@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/23 20:51:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:30:21 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,10 @@ static int	case_etc(t_tree **tree, t_token *token)
 
 int	check_cpd_cmd(t_tree **tree, t_token *token)
 {
-	if (token->group == con)
+	if (token == NULL)
 		return (0);
+	if (token->group == con)
+	{	token_clear(&token); return (0);}
 	if (token->group == sep)
 	{
 		if (case_sep(tree, token) == 0)
