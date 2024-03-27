@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 14:59:20 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 18:14:36 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_tree	*free_tree(t_tree *tree)
 	return (tree);
 }
 
-int		get_token_size(t_token *token)
+int	get_token_size(t_token *token)
 {
 	int		size;
 	t_token	*cur;
@@ -53,21 +53,6 @@ int		get_token_size(t_token *token)
 		size++;
 	}
 	return (size);
-}
-
-char	*tree_strjoin(char *str1, char const *str2)
-{
-	char	*result;
-	size_t	len_total;
-
-	len_total = ft_strlen(str1) + ft_strlen(str2) + 1;
-	result = ft_calloc(len_total, sizeof(char));
-	if (!result)
-		return (NULL);
-	ft_strlcpy(result, (char *)str1, ft_strlen(str1) + 1);
-	ft_strlcat(result, (char *)str2, len_total);
-	free(str1);
-	return (result);
 }
 
 t_token	*erase_pr(t_token *token)

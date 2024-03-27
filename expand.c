@@ -6,13 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 17:30:21 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 18:16:44 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
+// 괄호 사이에 있는 경우 수정 예정
 static char	*expand_env(char *word, char **envp)
 {
 	char	*temp;
@@ -47,28 +48,28 @@ static char	*expand_env(char *word, char **envp)
 	return (word);
 }
 
-// static char	*expand_path(char *cmd, char **envp)
-// {
-// 	char	*pwd;
-// 	char	*path;
+static char	*expand_path(char *cmd, char **envp)
+{
+	char	*pwd;
+	char	*path;
 
-// 	pwd = NULL;
-// 	while (*envp)
-// 	{
-// 		if (ft_strncmp("PWD=", *envp, 4) == 0)
-// 		{
-// 			pwd = ft_strdup(*envp + 4);
-// 			break ;
-// 		}
-// 		envp++;
-// 	}
-// 	if (!pwd)
-// 		return (cmd);
-// 	path = ft_strjoin(pwd, cmd);
-// 	free(pwd);
-// 	free(cmd);
-// 	return (path);
-// }
+	pwd = NULL;
+	while (*envp)
+	{
+		if (ft_strncmp("PWD=", *envp, 4) == 0)
+		{
+			pwd = ft_strdup(*envp + 4);
+			break ;
+		}
+		envp++;
+	}
+	if (!pwd)
+		return (cmd);
+	path = ft_strjoin(pwd, cmd);
+	free(pwd);
+	free(cmd);
+	return (path);
+}
 
 static int	expand_rdr(t_tree **tree, char **envp)
 {
@@ -104,7 +105,6 @@ static int	expand_cmd(t_tree **tree, char **envp)
 	}
 	if (find_bulitin((*tree)->data[0]) == 0)
 	{
-		// temp = expand_path((*tree)->data[0], envp);
 		if (access((*tree)->data[0], O_RDONLY) != 0)
 			(*tree)->data[0] = get_cmd_path((*tree)->data[0], get_path(envp));
 		if ((*tree)->data[0] == NULL)
