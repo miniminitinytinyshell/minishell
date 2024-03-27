@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dir.c                                              :+:      :+:    :+:   */
+/*   test_dir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:30:27 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 18:36:04 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 08:48:29 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,19 @@
 int	main(void)
 {
 	char	pwd[1024];
+	char	*pwd2;
 
-	if (getcwd(pwd, sizeof(pwd)) != NULL)
-		printf("%s\n", pwd);
+	// if (getcwd(pwd, sizeof(pwd)) != NULL)
+	// 	printf("%s\n", pwd);
+	// chdir("..");
+	// if (getcwd(pwd, sizeof(pwd)) != NULL)
+	// 	printf("%s\n", pwd);
+	pwd2 = getcwd(NULL, 0);
+	printf("%s\n", pwd2);
+	free(pwd2);
 	chdir("..");
-	if (getcwd(pwd, sizeof(pwd)) != NULL)
-		printf("%s\n", pwd);
+	pwd2 = getcwd(NULL, 0);
+	printf("%s\n", pwd2);
+	free(pwd2);
 	return (0);
 }
