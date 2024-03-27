@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 15:46:44 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:38:29 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,11 @@ int	main(int argc, char **argv, char **envp)
 			{
 				if (expand_tree(&tree, env) == 0)
 					printf("#### CMD/FILE ERROR | tree ####\n");
-				tmp_tree = tree;
-				display_tree(tmp_tree, indent, 1);
+				else
+				{
+					tmp_tree = tree;
+					display_tree(tmp_tree, indent, 1);
+				}
 			}
 			free_tree(tree);
 		}
