@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/26 18:11:16 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:46:44 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,6 @@
 
 #include <string.h> // Temp
 
-// int	proc_cmd(char *cmd)
-// {
-// 	split_token();
-// }
-
-// void	print_tree(t_tree *tree)
-// {
-// 	char	*tree_type[] = {"name", "args", "rdr_op", "redirects", "simple_cmd", "standard_cmd", "compound_cmd"};
-
-// 	if (tree->data != name)
-// 		printf("%s: %s\n", tree_type[tree->type], tree->data);
-// 	else
-// 		printf("%s\n", tree_type[tree->type]);
-// 	if (tree->left)
-// 		print_tree(tree->left);
-// 	if (tree->right)
-// 		print_tree(tree->right);
-// }
-
 void	check_leaks(void)
 {
 	system("leaks minishell");
@@ -42,7 +23,7 @@ void	check_leaks(void)
 
 void	display_tree(t_tree *tree, char *indent, int check)
 {
-	char	*tree_type[] = {"name", "args", "r_op", "r_cmd", "RDR", "CMD", "STD", "CPD"};
+	char	*tree_type[] = {"r_cmd", "RDR", "CMD", "STD", "CPD"};
 
 	if (tree == NULL)
 		return;
@@ -58,10 +39,21 @@ void	display_tree(t_tree *tree, char *indent, int check)
 		strcat(indent, "| ");
 	}
 	printf("%s", tree_type[tree->type]);
-	if (tree->data == NULL)
+	if (tree->oper)
+		printf(": %s\n", tree->oper);
+	else if (tree->data)
+	{
+		printf(": ");
+		for (int i = 0; tree->data[i]; i++)
+		{
+			printf("%s", tree->data[i]);
+			if (tree->data[i + 1])
+				printf(", ");
+		}
 		printf("\n");
+	}
 	else
-		printf(": %s\n", tree->data);
+		printf("\n");
 	if (tree->left && tree->right)
 	{
 		display_tree(tree->left, indent, 0);
@@ -75,16 +67,38 @@ void	display_tree(t_tree *tree, char *indent, int check)
 	indent[strlen(indent) - 2] = '\0';
 }
 
+char	**dup_envp(char **envp)
+{
+	int		i;
+	char	**temp;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	temp = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!temp)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		temp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	return (temp);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd;
-	t_token *token;
-	t_tree	*tree;
 	char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
-	t_token	*tmp_token;
-	t_tree	*tmp_tree;
 	char	indent[1024] = "";
+	char	**env;
+	t_token *token;
+	t_token	*tmp_token;
+	t_tree	*tree;
+	t_tree	*tmp_tree;
 
+	env = dup_envp(envp);
 	while (1)
 	{
 		cmd = readline("this is prompt : ");
@@ -108,7 +122,7 @@ int	main(int argc, char **argv, char **envp)
 				printf("#### SYNTAX ERROR | tree ####\n");
 			else
 			{
-				if (expand_tree(&tree, get_path(envp)) == 0)
+				if (expand_tree(&tree, env) == 0)
 					printf("#### CMD/FILE ERROR | tree ####\n");
 				tmp_tree = tree;
 				display_tree(tmp_tree, indent, 1);

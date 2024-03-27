@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/26 17:04:48 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 14:58:31 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				check_redirect(t_tree **tree, t_token *token);
 
 // TREE Utils
 int				skip_sep(t_token **token);
-char			*tree_strjoin(char *str1, char const *str2);
+int				get_token_size(t_token *token);
 t_tree			*init_tree(void);
 t_tree			*free_tree(t_tree *tree);
 t_token			*erase_pr(t_token *token);

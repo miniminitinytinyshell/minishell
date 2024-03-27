@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/26 17:34:48 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:05:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ typedef struct s_token
 
 typedef enum e_parse_type
 {
-	name = 0,
-	args,
-	rdr_op,
-	rdr_cmd,
+	rdr_cmd = 0,
 	redirects,
 	simple_cmd,
 	standard_cmd,
@@ -65,8 +62,9 @@ typedef enum e_parse_type
 
 typedef struct s_tree
 {
+	char			*oper;
+	char			**data;
 	t_parse_type	type;
-	char			*data;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;

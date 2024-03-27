@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/26 15:19:18 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 14:43:13 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 	cur = right;
 	right = right->next;
 	cur->next = NULL;
-	(*tree)->data = ft_strdup(right->data);
+	(*tree)->oper = ft_strdup(right->data);
 	(*tree)->type = compound_cmd;
 	cur = right;
 	right = right->next;

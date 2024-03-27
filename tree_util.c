@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/26 17:35:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 14:59:20 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_tree	*init_tree(void)
 	t_tree	*temp;
 
 	temp = (t_tree *)malloc(sizeof(t_tree));
+	temp->oper = NULL;
 	temp->data = NULL;
 	temp->left = NULL;
 	temp->right = NULL;
@@ -37,6 +38,21 @@ t_tree	*free_tree(t_tree *tree)
 	free(tree);
 	tree = NULL;
 	return (tree);
+}
+
+int		get_token_size(t_token *token)
+{
+	int		size;
+	t_token	*cur;
+
+	size = 0;
+	cur = token;
+	while (cur)
+	{
+		cur = cur->next;
+		size++;
+	}
+	return (size);
 }
 
 char	*tree_strjoin(char *str1, char const *str2)

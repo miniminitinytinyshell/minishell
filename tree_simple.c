@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/26 16:11:18 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:15:33 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@
 int	check_rdr_cmd(t_tree **tree, t_token *token)
 {
 	(*tree)->type = rdr_cmd;
-	(*tree)->data = NULL;
-	(*tree)->left = init_tree();
-	(*tree)->left->type = rdr_op;
-	(*tree)->left->data = ft_strdup(token->data);
-	(*tree)->right = init_tree();
-	(*tree)->right->type = name;
-	(*tree)->right->data = ft_strdup(token->next->data);
+	(*tree)->data = (char **)malloc(sizeof(char *) * 3);
+	(*tree)->data[0] = ft_strdup(token->data);
+	(*tree)->data[1] = ft_strdup(token->next->data);
+	(*tree)->data[2] = NULL;
 	token_clear(&token);
 	return (1);
 }
@@ -47,38 +44,26 @@ int	check_redirect(t_tree **tree, t_token *token)
 	return (1);
 }
 
-int	check_args(t_tree **tree, t_token *token)
-{
-	char	*data;
-	t_token	*cur;
-
-	cur = token;
-	data = NULL;
-	while (cur != NULL)
-	{
-		if (data == NULL)
-			data = ft_strdup(cur->data);
-		else
-		{
-			data = tree_strjoin(data, " ");
-			data = tree_strjoin(data, cur->data);
-		}
-		cur = cur->next;
-	}
-	(*tree)->data = data;
-	(*tree)->type = args;
-	token_clear(&token);
-	return (1);
-}
-
 int	check_smp_cmd(t_tree **tree, t_token *token)
 {
+	int		i;
+	int		size;
+	t_token	*cur;
+
+	i = 0;
+	cur = token;
+	size = get_token_size(token);
 	(*tree)->type = simple_cmd;
-	(*tree)->data = NULL;
-	(*tree)->left = init_tree();
-	(*tree)->left->type = name;
-	(*tree)->left->data = ft_strdup(token->data);
-	(*tree)->right = init_tree();
-	check_args(&(*tree)->right, token);
+	(*tree)->data = (char **)malloc(sizeof(char *) * (size + 1));
+	if ((*tree)->data == NULL)
+		return (0);
+	while (i < size)
+	{
+		(*tree)->data[i] = ft_strdup(cur->data);
+		cur = cur->next;
+		i++;
+	}
+	(*tree)->data[i] = NULL;
+	token_clear(&token);
 	return (1);
 }
