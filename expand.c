@@ -6,14 +6,19 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 16:38:11 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:50:24 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-static char	*find_env(char *word, char **envp)
+static void	expand_path()
+{
+	
+}
+
+static char	*expand_env(char *word, char **envp)
 {
 	int		i;
 	char	*temp;
@@ -46,26 +51,6 @@ static char	*find_env(char *word, char **envp)
 	return (word);
 }
 
-static int	find_bulitin(char *cmd)
-{
-	if (ft_strncmp(cmd, "echo", 5) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "cd", 3) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "pwd", 4) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "export", 7) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "unset", 6) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "env", 4) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "exit", 5) == 0)
-		return (1);
-	else
-		return (0);
-}
-
 static int	expand_rdr(t_tree **tree, char **envp)
 {
 	int		fd;
@@ -73,7 +58,12 @@ static int	expand_rdr(t_tree **tree, char **envp)
 
 	fd = 0;
 	rdr = (*tree)->left;
-	rdr->data[1] = find_env((*tree)->left->data[1], envp);
+static void	expand_path()
+{
+	
+}
+	
+	rdr->data[1] = expand_env((*tree)->left->data[1], envp);
 	if (ft_strncmp(rdr->data[0], "<", 2) == 0)
 	{
 		fd = open(rdr->data[1], O_RDONLY);
@@ -94,7 +84,12 @@ static int	expand_cmd(t_tree **tree, char **envp)
 	i = 0;
 	while ((*tree)->data[i])
 	{
-		(*tree)->data[i] = find_env((*tree)->data[i], envp);
+static void	expand_path()
+{
+	
+}
+		
+		(*tree)->data[i] = expand_env((*tree)->data[i], envp);
 		i++;
 	}
 	cmd = (*tree)->data[0];
