@@ -6,25 +6,18 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 16:50:24 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/27 17:30:21 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-static void	expand_path()
-{
-	
-}
-
 static char	*expand_env(char *word, char **envp)
 {
-	int		i;
 	char	*temp;
 	char	*env;
 
-	i = 0;
 	temp = word;
 	while (*temp && *temp != '$')
 		temp++;
@@ -32,16 +25,19 @@ static char	*expand_env(char *word, char **envp)
 	{
 		*temp = '\0';
 		temp++;
-		while (envp[i])
+		while (*envp)
 		{
-			if (ft_strncmp(temp, envp[i], ft_strlen(temp)) == 0)
+			if (ft_strncmp(temp, *envp, ft_strlen(temp)) == 0)
 			{
-				temp = ft_strdup(&envp[i][ft_strlen(temp) + 1]);
-				break ;
+				if (*(*envp + ft_strlen(temp)) == '=')
+				{
+					temp = ft_strdup(*envp + ft_strlen(temp) + 1);
+					break ;
+				}
 			}
-			i++;
+			envp++;
 		}
-		if (!envp[i])
+		if (!(*envp))
 			temp = ft_strdup("");
 		env = ft_strjoin(word, temp);
 		free(word);
@@ -51,6 +47,29 @@ static char	*expand_env(char *word, char **envp)
 	return (word);
 }
 
+// static char	*expand_path(char *cmd, char **envp)
+// {
+// 	char	*pwd;
+// 	char	*path;
+
+// 	pwd = NULL;
+// 	while (*envp)
+// 	{
+// 		if (ft_strncmp("PWD=", *envp, 4) == 0)
+// 		{
+// 			pwd = ft_strdup(*envp + 4);
+// 			break ;
+// 		}
+// 		envp++;
+// 	}
+// 	if (!pwd)
+// 		return (cmd);
+// 	path = ft_strjoin(pwd, cmd);
+// 	free(pwd);
+// 	free(cmd);
+// 	return (path);
+// }
+
 static int	expand_rdr(t_tree **tree, char **envp)
 {
 	int		fd;
@@ -58,11 +77,6 @@ static int	expand_rdr(t_tree **tree, char **envp)
 
 	fd = 0;
 	rdr = (*tree)->left;
-static void	expand_path()
-{
-	
-}
-	
 	rdr->data[1] = expand_env((*tree)->left->data[1], envp);
 	if (ft_strncmp(rdr->data[0], "<", 2) == 0)
 	{
@@ -79,24 +93,20 @@ static void	expand_path()
 static int	expand_cmd(t_tree **tree, char **envp)
 {
 	int		i;
-	char	*cmd;
+	char	*temp;
 
 	i = 0;
+	temp = NULL;
 	while ((*tree)->data[i])
 	{
-static void	expand_path()
-{
-	
-}
-		
 		(*tree)->data[i] = expand_env((*tree)->data[i], envp);
 		i++;
 	}
-	cmd = (*tree)->data[0];
-	if (access(cmd, F_OK) != 0)
+	if (find_bulitin((*tree)->data[0]) == 0)
 	{
-		if (find_bulitin(cmd) == 0)
-			(*tree)->data[0] = get_cmd_path(cmd, get_path(envp));
+		// temp = expand_path((*tree)->data[0], envp);
+		if (access((*tree)->data[0], O_RDONLY) != 0)
+			(*tree)->data[0] = get_cmd_path((*tree)->data[0], get_path(envp));
 		if ((*tree)->data[0] == NULL)
 			return (0);
 	}
