@@ -6,12 +6,28 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 17:33:12 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:41:00 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+
+char	**free_tab(char **temp)
+{
+	int	i;
+
+	i = 0;
+	while (temp[i])
+	{
+		free(temp[i]);
+		temp[i] = NULL;
+		i++;
+	}
+	free(temp);
+	temp = NULL;
+	return (temp);
+}
 
 int	find_bulitin(char *cmd)
 {
@@ -33,20 +49,52 @@ int	find_bulitin(char *cmd)
 		return (0);
 }
 
-char	**free_tab(char **temp)
+char	*word_join(char *str, char c)
 {
-	int	i;
+	int		i;
+	char	*word;
 
 	i = 0;
-	while (temp[i])
+	if (str)
 	{
-		free(temp[i]);
-		temp[i] = NULL;
+		word = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2)); 
+		while (str[i])
+		{
+			word[i] = str[i];
+			i++;
+		}
+		free(str);
+	}
+	else
+		word = (char *)malloc(sizeof(char) * 2);
+	word[i] = c;
+	word[i + 1] = '\0';
+	return (word);
+}
+
+char	*find_env(char *origin, char *aim, char **envp)
+{
+	int		i;
+	int		len;
+	char	*result;
+
+	i = 0;
+	len = ft_strlen(aim);
+	result = NULL;
+	while (envp[i])
+	{
+		if (ft_strncmp(aim, envp[i], len) == 0)
+		{
+			if (envp[i][len] == '=')
+			{
+				result = ft_strjoin(origin, &envp[i][len + 1]);
+				break ;
+			}
+		}
 		i++;
 	}
-	free(temp);
-	temp = NULL;
-	return (temp);
+	free(origin);
+	return (result);
 }
 
 char	**get_path(char **envp)
@@ -54,14 +102,9 @@ char	**get_path(char **envp)
 	char	*temp;
 	char	**path;
 
-	temp = NULL;
+	temp = ft_strdup("");
 	path = NULL;
-	while (*envp)
-	{
-		if (ft_strncmp("PATH", *envp, 4) == 0)
-			temp = ft_strdup(*envp + 5);
-		envp++;
-	}
+	temp = find_env(temp, "PATH", envp);
 	if (temp)
 	{
 		path = ft_split(temp, ':');
