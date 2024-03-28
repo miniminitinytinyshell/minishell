@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 16:38:29 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 16:10:16 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,16 @@ char	**dup_envp(char **envp)
 	return (temp);
 }
 
+int	check_cmd(char *cmd)
+{
+	while (*cmd == ' ')
+		cmd++;
+	if (!(*cmd))
+		return (-1);
+	else
+		return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd;
@@ -102,6 +112,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		cmd = readline("this is prompt : ");
+		if (check_cmd(cmd) < 0)
+			continue ;
 		token = NULL;
 		tokenizer(&token, cmd);
 		if (!token)
@@ -123,7 +135,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				if (expand_tree(&tree, env) == 0)
-					printf("#### CMD/FILE ERROR | tree ####\n");
+					printf("#### CMD/FILE ERROR ####\n");
 				else
 				{
 					tmp_tree = tree;

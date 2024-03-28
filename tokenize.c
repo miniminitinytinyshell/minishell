@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 13:33:44 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:03:19 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	token_len_meta(char *str)
 		len = 1;
 	else if (ft_strchr("<>|&", str[0]))
 	{
+		printf("%s\n", str);
 		if (str[0] == str[1])
 			len = 2;
 		else
@@ -61,6 +62,8 @@ int	token_len(char *str)
 {
 	int	len;
 
+	if (!(*str))
+		return (0);
 	if (ft_strchr("()<>|&", str[0]))
 		len = token_len_meta(str);
 	else
@@ -84,6 +87,8 @@ void	tokenizer(t_token **token, char *str)
 			*token = NULL;
 			return ;
 		}
+		else if (len == 0)
+			continue ;
 		if (*str == '(' || *str == ')')
 			new = token_new(str, len, sep);
 		else if (*str == '<' || *str == '>')
