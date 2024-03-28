@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 15:40:21 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:53:09 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ t_tree			*free_tree(t_tree *tree);
 t_token			*erase_pr(t_token *token);
 
 // EXPAND
-int				find_bulitin(char *cmd);
 int				expand_tree(t_tree **tree, char **path);
+
+int				find_bulitin(char *cmd);
+char			*find_env(char *origin, char *aim, char **envp);
+char			*word_join(char *str, char c);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 

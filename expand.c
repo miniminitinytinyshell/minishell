@@ -6,69 +6,68 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 18:16:44 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:49:00 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-// 괄호 사이에 있는 경우 수정 예정
-static char	*expand_env(char *word, char **envp)
+static char	*expand_env(char *result, char *word, int *i, char **envp)
 {
-	char	*temp;
 	char	*env;
+	char	*temp;
 
-	temp = word;
-	while (*temp && *temp != '$')
-		temp++;
-	if (*temp == '$')
+	*i += 1;
+	env = NULL;
+	temp = NULL;
+	while (word[*i])
 	{
-		*temp = '\0';
-		temp++;
-		while (*envp)
-		{
-			if (ft_strncmp(temp, *envp, ft_strlen(temp)) == 0)
-			{
-				if (*(*envp + ft_strlen(temp)) == '=')
-				{
-					temp = ft_strdup(*envp + ft_strlen(temp) + 1);
+		if (word[*i] < 'a' || word[*i] > 'z')
+			if (word[*i] < 'A' || word[*i] > 'Z')
+				if (word[*i] != '_')
 					break ;
-				}
-			}
-			envp++;
-		}
-		if (!(*envp))
-			temp = ft_strdup("");
-		env = ft_strjoin(word, temp);
-		free(word);
-		free(temp);
-		return (env);
+		temp = word_join(temp, word[*i]);
+		*i += 1;
 	}
-	return (word);
+	if (!temp)
+	{
+		env = ft_strjoin(result, "$");
+		free(result);
+	}
+	else
+		env = find_env(result, temp, envp);
+	free(temp);
+	return (env);
 }
 
-static char	*expand_path(char *cmd, char **envp)
+static char	*expand_word(char *word, char **envp)
 {
-	char	*pwd;
-	char	*path;
+	int		i;
+	char	quote;
+	char	*result;
 
-	pwd = NULL;
-	while (*envp)
+	i = 0;
+	quote = 0;
+	result = ft_strdup("");
+	while (word[i])
 	{
-		if (ft_strncmp("PWD=", *envp, 4) == 0)
+		if (word[i] == '\'' || word[i] == '\"')
 		{
-			pwd = ft_strdup(*envp + 4);
-			break ;
+			if (quote == 0)
+				quote = word[i];
+			else if (quote == word[i])
+				quote = 0;
+			else
+				result = word_join(result, word[i]);
+			i++;
 		}
-		envp++;
+		else if (quote != '\'' && word[i] == '$')
+			result = expand_env(result, word, &i, envp);
+		else
+			result = word_join(result, word[i++]);
 	}
-	if (!pwd)
-		return (cmd);
-	path = ft_strjoin(pwd, cmd);
-	free(pwd);
-	free(cmd);
-	return (path);
+	return (result);
 }
 
 static int	expand_rdr(t_tree **tree, char **envp)
@@ -78,7 +77,7 @@ static int	expand_rdr(t_tree **tree, char **envp)
 
 	fd = 0;
 	rdr = (*tree)->left;
-	rdr->data[1] = expand_env((*tree)->left->data[1], envp);
+	rdr->data[1] = expand_word(rdr->data[1], envp);
 	if (ft_strncmp(rdr->data[0], "<", 2) == 0)
 	{
 		fd = open(rdr->data[1], O_RDONLY);
@@ -100,7 +99,7 @@ static int	expand_cmd(t_tree **tree, char **envp)
 	temp = NULL;
 	while ((*tree)->data[i])
 	{
-		(*tree)->data[i] = expand_env((*tree)->data[i], envp);
+		(*tree)->data[i] = expand_word((*tree)->data[i], envp);
 		i++;
 	}
 	if (find_bulitin((*tree)->data[0]) == 0)
