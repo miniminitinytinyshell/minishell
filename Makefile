@@ -6,7 +6,7 @@
 #    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/03/27 15:46:38 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/03/28 16:47:29 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 # **************************************************************************** #
 LIB_DIR = ./libs/libft
 
-CFLAGS = -g -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS = -I$(LIB_DIR)
 
 LDFLAGS = -L$(LIB_DIR)

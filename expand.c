@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 15:49:00 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 16:55:22 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,17 @@ static char	*expand_env(char *result, char *word, int *i, char **envp)
 	temp = NULL;
 	while (word[*i])
 	{
-		if (word[*i] < 'a' || word[*i] > 'z')
-			if (word[*i] < 'A' || word[*i] > 'Z')
-				if (word[*i] != '_')
-					break ;
+		if (ft_isalnum(word[*i]) == 0 && word[*i] != '_')
+			break ;
 		temp = word_join(temp, word[*i]);
 		*i += 1;
 	}
 	if (!temp)
-	{
-		env = ft_strjoin(result, "$");
-		free(result);
-	}
+		env = word_join(result, '$');
 	else
 		env = find_env(result, temp, envp);
+	if (result)
+		free(result);
 	free(temp);
 	return (env);
 }
@@ -49,7 +46,7 @@ static char	*expand_word(char *word, char **envp)
 
 	i = 0;
 	quote = 0;
-	result = ft_strdup("");
+	result = NULL;
 	while (word[i])
 	{
 		if (word[i] == '\'' || word[i] == '\"')

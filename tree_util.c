@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 18:14:36 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:04:28 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,6 @@ t_tree	*free_tree(t_tree *tree)
 	free(tree);
 	tree = NULL;
 	return (tree);
-}
-
-int	get_token_size(t_token *token)
-{
-	int		size;
-	t_token	*cur;
-
-	size = 0;
-	cur = token;
-	while (cur)
-	{
-		cur = cur->next;
-		size++;
-	}
-	return (size);
 }
 
 t_token	*erase_pr(t_token *token)

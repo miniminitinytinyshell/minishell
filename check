@@ -19,3 +19,6 @@
 - 쓰면 좋을 함수
 	1. getenv()				-> 환경변수
 	2. getcwd(), chdir()	-> 작업 디렉토리
+
+export env1=ls env2=pwd env3=at
+c$env3 && ((clear && $env2) | (rm || $env1))

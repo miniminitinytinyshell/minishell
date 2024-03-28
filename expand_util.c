@@ -6,28 +6,12 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 15:41:00 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:03:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-char	**free_tab(char **temp)
-{
-	int	i;
-
-	i = 0;
-	while (temp[i])
-	{
-		free(temp[i]);
-		temp[i] = NULL;
-		i++;
-	}
-	free(temp);
-	temp = NULL;
-	return (temp);
-}
 
 int	find_bulitin(char *cmd)
 {
@@ -57,7 +41,7 @@ char	*word_join(char *str, char c)
 	i = 0;
 	if (str)
 	{
-		word = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2)); 
+		word = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2));
 		while (str[i])
 		{
 			word[i] = str[i];
@@ -74,26 +58,27 @@ char	*word_join(char *str, char c)
 
 char	*find_env(char *origin, char *aim, char **envp)
 {
-	int		i;
 	int		len;
 	char	*result;
 
-	i = 0;
 	len = ft_strlen(aim);
 	result = NULL;
-	while (envp[i])
+	while (*envp)
 	{
-		if (ft_strncmp(aim, envp[i], len) == 0)
+		if (ft_strncmp(aim, *envp, len) == 0)
 		{
-			if (envp[i][len] == '=')
+			if (*(*envp + len) == '=')
 			{
-				result = ft_strjoin(origin, &envp[i][len + 1]);
+				if (!origin)
+					origin = ft_strdup("");
+				result = ft_strjoin(origin, *envp + len + 1);
 				break ;
 			}
 		}
-		i++;
+		envp++;
 	}
-	free(origin);
+	if (!(*envp) && origin)
+		result = ft_strdup(origin);
 	return (result);
 }
 
@@ -102,9 +87,8 @@ char	**get_path(char **envp)
 	char	*temp;
 	char	**path;
 
-	temp = ft_strdup("");
 	path = NULL;
-	temp = find_env(temp, "PATH", envp);
+	temp = find_env("", "PATH", envp);
 	if (temp)
 	{
 		path = ft_split(temp, ':');
