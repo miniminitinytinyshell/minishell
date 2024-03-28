@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 16:52:34 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:40:21 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,6 @@ int				expand_tree(t_tree **tree, char **path);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 
+// BUILTIN
+int	builtin_echo(char **args, char **envp);
 #endif
