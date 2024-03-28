@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 16:37:06 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 19:10:59 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	check_cmd(char *cmd)
 
 int	main(int argc, char **argv, char **envp)
 {
+	int		status;
 	char	*cmd;
 	char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
 	char	indent[1024] = "";
@@ -109,6 +110,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tree	*tree;
 	t_tree	*tmp_tree;
 
+	status = 0;
 	env = dup_envp(envp);
 	while (1)
 	{
@@ -131,11 +133,9 @@ int	main(int argc, char **argv, char **envp)
 			}
 			tree = init_tree();
 			printf("\n--------------------------tree-----------------------\n");
-			if (check_cpd_cmd(&tree, token) == 0)
-				printf("#### SYNTAX ERROR | tree ####\n");
-			else
+			if (check_cpd_cmd(&tree, token) != 0)
 			{
-				if (expand_tree(&tree, env) == 0)
+				if (expand_tree(&tree, env, status) == 0)
 					printf("#### CMD/FILE ERROR ####\n");
 				else
 				{
@@ -147,7 +147,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(cmd);
 		cmd = NULL;
-		// check_leaks();
+		check_leaks();
 	}
 	argc = 0;
 	argv = NULL;

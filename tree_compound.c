@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 14:43:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 19:08:31 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 	if (pr == 0)
 	{
 		if (check_std_cmd(&(*tree)->left, left) == 0)
-			return (0);
+			return (token_clear(&right));
 	}
 	else
 		if (check_cpd_cmd(&(*tree)->left, erase_pr(left)) == 0)
-			return (0);
+			return (token_clear(&right));
 	if (check_cpd_cmd(&(*tree)->right, right) == 0)
 		return (0);
 	return (1);
@@ -47,7 +47,7 @@ static int	case_sep(t_tree **tree, t_token *token)
 
 	cur = token;
 	if (skip_sep(&cur) == 0)
-		return (0);
+		return (error_syntax("(", &token));
 	if (cur->next == NULL)
 	{
 		if (check_cpd_cmd(tree, erase_pr(token)) == 0)
@@ -59,7 +59,7 @@ static int	case_sep(t_tree **tree, t_token *token)
 			return (0);
 	}
 	else
-		return (0);
+		return (error_syntax(cur->next->data, &token));
 	return (1);
 }
 
@@ -73,7 +73,7 @@ static int	case_etc(t_tree **tree, t_token *token)
 		if (cur->next->group == con)
 			break ;
 		if (cur->next->group == sep)
-			return (0);
+			return (error_syntax(cur->next->data, &token));
 		cur = cur->next;
 	}
 	if (cur->next == NULL)
@@ -94,10 +94,7 @@ int	check_cpd_cmd(t_tree **tree, t_token *token)
 	if (token == NULL)
 		return (0);
 	if (token->group == con)
-	{
-		token_clear(&token);
-		return (0);
-	}
+		return (error_syntax(token->data, &token));
 	if (token->group == sep)
 	{
 		if (case_sep(tree, token) == 0)

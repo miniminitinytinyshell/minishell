@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 15:53:09 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:07:43 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			tokenizer(t_token **token, char *str);
 t_token			*token_new(char *data_start, int len, t_token_group group);
 void			token_add_back(t_token **token, t_token *new);
 t_token			*token_free(t_token *token);
-void			token_clear(t_token **token);
+int				token_clear(t_token **token);
 
 // TREE
 int				div_std_cmd(t_token **left, t_token **right);
@@ -49,14 +49,26 @@ t_tree			*free_tree(t_tree *tree);
 t_token			*erase_pr(t_token *token);
 
 // EXPAND
-int				expand_tree(t_tree **tree, char **path);
+int				expand_tree(t_tree **tree, char **path, int status);
 
+// EXPAND_Utils
 int				find_bulitin(char *cmd);
-char			*find_env(char *origin, char *aim, char **envp);
-char			*word_join(char *str, char c);
+char			*find_env(char *aim, char **envp);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 
 // BUILTIN
 int	builtin_echo(char **args, char **envp);
+
+// STRING
+char			*strjoin_char(char *str, char c);
+char			*strjoin_free(char *str1, char *str2);
+
+// ERROR
+int				error_malloc(t_token **token);
+int				error_syntax(char *str, t_token **token);
+
+// FREE
+char			**free_tab(char **temp);
+
 #endif

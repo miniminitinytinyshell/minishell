@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 17:04:28 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 18:59:33 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ t_tree	*free_tree(t_tree *tree)
 		tree->right = free_tree(tree->right);
 	if (tree->left)
 		tree->left = free_tree(tree->left);
+	if (tree->oper)
+		free(tree->oper);
 	if (tree->data)
-		free(tree->data);
+		free_tab(tree->data);
 	free(tree);
 	tree = NULL;
 	return (tree);

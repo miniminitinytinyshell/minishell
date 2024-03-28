@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/03/28 17:04:47 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 19:08:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_token	*token_free(t_token *token)
 	return (token);
 }
 
-void	token_clear(t_token **token)
+int	token_clear(t_token **token)
 {
 	t_token	*tmp;
 
@@ -81,4 +81,5 @@ void	token_clear(t_token **token)
 		*token = tmp;
 	}
 	token = NULL;
+	return (0);
 }

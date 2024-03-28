@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:51:17 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/27 14:44:20 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/28 18:44:13 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	case_rdr_front(t_token *rdr, t_token **left, t_token **right)
 	t_token	*cur;
 
 	if (rdr->next == NULL)
-		return (0);
+		return (error_syntax(rdr->data, right));
 	if (rdr->next->group != word)
-		return (0);
+		return (error_syntax(rdr->next->data, right));
 	*right = rdr->next->next;
 	rdr->next->next = NULL;
 	if (*left == NULL)
@@ -45,9 +45,9 @@ static int	case_rdr_back(t_token *rdr, t_token **left, t_token **right)
 	cur = rdr;
 	rdr = rdr->next;
 	if (rdr->next == NULL)
-		return (0);
+		return (error_syntax(rdr->data, right));
 	if (rdr->next->group != word)
-		return (0);
+		return (error_syntax(rdr->next->data, right));
 	cur->next = rdr->next->next;
 	rdr->next->next = NULL;
 	if (*left == NULL)
@@ -110,7 +110,8 @@ int	check_std_cmd(t_tree **tree, t_token *token)
 	if (right != NULL)
 	{
 		(*tree)->right = init_tree();
-		check_smp_cmd(&(*tree)->right, right);
+		if (check_smp_cmd(&(*tree)->right, right) == 0)
+			return (0);
 	}
 	return (1);
 }
