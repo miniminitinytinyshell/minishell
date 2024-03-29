@@ -1,15 +1,15 @@
 TOKEN
 - WORD
 - SEPERATOR
-	- "	DQ _ word 일부 (token->type = word)
-	- '	SQ _ word 일부
-	- '(' LEFT_PAR
-	- ')' RIGHT_PAR
-	- < IN_TRUNC
-	- > OUT_TRUNC
-	- << HERE_DOC
-	- >> OUT_APPEND
-**quote: expansion에서 제거
+	- ""	DQ _ word 일부 (token->type = word)
+	- ''	SQ _ word 일부
+		* quote: expansion에서 제거
+	- '('	LEFT_PAR
+	- ')'	RIGHT_PAR
+	- <		IN_TRUNC
+	- >		OUT_TRUNC
+	- <<	HERE_DOC
+	- >>	OUT_APPEND
 - OPERATOR
 	- PIPE
 	- AND
