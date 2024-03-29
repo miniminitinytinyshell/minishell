@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 19:07:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/03/29 19:35:31 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 
 // BUILTIN
-int	builtin_echo(char **args, char **envp);
+int				builtin_echo(char **args, char **envp);
 
 // STRING
 char			*strjoin_char(char *str, char c);
