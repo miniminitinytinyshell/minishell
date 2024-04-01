@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 16:59:18 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 17:07:53 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-void	execute_rdr(t_tree *tree, int *status)
+void	execute_rdr(t_tree *tree)
 {
 	int	file_in;
 	int	file_out;
@@ -33,14 +33,13 @@ void	execute_rdr(t_tree *tree, int *status)
 	if (file_in > 0)
 		dup2(file_in, STDIN_FILENO);
 	else if (file_in < 0)
-		*status = 1;
+		exit(EXIT_FAILURE);
 	if (file_out)
 		dup2(file_out, STDOUT_FILENO);
-	execute_rdr(tree->right, status);
-	*status = 0;
+	execute_rdr(tree->right);
 }
 
-void	execute_cmd(t_tree *tree, char **envp, int *status)
+void	execute_cmd(t_tree *tree, char **envp)
 {
 	char	*path;
 
@@ -62,9 +61,9 @@ void	execute_cmd(t_tree *tree, char **envp, int *status)
 	else
 		path = get_cmd_path(tree->data[0], get_path(envp));
 	if (!path)
-		*status = error_cmd_not_found(tree->data[0]);
+		error_cmd_not_found(tree->data[0]);
 	if (execve(path, tree->data, envp) == -1)
-		*status = 1;
+		exit(EXIT_FAILURE);
 }
 
 void	execute_std_cmd(t_tree **tree, char **envp, int *status)
@@ -74,21 +73,17 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 	expand_tree(tree, envp, *status);
 	pid = fork();
 	if (pid == -1)
-		error_fork(status);
+		error_fork();
 	if (pid == 0)
 	{
-		execute_rdr((*tree)->left, status);
-		if (*status != 0)
-			exit(*status);
-		execute_cmd((*tree)->right, envp, status);
-		if (*status != 0)
-			exit(*status);
+		execute_rdr((*tree)->left);
+		execute_cmd((*tree)->right, envp);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		waitpid(pid, status, 0);
-		*status = WIFEXITED(status);
+		*status = WEXITSTATUS(*status);
 	}
 }
 

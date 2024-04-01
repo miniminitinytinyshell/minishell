@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:30:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 17:01:34 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ int	error_cmd_not_found(char *cmd)
 {
 	ft_putstr_fd("command_not_found: ", 2);
 	ft_putendl_fd(cmd, 2);
-	return (127);
+	exit(127);
 }
 
-void	error_fork(int *status)
+void	error_fork(void)
 {
 	ft_putendl_fd("fork error", 2);
-	*status = 1;
-	exit(*status);
+	exit(EXIT_FAILURE);
 }

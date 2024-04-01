@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:31:10 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 17:02:49 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char			*strjoin_free(char *str1, char *str2);
 int				error_malloc(t_token **token);
 int				error_syntax(char *str, t_token **token);
 int				error_cmd_not_found(char *cmd);
-void			error_fork(int *status);
+void			error_fork(void);
 
 // FREE
 char			**free_tab(char **temp);
