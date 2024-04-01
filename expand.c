@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:00:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:26:30 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,9 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 {
 	int		i;
 	int		j;
-	char	*temp;
 
 	i = 0;
 	j = 0;
-	temp = NULL;
 	while ((*tree)->data[i])
 	{
 		(*tree)->data[j] = expand_word((*tree)->data[i], envp, status);

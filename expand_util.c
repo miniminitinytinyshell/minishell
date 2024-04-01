@@ -6,32 +6,33 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 17:39:35 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:27:18 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	find_bulitin(char *cmd)
-{
-	if (ft_strncmp(cmd, "echo", 5) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "cd", 3) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "pwd", 4) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "export", 7) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "unset", 6) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "env", 4) == 0)
-		return (1);
-	else if (ft_strncmp(cmd, "exit", 5) == 0)
-		return (1);
-	else
-		return (0);
-}
+// int	find_bulitin(t_tree *tree, char **envp, int *status)
+// {
+// 	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
+// 		builtin_echo(tree->data, envp, status);
+// 	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
+// 		builtin_cd();
+// 	else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
+// 		builtin_pwd();
+// 	else if (ft_strncmp(tree->data[0], "export", 7) == 0)
+// 		builtin_export();
+// 	else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
+// 		builtin_unset();
+// 	else if (ft_strncmp(tree->data[0], "env", 4) == 0)
+// 		builtin_env();
+// 	else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
+// 		builtin_exit();
+// 	else
+// 		return (0);
+// 	return (1);
+// }
 
 char	*find_env(char *aim, char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 19:10:59 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:32:17 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,11 @@ int	main(int argc, char **argv, char **envp)
 	t_tree	*tree;
 	t_tree	*tmp_tree;
 
+	if (argc > 2)
+		return (0);
 	status = 0;
+	for (int i = 0; argv[i]; i++)
+		printf("%s\n", argv[i]);
 	env = dup_envp(envp);
 	while (1)
 	{
@@ -135,22 +139,15 @@ int	main(int argc, char **argv, char **envp)
 			printf("\n--------------------------tree-----------------------\n");
 			if (check_cpd_cmd(&tree, token) != 0)
 			{
-				if (expand_tree(&tree, env, status) == 0)
-					printf("#### CMD/FILE ERROR ####\n");
-				else
-				{
-					tmp_tree = tree;
-					display_tree(tmp_tree, indent, 1);
-				}
+				tmp_tree = tree;
+				display_tree(tmp_tree, indent, 1);
+				execute_cpd_cmd(&tree, env, &status);
 			}
 			free_tree(tree);
 		}
 		free(cmd);
 		cmd = NULL;
-		check_leaks();
+		// check_leaks();
 	}
-	argc = 0;
-	argv = NULL;
-	envp = NULL;
 	return (0);
 }

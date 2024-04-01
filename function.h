@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:04:37 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:31:10 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,16 @@ t_token			*erase_pr(t_token *token);
 int				expand_tree(t_tree **tree, char **envp, int status);
 
 // EXPAND_Utils
-int				find_bulitin(char *cmd);
+int				find_bulitin(t_tree *tree, char **envp, int *status);
 char			*find_env(char *aim, char **envp);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 
 // BUILTIN
 int				builtin_echo(char **args, char **envp);
+
+// Execute
+int				execute_cpd_cmd(t_tree **tree, char **envp, int *status);
 
 // STRING
 char			*strjoin_char(char *str, char c);
@@ -68,6 +71,7 @@ char			*strjoin_free(char *str1, char *str2);
 int				error_malloc(t_token **token);
 int				error_syntax(char *str, t_token **token);
 int				error_cmd_not_found(char *cmd);
+void			error_fork(int *status);
 
 // FREE
 char			**free_tab(char **temp);

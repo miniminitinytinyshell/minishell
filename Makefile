@@ -6,7 +6,7 @@
 #    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/03/28 19:03:39 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/01 14:22:54 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ man_src = main.c\
 			free.c\
 			string.c\
 			error.c\
+			execute.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)
