@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_compound.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 19:08:31 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 22:04:07 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	case_sep(t_tree **tree, t_token *token)
 
 	cur = token;
 	if (skip_sep(&cur) == 0)
-		return (error_syntax("(", &token));
+		return (error_syntax("(", &token, '('));
 	if (cur->next == NULL)
 	{
 		if (check_cpd_cmd(tree, erase_pr(token)) == 0)
@@ -59,7 +59,7 @@ static int	case_sep(t_tree **tree, t_token *token)
 			return (0);
 	}
 	else
-		return (error_syntax(cur->next->data, &token));
+		return (error_syntax(cur->next->data, &token, 0));
 	return (1);
 }
 
@@ -73,7 +73,7 @@ static int	case_etc(t_tree **tree, t_token *token)
 		if (cur->next->group == con)
 			break ;
 		if (cur->next->group == sep)
-			return (error_syntax(cur->next->data, &token));
+			return (error_syntax(cur->next->data, &token, 0));
 		cur = cur->next;
 	}
 	if (cur->next == NULL)
@@ -94,7 +94,7 @@ int	check_cpd_cmd(t_tree **tree, t_token *token)
 	if (token == NULL)
 		return (0);
 	if (token->group == con)
-		return (error_syntax(token->data, &token));
+		return (error_syntax(token->data, &token, 0));
 	if (token->group == sep)
 	{
 		if (case_sep(tree, token) == 0)

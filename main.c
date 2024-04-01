@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:32:17 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 20:32:31 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		status;
 	char	*cmd;
-	char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
 	char	indent[1024] = "";
 	char	**env;
 	t_token *token;
-	t_token	*tmp_token;
+	// char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
+	// t_token	*tmp_token;
 	t_tree	*tree;
 	t_tree	*tmp_tree;
 
@@ -127,14 +127,14 @@ int	main(int argc, char **argv, char **envp)
 			printf("#### SYNTAX ERROR | token ####\n");
 		else
 		{
-			printf("%7s  %18s\n", "type", "data");
-			printf("-------  ------------------------------------------\n");
-			tmp_token = token;
-			while (tmp_token)
-			{
-				printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
-				tmp_token = tmp_token->next;
-			}
+			// printf("%7s  %18s\n", "type", "data");
+			// printf("-------  ------------------------------------------\n");
+			// tmp_token = token;
+			// while (tmp_token)
+			// {
+			// 	printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
+			// 	tmp_token = tmp_token->next;
+			// }
 			tree = init_tree();
 			printf("\n--------------------------tree-----------------------\n");
 			if (check_cpd_cmd(&tree, token) != 0)

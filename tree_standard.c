@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_standard.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:51:17 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 18:44:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 22:04:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	case_rdr_front(t_token *rdr, t_token **left, t_token **right)
 	t_token	*cur;
 
 	if (rdr->next == NULL)
-		return (error_syntax(rdr->data, right));
+		return (error_syntax(rdr->data, right, 0));
 	if (rdr->next->group != word)
-		return (error_syntax(rdr->next->data, right));
+		return (error_syntax(rdr->next->data, right, 0));
 	*right = rdr->next->next;
 	rdr->next->next = NULL;
 	if (*left == NULL)
@@ -45,9 +45,9 @@ static int	case_rdr_back(t_token *rdr, t_token **left, t_token **right)
 	cur = rdr;
 	rdr = rdr->next;
 	if (rdr->next == NULL)
-		return (error_syntax(rdr->data, right));
+		return (error_syntax(rdr->data, right, 0));
 	if (rdr->next->group != word)
-		return (error_syntax(rdr->next->data, right));
+		return (error_syntax(rdr->next->data, right, 0));
 	cur->next = rdr->next->next;
 	rdr->next->next = NULL;
 	if (*left == NULL)

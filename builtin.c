@@ -6,17 +6,37 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:15 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/03/29 19:55:57 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:49:14 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libs/libft/libft.h"
+#include <stdio.h>
+
+int	chk_echo_option(char *arg)
+{
+	const int	len = ft_strlen(arg);
+	int			idx;
+
+	if (arg[0] != '-')
+		return (0);
+	idx = 1;
+	while (idx < len)
+	{
+		if (arg[idx] != 'n')
+			return (0);
+		idx++;
+	}
+	return (1);
+}
 
 int	builtin_echo(char **args, char **envp)
 {
-	int	idx;
+	const int	flag = chk_echo_option(args[1]);
+	int			idx;
+	char		*arg1;
 
-	if (ft_strncmp(args[1], "-n", 3) == 0)
+	if (flag == 1)
 	{
 		idx = 2;
 		while (args[idx])
@@ -39,9 +59,16 @@ int	builtin_echo(char **args, char **envp)
 	exit(EXIT_SUCCESS);
 }
 
+// int	builtin_cd(char **argv, char **envp)
+// {
+// 	if (chdir(argv[0]) < 0)
+// 		error_cd();
+// 	exit(EXIT_SUCCESS);
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
-	char	*args1[] = {"echo", "-n", "hello", NULL};
+	char	*args1[] = {"echo", "-nnnnnn", "hello", NULL};
 	char	*args2[] = {"echo", "hello", "-n", NULL};
 
 	builtin_echo(args1, envp);

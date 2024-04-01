@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 17:02:49 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 22:01:31 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -52,7 +53,7 @@ t_token			*erase_pr(t_token *token);
 int				expand_tree(t_tree **tree, char **envp, int status);
 
 // EXPAND_Utils
-int				find_bulitin(t_tree *tree, char **envp, int *status);
+// int				find_builtin(t_tree *tree, char **envp, int *status);
 char			*find_env(char *aim, char **envp);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
@@ -69,9 +70,10 @@ char			*strjoin_free(char *str1, char *str2);
 
 // ERROR
 int				error_malloc(t_token **token);
-int				error_syntax(char *str, t_token **token);
+int				error_syntax(char *str, t_token **token, int flag);
 int				error_cmd_not_found(char *cmd);
 void			error_fork(void);
+void			error_cd(void);
 
 // FREE
 char			**free_tab(char **temp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 17:45:37 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 22:02:31 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	token_len_word(char *str)
 			while (str[len] != quote)
 			{
 				if (str[len] == '\0')
-					return (-1);
+					return ((int)((-1) * quote));
 				len++;
 			}
 		}
@@ -82,7 +82,8 @@ void	tokenizer(t_token **token, char *str)
 		len = token_len(str);
 		if (len < 0)
 		{
-			token_clear(token);
+			error_syntax(str, token, len * (-1));
+			// token_clear(token);
 			*token = NULL;
 			return ;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 17:01:34 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 22:11:38 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 
 int	error_malloc(t_token **token)
 {
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (token)
 		token_clear(token);
-	ft_putendl_fd("malloc error", 2);
+	ft_putendl_fd("malloc error", STDERR_FILENO);
 	return (0);
 }
 
-int	error_syntax(char *str, t_token **token)
+int	error_syntax(char *str, t_token **token, int flag)
 {
-	ft_putstr_fd("syntax error near unexpected token", 2);
-	printf(" '%s'\n", str);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("syntax error near unexpected token ", STDERR_FILENO);
+	ft_putchar_fd('\'', STDERR_FILENO);
+	if (flag)
+		ft_putchar_fd((char)flag, STDERR_FILENO);
+	else
+		ft_putchar_fd(*str, STDERR_FILENO);
+	ft_putendl_fd("'", STDERR_FILENO);
 	if (token)
 		token_clear(token);
 	return (0);
@@ -32,13 +39,22 @@ int	error_syntax(char *str, t_token **token)
 
 int	error_cmd_not_found(char *cmd)
 {
-	ft_putstr_fd("command_not_found: ", 2);
-	ft_putendl_fd(cmd, 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("command not found: ", STDERR_FILENO);
+	ft_putendl_fd(cmd, STDERR_FILENO);
 	exit(127);
 }
 
 void	error_fork(void)
 {
-	ft_putendl_fd("fork error", 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putendl_fd("fork error", STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
+
+void	error_cd(void)
+{
+	ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
