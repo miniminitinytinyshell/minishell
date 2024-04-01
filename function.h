@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/29 19:35:31 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:04:37 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_tree			*free_tree(t_tree *tree);
 t_token			*erase_pr(t_token *token);
 
 // EXPAND
-int				expand_tree(t_tree **tree, char **path, int status);
+int				expand_tree(t_tree **tree, char **envp, int status);
 
 // EXPAND_Utils
 int				find_bulitin(char *cmd);
@@ -67,6 +67,7 @@ char			*strjoin_free(char *str1, char *str2);
 // ERROR
 int				error_malloc(t_token **token);
 int				error_syntax(char *str, t_token **token);
+int				error_cmd_not_found(char *cmd);
 
 // FREE
 char			**free_tab(char **temp);

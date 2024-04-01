@@ -6,29 +6,74 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/29 15:36:19 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:05:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	execute_cmd()
+void	execute_rdr(t_tree *tree, int *status)
 {
-	
+	int	file_in;
+	int	file_out;
+
+	file_in = 0;
+	file_out = 0;
+	if (!tree)
+		return ;
+	if (ft_strncmp(tree->data[0], "<", 2) == 0)
+		file_in = open(tree->data[1], O_RDONLY);
+	else if (ft_strncmp(tree->data[0], ">", 2) == 0)
+		file_out = open(tree->data[1], O_WRONLY | O_CREAT | O_TRUNC);
+	else if (ft_strncmp(tree->data[0], ">>", 3) == 0)
+		file_out = open(tree->data[1], O_WRONLY | O_CREAT | O_TRUNC);
+	else
+		hear_doc();
+	if (file_in > 0)
+		dup2(file_in, STDIN_FILENO);
+	else if (file_in < 0)
+		*status = 1;
+	if (file_out)
+		dup2(file_out, STDOUT_FILENO);
+	execute_rdr(tree->right, status);
+	*status = 0;
 }
 
-int	execute_std_cmd(t_tree **tree, char **envp, int *status)
+void	execute_cmd(t_tree *tree, char **envp, int *status)
+{
+	char	*path;
+
+	if (!tree)
+		return ;
+	find_bulitin(tree->data[0]);
+	if (access(tree->data[0], O_RDONLY) == 0)
+		path = ft_strdup(tree->data[0]);
+	else
+		path = get_cmd_path(tree->data[0], get_path(envp));
+	if (!path)
+		*status = error_cmd_not_found(tree->data[0]);
+	if (execve(path, tree->data, envp) == -1)
+		*status = 1;
+}
+
+void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 {
 	pid_t	pid;
 
+	expand_tree(tree, envp, status);
 	pid = fork();
 	if (pid == -1)
 		error_fork();
 	if (pid == 0)
 	{
-		
-		execute_cmd();
+		execute_rdr((*tree)->left, status);
+		if (*status != 0)
+			exit(EXIT_FAILURE);
+		execute_cmd((*tree)->right, envp, status);
+		if (*status != 0)
+			exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	else
 		waitpid(pid, status, 0);

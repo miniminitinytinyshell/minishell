@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 19:09:12 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:03:24 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,11 @@ int	error_syntax(char *str, t_token **token)
 	if (token)
 		token_clear(token);
 	return (0);
+}
+
+int	error_cmd_not_found(char *cmd)
+{
+	ft_putstr_fd("command_not_found: ", 2);
+	ft_putendl_fd(cmd, 2);
+	return (127);
 }

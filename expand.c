@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 18:08:36 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:00:43 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,35 +108,16 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 		i++;
 	}
 	(*tree)->data[j] = NULL;
-	if (find_bulitin((*tree)->data[0]) == 0)
-	{
-		if (access((*tree)->data[0], O_RDONLY) != 0)
-			(*tree)->data[0] = get_cmd_path((*tree)->data[0], get_path(envp));
-		if ((*tree)->data[0] == NULL)
-			return (0);
-	}
 	return (1);
 }
 
 int	expand_tree(t_tree **tree, char **envp, int status)
 {
-	if ((*tree)->type == standard_cmd)
-	{
-		if ((*tree)->left)
-			if (expand_rdr(&(*tree)->left, envp, status) == 0)
-				return (0);
-		if ((*tree)->right)
-			if (expand_cmd(&(*tree)->right, envp, status) == 0)
-				return (0);
-	}
-	else
-	{
-		if ((*tree)->left)
-			if (expand_tree(&(*tree)->left, envp, status) == 0)
-				return (0);
-		if ((*tree)->right)
-			if (expand_tree(&(*tree)->right, envp, status) == 0)
-				return (0);
-	}
+	if ((*tree)->left)
+		if (expand_rdr(&(*tree)->left, envp, status) == 0)
+			return (0);
+	if ((*tree)->right)
+		if (expand_cmd(&(*tree)->right, envp, status) == 0)
+			return (0);
 	return (1);
 }
