@@ -1,24 +1,6 @@
-1. 프롬프트 (完)
-2. 히스토리
-3. 상대 / 절대 경로 (完)
-4. 환경변수 구현 (完)
-5. 리다이렉션 구현
-6. |, ||, && 구현
-7. ctrl + C, D, \ 구현 (signal)
-8. builtin 함수 구현 (echo -n, cd, pwd, export, unset, env, exit)
-9. Wildcard * 구현
-
-- 남은 확장 (내일 함수 싹다 갈아엎을 예정)
-	1.  "", '' 사이에 quote 제거 (完)
-	2. 환경 변수 확장 -> getenv() (完)
-		*  quote 사이에 환경변수 확장 추가 -> 첫 시작의 quote 종류 확인
-	3. 절대 경로 및 상대 경로 (完)
-		* 작업 디렉토리 설정을 어떻게 할 것 인가 -> getcwd(), chdir()
-		* 여러 테스트 결과, 굳이 안해도 잘 됨, cd에서 작업 디렉토리 바꾸는 게 중요함
-
-- 쓰면 좋을 함수
-	1. getenv()				-> 환경변수
-	2. getcwd(), chdir()	-> 작업 디렉토리
-
-export env1=ls env2=pwd env3=at
-c$env3 && ((clear && $env2) | (rm || $env1))
+구현 해야할 것들
+	1. Prompt History 구현
+	2. Pipe('|') 구현
+	3. ctrl + C, D, \ 구현 (signal)
+	4. builtin 함수 구현 (echo -n, cd, pwd, export, unset, env, exit)
+	5. Wildcard * 구현
