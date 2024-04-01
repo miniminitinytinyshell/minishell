@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:31:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:59:18 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	execute_rdr(t_tree *tree, int *status)
 	file_out = 0;
 	if (!tree)
 		return ;
-	if (ft_strncmp(tree->data[0], "<", 2) == 0)
-		file_in = open(tree->data[1], O_RDONLY);
-	else if (ft_strncmp(tree->data[0], ">", 2) == 0)
-		file_out = open(tree->data[1], O_WRONLY | O_CREAT | O_TRUNC);
-	else if (ft_strncmp(tree->data[0], ">>", 3) == 0)
-		file_out = open(tree->data[1], O_WRONLY | O_CREAT | O_TRUNC);
+	if (ft_strncmp(tree->left->data[0], "<", 2) == 0)
+		file_in = open(tree->left->data[1], O_RDONLY, 0644);
+	else if (ft_strncmp(tree->left->data[0], ">", 2) == 0)
+		file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (ft_strncmp(tree->left->data[0], ">>", 3) == 0)
+		file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	// else
 	// 	hear_doc();
 	if (file_in > 0)
@@ -86,7 +86,10 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 		exit(EXIT_SUCCESS);
 	}
 	else
+	{
 		waitpid(pid, status, 0);
+		*status = WIFEXITED(status);
+	}
 }
 
 int	execute_cpd_cmd(t_tree **tree, char **envp, int *status)

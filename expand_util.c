@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:27:18 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:39:03 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	*get_cmd_path(char *cmd, char **path)
 		{
 			free_tab(path);
 			free(temp_cmd);
-			free(cmd);
 			return (result);
 		}
 		close(check);
@@ -96,6 +95,5 @@ char	*get_cmd_path(char *cmd, char **path)
 	}
 	free_tab(path);
 	free(temp_cmd);
-	free(cmd);
 	return (NULL);
 }
