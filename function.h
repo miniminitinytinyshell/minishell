@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 15:08:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 17:33:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char			*get_cmd_path(char *cmd, char **path);
 int				builtin_echo(char **args);
 
 // Execute
-int				execute_cpd_cmd(t_tree **tree, char **envp, int *status);
+void			execute_pipe(t_tree **tree, char **envp, int *status);
+void			execute_cpd_cmd(t_tree **tree, char **envp, int *status);
 
 // STRING
 char			*strjoin_char(char *str, char c);

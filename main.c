@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 15:09:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:49:35 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		status;
 	char	*cmd;
-	char	indent[1024] = "";
 	char	**env;
 	t_token *token;
-	// char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
-	// t_token	*tmp_token;
 	t_tree	*tree;
-	t_tree	*tmp_tree;
+	// char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
+	// char	indent[1024] = "";
+	// t_token	*tmp_token;
+	// t_tree	*tmp_tree;
 
 	if (argc > 2)
 		return (0);
@@ -135,12 +135,12 @@ int	main(int argc, char **argv, char **envp)
 			// 	printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
 			// 	tmp_token = tmp_token->next;
 			// }
+			// printf("\n--------------------------tree-----------------------\n");
 			tree = init_tree();
-			printf("\n--------------------------tree-----------------------\n");
 			if (check_pipe(&tree, token) != 0)
 			{
-				tmp_tree = tree;
-				display_tree(tmp_tree, indent, 1);
+				// tmp_tree = tree;
+				// display_tree(tmp_tree, indent, 1);
 				execute_cpd_cmd(&tree, env, &status);
 			}
 			free_tree(tree);

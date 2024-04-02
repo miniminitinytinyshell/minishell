@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 15:06:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 17:29:33 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,33 +87,7 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 	}
 }
 
-void	execute_pipe(t_tree **tree, char **envp, int *status)
-{
-	int		fd[2];
-	pid_t	pid;
-
-	if (pipe(fd) == -1)
-		error_pipe();
-	pid = fork();
-	if (pid == -1)
-		error_fork();
-	if (pid == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		execute_cpd_cmd(&(*tree)->left, envp, status);
-	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		waitpid(pid, status, 0);
-		*status = WEXITSTATUS(*status);
-		execute_cpd_cmd(&(*tree)->right, envp, status);
-	}
-}
-
-int	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
+void	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
 {
 	if ((*tree)->type == standard_cmd)
 		execute_std_cmd(tree, envp, status);
@@ -134,6 +108,5 @@ int	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
 		else
 			execute_pipe(tree, envp, status);
 	}
-	return (1);
 }
 

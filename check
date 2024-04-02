@@ -1,6 +1,6 @@
 구현 해야할 것들
 	1. Prompt History 구현
-	2. Pipe('|') 구현
+	2. Pipe('|') 구현 (完)
 	3. ctrl + C, D, \ 구현 (signal)
 	4. builtin 함수 구현 (echo -n, cd, pwd, export, unset, env, exit)
 	5. Wildcard * 구현
