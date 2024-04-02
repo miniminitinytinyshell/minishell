@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 14:19:07 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:09:43 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	main(int argc, char **argv, char **envp)
 			{
 				tmp_tree = tree;
 				display_tree(tmp_tree, indent, 1);
-				// execute_cpd_cmd(&tree, env, &status);
+				execute_cpd_cmd(&tree, env, &status);
 			}
 			free_tree(tree);
 		}

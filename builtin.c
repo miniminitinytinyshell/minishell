@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:15 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/01 22:49:14 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:08:38 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ int	chk_echo_option(char *arg)
 	return (1);
 }
 
-int	builtin_echo(char **args, char **envp)
+int	builtin_echo(char **args)
 {
 	const int	flag = chk_echo_option(args[1]);
 	int			idx;
-	char		*arg1;
 
 	if (flag == 1)
 	{
@@ -66,10 +65,10 @@ int	builtin_echo(char **args, char **envp)
 // 	exit(EXIT_SUCCESS);
 // }
 
-int	main(int argc, char **argv, char **envp)
-{
-	char	*args1[] = {"echo", "-nnnnnn", "hello", NULL};
-	char	*args2[] = {"echo", "hello", "-n", NULL};
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	char	*args1[] = {"echo", "-nnnnnn", "hello", NULL};
+// 	char	*args2[] = {"echo", "hello", "-n", NULL};
 
-	builtin_echo(args1, envp);
-}
+// 	builtin_echo(args1, envp);
+// }

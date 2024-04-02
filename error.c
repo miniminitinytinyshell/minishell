@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 22:11:38 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:47:02 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void	error_fork(void)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putendl_fd("fork error", STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
+
+void	error_pipe(void)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putendl_fd("pipe error", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 

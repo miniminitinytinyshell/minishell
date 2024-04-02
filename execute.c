@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 17:07:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:06:13 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,25 @@ void	execute_cmd(t_tree *tree, char **envp)
 
 	if (!tree)
 		return ;
-	// if (find_bulitin(tree, envp, status) == 0)
-	// {
-	// 	if (access(tree->data[0], O_RDONLY) == 0)
-	// 		path = ft_strdup(tree->data[0]);
-	// 	else
-	// 		path = get_cmd_path(tree->data[0], get_path(envp));
-	// 	if (!path)
-	// 		*status = error_cmd_not_found(tree->data[0]);
-	// 	if (execve(path, tree->data, envp) == -1)
-	// 		*status = 1;
-	// }
-	if (access(tree->data[0], O_RDONLY) == 0)
-		path = ft_strdup(tree->data[0]);
-	else
-		path = get_cmd_path(tree->data[0], get_path(envp));
-	if (!path)
-		error_cmd_not_found(tree->data[0]);
-	if (execve(path, tree->data, envp) == -1)
-		exit(EXIT_FAILURE);
+	if (find_builtin(tree, envp) == 0)
+	{
+		if (access(tree->data[0], O_RDONLY) == 0)
+			path = ft_strdup(tree->data[0]);
+		else
+			path = get_cmd_path(tree->data[0], get_path(envp));
+		if (!path)
+			error_cmd_not_found(tree->data[0]);
+		if (execve(path, tree->data, envp) == -1)
+			exit(EXIT_FAILURE);
+	}
+	// if (access(tree->data[0], O_RDONLY) == 0)
+	// 	path = ft_strdup(tree->data[0]);
+	// else
+	// 	path = get_cmd_path(tree->data[0], get_path(envp));
+	// if (!path)
+	// 	error_cmd_not_found(tree->data[0]);
+	// if (execve(path, tree->data, envp) == -1)
+	// 	exit(EXIT_FAILURE);
 }
 
 void	execute_std_cmd(t_tree **tree, char **envp, int *status)
@@ -87,6 +87,32 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 	}
 }
 
+void	execute_pipe(t_tree **tree, char **envp, int *status)
+{
+	int		fd[2];
+	pid_t	pid;
+
+	if (pipe(fd) == -1)
+		error_pipe();
+	pid = fork();
+	if (pid == -1)
+		error_fork();
+	if (pid == 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		execute_cpd_cmd(&(*tree)->left, envp, status);
+	}
+	else
+	{
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		waitpid(pid, status, 0);
+		*status = WEXITSTATUS(*status);
+		execute_cpd_cmd(&(*tree)->right, envp, status);
+	}
+}
+
 int	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
 {
 	if ((*tree)->type == standard_cmd)
@@ -105,11 +131,8 @@ int	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
 			if (*status != 0)
 				execute_cpd_cmd(&(*tree)->right, envp, status);
 		}
-		// else
-		// 	execute_pipe(tree, envp, status);
-			// 오른쪽 트리가 STD인 경우 그냥 진행
-			// CPD인 경우에 CPD의 왼쪽 트리만 pipe에 걸리게 작동
-			// CPD의 오른쪽 트리는 다시 exec_cpd함수
+		else
+			execute_pipe(tree, envp, status);
 	}
 	return (1);
 }

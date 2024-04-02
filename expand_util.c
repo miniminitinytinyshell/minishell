@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expand_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 20:21:58 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:09:25 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-// int	find_builtin(t_tree *tree, char **envp, int *status)
-// {
-// 	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
-// 		builtin_echo(tree->data, envp, status);
+int	find_builtin(t_tree *tree, char **envp)
+{
+	(void)envp;
+	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
+		builtin_echo(tree->data);
 	// else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
 	// 	builtin_cd();
 	// else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
@@ -29,10 +30,10 @@
 	// 	builtin_env();
 	// else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
 	// 	builtin_exit();
-	// else
-	// 	return (0);
-// 	return (1);
-// }
+	else
+		return (0);
+	return (1);
+}
 
 char	*find_env(char *aim, char **envp)
 {
