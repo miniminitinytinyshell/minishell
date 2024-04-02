@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:22:32 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 14:22:58 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 14:31:15 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	check_pipe(t_tree **tree, t_token *token)
 		if (cur->next->group == con && cur->next->data[0] != '|')
 			break ;
 		cur = cur->next;
+		if (cur->group == sep)
+			if (skip_sep(&cur) == 0)
+				return (error_syntax("(", &token, '('));
 	}
 	if (cur->next == NULL)
 	{
