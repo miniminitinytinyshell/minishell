@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 18:47:12 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 18:57:07 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				builtin_echo(char **args);
 
 // Execute
 void			execute_pipe(t_tree **tree, char **envp, int *status);
-void			execute_pipe_cmd(t_tree **tree, char **envp, int *status);
+// void			execute_pipe_cmd(t_tree **tree, char **envp, int *status);
 void			execute_std_cmd(t_tree **tree, char **envp, int *status);
 void			execute_cpd_cmd(t_tree **tree, char **envp, int *status);
 
