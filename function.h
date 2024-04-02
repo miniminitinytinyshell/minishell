@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 22:01:31 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:23:16 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ t_token			*token_free(t_token *token);
 int				token_clear(t_token **token);
 
 // TREE
-int				div_std_cmd(t_token **left, t_token **right);
+int				check_pipe(t_tree **tree, t_token *token);
 int				check_cpd_cmd(t_tree **tree, t_token *token);
 int				check_std_cmd(t_tree **tree, t_token *token);
 int				check_smp_cmd(t_tree **tree, t_token *token);
 int				check_redirect(t_tree **tree, t_token *token);
+int				div_std_cmd(t_token **left, t_token **right);
 
 // TREE Utils
 int				skip_sep(t_token **token);

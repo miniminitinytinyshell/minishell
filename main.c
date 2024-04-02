@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 20:32:31 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:19:07 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,11 +137,11 @@ int	main(int argc, char **argv, char **envp)
 			// }
 			tree = init_tree();
 			printf("\n--------------------------tree-----------------------\n");
-			if (check_cpd_cmd(&tree, token) != 0)
+			if (check_pipe(&tree, token) != 0)
 			{
 				tmp_tree = tree;
 				display_tree(tmp_tree, indent, 1);
-				execute_cpd_cmd(&tree, env, &status);
+				// execute_cpd_cmd(&tree, env, &status);
 			}
 			free_tree(tree);
 		}
