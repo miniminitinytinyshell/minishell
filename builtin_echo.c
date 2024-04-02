@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:15 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/02 15:12:59 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/02 19:24:49 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libs/libft/libft.h"
-#include <stdio.h>
+#include "struct.h"
+#include "function.h"
 
 int	chk_echo_option(char *arg)
 {
@@ -29,46 +29,45 @@ int	chk_echo_option(char *arg)
 	}
 	return (1);
 }
+void	echo_option(char **args)
+{
+	int	idx;
+
+	idx = 2;
+	if (!args[idx])
+		ft_putendl_fd("", STDOUT_FILENO);
+	while (args[idx])
+	{
+		ft_putstr_fd(args[idx], STDOUT_FILENO);
+		if (args[idx + 1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		idx++;
+	}
+}
+
+void	echo_no_option(char **args)
+{
+	int	idx;
+
+	idx = 1;
+	if (!args[idx])
+		ft_putendl_fd("", STDOUT_FILENO);
+	while (args[idx + 1])
+	{
+		ft_putstr_fd(args[idx], STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		idx++;
+	}
+	ft_putendl_fd(args[idx], STDOUT_FILENO);
+}
 
 int	builtin_echo(char **args)
 {
 	const int	flag = chk_echo_option(args[1]);
-	int			idx;
 
 	if (flag == 1)
-	{
-		idx = 2;
-		while (args[idx])
-		{
-			ft_putstr_fd(args[idx], STDOUT_FILENO);
-			idx++;
-		}
-	}
+		echo_option(args);
 	else
-	{
-		idx = 1;
-		while (args[idx + 1])
-		{
-			ft_putstr_fd(args[idx], STDOUT_FILENO);
-			ft_putchar_fd(' ', STDOUT_FILENO);
-			idx++;
-		}
-		ft_putendl_fd(args[idx], STDOUT_FILENO);
-	}
+		echo_no_option(args);
 	exit(EXIT_SUCCESS);
 }
-
-// int	builtin_cd(char **argv, char **envp)
-// {
-// 	if (chdir(argv[0]) < 0)
-// 		error_cd();
-// 	exit(EXIT_SUCCESS);
-// }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char	*args1[] = {"echo", "-nnnnnn", "hello", NULL};
-// 	char	*args2[] = {"echo", "hello", "-n", NULL};
-
-// 	builtin_echo(args1, envp);
-// }
