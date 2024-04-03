@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 18:08:23 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/03 18:24:47 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,6 @@ void	execute_cmd(t_tree *tree, char **envp)
 		if (execve(path, tree->data, envp) == -1)
 			exit(EXIT_FAILURE);
 	}
-	// if (access(tree->data[0], O_RDONLY) == 0)
-	// 	path = ft_strdup(tree->data[0]);
-	// else
-	// 	path = get_cmd_path(tree->data[0], get_path(envp));
-	// if (!path)
-	// 	error_cmd_not_found(tree->data[0]);
-	// if (execve(path, tree->data, envp) == -1)
-	// 	exit(EXIT_FAILURE);
 }
 
 void	execute_std_cmd(t_tree **tree, char **envp, int *status)
@@ -149,4 +141,3 @@ void	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
 			execute_pipe(tree, envp, status);
 	}
 }
-

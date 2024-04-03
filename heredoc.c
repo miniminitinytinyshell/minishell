@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 17:59:27 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/03 18:25:01 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	here_doc(char *end, int *file_in)
 	}
 	else
 	{
-		
 		close(fd[1]);
 		waitpid(pid, NULL, 0);
 		*file_in = 100;
