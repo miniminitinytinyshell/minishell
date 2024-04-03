@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 14:02:32 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/03 18:08:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,36 @@ int	find_builtin(t_tree *tree, char **envp)
 	return (1);
 }
 
+void	open_file(t_tree *tree, int *file_in, int *file_out)
+{
+	if (!tree)
+		return ;
+	if (ft_strncmp(tree->left->data[0], "<", 1) == 0)
+	{
+		if (*file_in != 0)
+		{
+			close(*file_in);
+			*file_in = 0;
+		}
+		if (ft_strncmp(tree->left->data[0], "<", 2) == 0)
+			*file_in = open(tree->left->data[1], O_RDONLY, 0644);
+		else
+			here_doc(tree->left->data[1], file_in);
+	}
+	else
+	{
+		if (*file_out != 0)
+			*file_out = close (*file_out);
+		if (ft_strncmp(tree->left->data[0], ">", 2) == 0)
+			*file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else
+			*file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
+	if (*file_in < 0)
+		error_no_file(tree->left->data[1]);
+	open_file(tree->right, file_in, file_out);
+}
+
 void	execute_rdr(t_tree *tree)
 {
 	int	file_in;
@@ -42,23 +72,11 @@ void	execute_rdr(t_tree *tree)
 
 	file_in = 0;
 	file_out = 0;
-	if (!tree)
-		return ;
-	if (ft_strncmp(tree->left->data[0], "<", 2) == 0)
-		file_in = open(tree->left->data[1], O_RDONLY, 0644);
-	else if (ft_strncmp(tree->left->data[0], ">", 2) == 0)
-		file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (ft_strncmp(tree->left->data[0], ">>", 3) == 0)
-		file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	// else
-	// 	hear_doc();
+	open_file(tree, &file_in, &file_out);
 	if (file_in > 0)
 		dup2(file_in, STDIN_FILENO);
-	else if (file_in < 0)
-		exit(EXIT_FAILURE);
-	if (file_out)
+	if (file_out > 0)
 		dup2(file_out, STDOUT_FILENO);
-	execute_rdr(tree->right);
 }
 
 void	execute_cmd(t_tree *tree, char **envp)

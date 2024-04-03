@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/02 19:24:31 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/03 16:45:16 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 # **************************************************************************** #
 LIB_DIR = ./libs/libft
 
-CFLAGS = -g -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 CPPFLAGS = -I$(LIB_DIR)
 
 LDFLAGS = -L$(LIB_DIR)
@@ -49,6 +49,7 @@ man_src = main.c\
 			free.c\
 			string.c\
 			error.c\
+			heredoc.c\
 			execute.c\
 			execute_pipe.c\
 			builtin_echo.c\

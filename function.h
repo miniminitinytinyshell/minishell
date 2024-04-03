@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 14:03:29 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/03 18:04:49 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ char			*get_cmd_path(char *cmd, char **path);
 // BUILTIN
 int				builtin_echo(char **args);
 
-// Execute
+// EXECUTE
 int				find_builtin(t_tree *tree, char **envp);
 void			execute_pipe(t_tree **tree, char **envp, int *status);
 void			execute_pipe_cmd(t_tree **tree, char **envp, int *status);
 void			execute_std_cmd(t_tree **tree, char **envp, int *status);
 void			execute_cpd_cmd(t_tree **tree, char **envp, int *status);
+
+// HERE_DOC
+void			here_doc(char *end, int *file_in);
 
 // STRING
 char			*strjoin_char(char *str, char c);
@@ -76,6 +79,7 @@ char			*strjoin_free(char *str1, char *str2);
 int				error_malloc(t_token **token);
 int				error_syntax(char *str, t_token **token, int flag);
 int				error_cmd_not_found(char *cmd);
+int				error_no_file(char *cmd);
 void			error_fork(void);
 void			error_pipe(void);
 void			error_cd(void);
