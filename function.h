@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 18:57:07 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/03 14:03:29 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int				token_len(char *str);
 void			tokenizer(t_token **token, char *str);
 
 // TOKEN UTIL
-t_token			*token_new(char *data_start, int len, t_token_group group);
 void			token_add_back(t_token **token, t_token *new);
-t_token			*token_free(t_token *token);
 int				token_clear(t_token **token);
+t_token			*token_free(t_token *token);
+t_token			*token_new(char *data_start, int len, t_token_group group);
 
 // TREE
 int				check_pipe(t_tree **tree, t_token *token);
@@ -54,7 +54,6 @@ t_token			*erase_pr(t_token *token);
 int				expand_tree(t_tree **tree, char **envp, int status);
 
 // EXPAND_Utils
-int				find_builtin(t_tree *tree, char **envp);
 char			*find_env(char *aim, char **envp);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
@@ -63,8 +62,9 @@ char			*get_cmd_path(char *cmd, char **path);
 int				builtin_echo(char **args);
 
 // Execute
+int				find_builtin(t_tree *tree, char **envp);
 void			execute_pipe(t_tree **tree, char **envp, int *status);
-// void			execute_pipe_cmd(t_tree **tree, char **envp, int *status);
+void			execute_pipe_cmd(t_tree **tree, char **envp, int *status);
 void			execute_std_cmd(t_tree **tree, char **envp, int *status);
 void			execute_cpd_cmd(t_tree **tree, char **envp, int *status);
 
