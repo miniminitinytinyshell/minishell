@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 13:47:57 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:36:13 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
 
 # include "libft.h"
 
@@ -68,6 +69,7 @@ void			clear_env_list(t_env **head);
 
 // BUILTIN
 int				builtin_echo(char **args);
+int				builtin_cd(char **args, t_env *env_list);
 
 // EXECUTE
 int				find_builtin(t_tree *tree, char **envp);
