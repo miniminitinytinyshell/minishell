@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 18:40:29 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:10:05 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_token			*erase_pr(t_token *token);
 
 // EXPAND
 int				expand_tree(t_tree **tree, char **envp, int status);
+int				expand_wildcard(t_tree **tree, int i);
 
 // EXPAND_Utils
 char			*find_env(char *aim, char **envp);
