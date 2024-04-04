@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:09:02 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:27:49 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ int	find_builtin(t_tree *tree, char **envp, int *status)
 	input = dup(STDIN_FILENO);
 	output = dup(STDOUT_FILENO);
 	execute_rdr(tree->left);
-	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
-		*status =  builtin_echo(tree->data);
-	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
-		*status = builtin_cd(tree->data, get_envp_list(envp));
-	// else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
+	if (ft_strncmp(tree->right->data[0], "echo", 5) == 0)
+		*status =  builtin_echo(tree->right->data);
+	else if (ft_strncmp(tree->right->data[0], "cd", 3) == 0)
+		*status = builtin_cd(tree->right->data, get_envp_list(envp));
+	// else if (ft_strncmp(tree->right->data[0], "pwd", 4) == 0)
 	// 	*status = builtin_pwd();
-	// else if (ft_strncmp(tree->data[0], "export", 7) == 0)
+	// else if (ft_strncmp(tree->right->data[0], "export", 7) == 0)
 	// 	*status = builtin_export();
-	// else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
+	// else if (ft_strncmp(tree->right->data[0], "unset", 6) == 0)
 	// 	*status = builtin_unset();
-	// else if (ft_strncmp(tree->data[0], "env", 4) == 0)
+	// else if (ft_strncmp(tree->right->data[0], "env", 4) == 0)
 	// 	*status = builtin_env();
-	// else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
+	// else if (ft_strncmp(tree->right->data[0], "exit", 5) == 0)
 	// 	*status = builtin_exit();
 	else
 		return (0);
