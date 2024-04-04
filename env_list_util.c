@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:46:57 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 13:49:35 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:33:12 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,15 @@ void	clear_env_list(t_env **head)
 		free(*head);
 		*head = temp;
 	}
+}
+
+t_env	*find_env(t_env *head, char *key)
+{
+	while (head)
+	{
+		if (ft_strncmp(head->key, key, ft_strlen(key) + 1) == 0)
+			break;
+		head = head->next;
+	}
+	return (head);
 }

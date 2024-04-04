@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:09:02 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:16:23 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	find_builtin(t_tree *tree, char **envp, int *status)
 	input = dup(STDIN_FILENO);
 	output = dup(STDOUT_FILENO);
 	execute_rdr(tree->left);
+	(void) envp;
 	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
 		*status =  builtin_echo(tree->data);
-	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
-		*status = builtin_cd(tree->data, get_envp_list(envp));
+	// else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
+	// 	*status = builtin_cd(tree->data, get_envp_list(envp));
 	// else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
 	// 	*status = builtin_pwd();
 	// else if (ft_strncmp(tree->data[0], "export", 7) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:07:28 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:20:05 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			clear_env_list(t_env **head);
 
 // BUILTIN
 int				builtin_echo(char **args);
-int				builtin_cd(char **args, t_env *env_list);
+int				builtin_cd(char **args, char **envp);
 
 // EXECUTE
 void			execute_rdr(t_tree *tree);
@@ -94,7 +94,7 @@ int				error_cmd_not_found(char *cmd);
 int				error_no_file(char *cmd);
 void			error_fork(void);
 void			error_pipe(void);
-void			error_cd(void);
+void			error_cd(char *path);
 
 // FREE
 char			**free_tab(char **temp);
