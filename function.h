@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:20:05 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:41:25 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_env			*get_envp_list(char **envp);
 // ENVP_Utils
 void			add_env_back(t_env **head, t_env *new);
 void			clear_env_list(t_env **head);
+t_env			*find_env_node(t_env *head, char *key);
 
 // BUILTIN
 int				builtin_echo(char **args);

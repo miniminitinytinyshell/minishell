@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 15:35:07 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:41:46 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	change_pwd(char *old_path, t_env *env_list)
 {
 	t_env	*temp;
 
-	temp = find_env(env_list, "PWD");
+	temp = find_env_node(env_list, "PWD");
 	free(temp->value);
 	temp->value = getcwd(NULL, 0);
 	if (!temp->value)
 		return (-1);
-	temp = find_env(env_list, "OLDPWD");
+	temp = find_env_node(env_list, "OLDPWD");
 	free(temp->value);
 	temp->value = old_path;
 	return (0);

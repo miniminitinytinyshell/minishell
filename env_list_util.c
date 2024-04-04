@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:46:57 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 15:33:12 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:41:04 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	clear_env_list(t_env **head)
 	}
 }
 
-t_env	*find_env(t_env *head, char *key)
+t_env	*find_env_node(t_env *head, char *key)
 {
 	while (head)
 	{
