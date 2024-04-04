@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:15 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/03 18:23:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:50:14 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ int	builtin_echo(char **args)
 		echo_option(args);
 	else
 		echo_no_option(args);
-	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
