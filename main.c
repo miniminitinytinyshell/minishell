@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:24:59 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:53:44 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	**dup_envp(char **envp)
 
 int	check_cmd(char *cmd)
 {
+	if (!cmd)
+		return (-1);
 	while (*cmd == ' ')
 		cmd++;
 	if (!(*cmd))

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:41:25 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:37:13 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void			execute_pipe(t_tree **tree, char **envp, int *status);
 void			execute_pipe_cmd(t_tree **tree, char **envp, int *status);
 void			execute_std_cmd(t_tree **tree, char **envp, int *status);
 void			execute_cpd_cmd(t_tree **tree, char **envp, int *status);
-int				find_builtin(t_tree *tree, char **envp, int *status);
+
+// EXECUTE BUILTIN
+int				find_builtin(t_tree *tree);
+void			execute_builtin(t_tree *tree, char **envp, int *status);
 
 // HERE_DOC
 void			here_doc(char *end, int *file_in);

@@ -6,48 +6,50 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:32:25 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:49:56 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-static char	*find_path(char *str)
+static void	find_path(char *str, char **path)
 {
 	int		i;
-	int		len;
-	char	*path;
+	int		j;
 
 	i = 0;
-	path = NULL;
-	len = ft_strlen(str) - 1;
-	while (len >= 0)
+	j = ft_strlen(str) - 1;
+	while (j >= 0)
 	{
-		if (str[len] == '/')
+		if (str[j] == '/')
 		{
-			path = (char *)malloc(sizeof(char) * (len + 1));
-			while (i < len)
+			path[0] = (char *)malloc(sizeof(char) * (j + 1));
+			while (i < j)
 			{
-				path[i] = str[i];
+				path[0][i] = str[i];
 				i++;
 			}
-			path[i] = '\0';
-			break;
+			path[0][i] = '\0';
+			break ;
 		}
-		len--;
+		j--;
 	}
-	if (path)
-		return (path);
-	return (ft_strdup("."));
+	j = 0;
+	path[1] = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	while (str[i])
+		path[1][j++] = str[i++];
 }
 
 int	expand_wildcard(t_tree **tree, int i)
 {
 	DIR		*dir;
-	char	*path;
+	char	**path;
 
-	path = find_path((*tree)->data[i]);
+	path = (char **)malloc(sizeof(char *) * 2);
+	path[0] = NULL;
+	path[1] = NULL;
+	find_path((*tree)->data[i], path);
 	dir = opendir(path);
 	if (!dir)
 		return ;

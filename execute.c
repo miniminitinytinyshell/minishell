@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:27:57 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:35:21 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 	pid_t	pid;
 
 	expand_tree(tree, envp, *status);
-	if (find_builtin(*tree, envp, status) == 0)
+	if (find_builtin(*tree))
+		execute_builtin(*tree, envp, status);
+	else
 	{
 		pid = fork();
 		if (pid == -1)

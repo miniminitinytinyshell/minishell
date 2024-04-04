@@ -6,22 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:39:15 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:36:45 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-void	restore_io(int input, int output)
-{
-	dup2(input, STDIN_FILENO);
-	dup2(output, STDOUT_FILENO);
-	close(input);
-	close(output);
-}
-
-int	find_builtin(t_tree *tree, char **envp, int *status)
+void	execute_builtin(t_tree *tree, char **envp, int *status)
 {
 	int	input;
 	int	output;
@@ -43,8 +35,27 @@ int	find_builtin(t_tree *tree, char **envp, int *status)
 	// 	*status = builtin_env();
 	// else if (ft_strncmp(tree->right->data[0], "exit", 5) == 0)
 	// 	*status = builtin_exit();
-	else
-		return (0);
-	restore_io(input, output);
-	return (1);
+	dup2(input, STDIN_FILENO);
+	dup2(output, STDOUT_FILENO);
+	close(input);
+	close(output);
+}
+
+int	find_builtin(t_tree *tree)
+{
+	if (ft_strncmp(tree->right->data[0], "echo", 5) == 0)
+		return (1);
+	else if (ft_strncmp(tree->right->data[0], "cd", 3) == 0)
+		return (1);
+	else if (ft_strncmp(tree->right->data[0], "pwd", 4) == 0)
+		return (1);
+	else if (ft_strncmp(tree->right->data[0], "export", 7) == 0)
+		return (1);
+	else if (ft_strncmp(tree->right->data[0], "unset", 6) == 0)
+		return (1);
+	else if (ft_strncmp(tree->right->data[0], "env", 4) == 0)
+		return (1);
+	else if (ft_strncmp(tree->right->data[0], "exit", 5) == 0)
+		return (1);
+	return (0);
 }
