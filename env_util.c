@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:50:50 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 14:16:20 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:59:29 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,17 @@ static int	get_envp_cnt(t_env *head)
 	return (cnt);
 }
 
-void	set_envp_data(t_env *head, int cnt, char **env_arr)
+char	*envp_join(t_env *curr)
 {
-	int		idx;
 	char	*env_str;
 
-	idx = 0;
-	while (idx < cnt)
-	{
-		env_str = ft_calloc(head->key_len + head->val_len + 2, sizeof(char));
-		if (!env_str)
-		{
-			free_tab(env_arr);
-			return ;
-		}
-		ft_strlcpy(env_str, head->key, head->key_len + 1);
-		ft_strlcat(env_str, "=", head->key_len + 2);
-		ft_strlcat(env_str, head->value, head->key_len + head->val_len + 2);
-		env_arr[idx] = env_str;
-		head = head->next;
-		idx++;
-	}
-	env_arr[idx] = NULL;
+	env_str = ft_calloc(curr->key_len + curr->val_len + 2, sizeof(char));
+	if (!env_str)
+		return (NULL);
+	ft_strlcpy(env_str, curr->key, curr->key_len + 1);
+	ft_strlcat(env_str, "=", curr->key_len + 2);
+	ft_strlcat(env_str, curr->value, curr->key_len + curr->val_len + 2);
+	return (env_str);
 }
 
 char	**get_envp_arr(t_env *head)
@@ -61,7 +50,17 @@ char	**get_envp_arr(t_env *head)
 	if (!env_arr)
 		return (NULL);
 	idx = 0;
-	set_envp_data(head, cnt, env_arr);
+	while (idx < cnt)
+	{
+		env_arr[idx] = envp_join(head);
+		if (!env_arr[idx])
+		{
+			free_tab(env_arr);
+			return (NULL);
+		}
+		head = head->next;
+		idx++;
+	}
 	return (env_arr);
 }
 

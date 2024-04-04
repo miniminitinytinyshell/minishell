@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:15 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 14:50:14 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:43:42 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 int	chk_echo_option(char *arg)
 {
-	const int	len = ft_strlen(arg);
-	int			idx;
+	int	len;
+	int	idx;
 
+	len = ft_strlen(arg);
 	if (arg[0] != '-')
 		return (0);
 	idx = 1;
@@ -64,8 +65,14 @@ void	echo_no_option(char **args)
 
 int	builtin_echo(char **args)
 {
-	const int	flag = chk_echo_option(args[1]);
+	int	flag;
 
+	if (!args[1])
+	{
+		ft_putendl_fd("", STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	flag = chk_echo_option(args[1]);
 	if (flag == 1)
 		echo_option(args);
 	else

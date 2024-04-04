@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 15:41:46 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:40:47 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,19 @@ char	*get_home_dir(t_env *env_list)
 	return (path);
 }
 
-int	change_pwd(char *old_path, t_env *env_list)
+int	change_pwd(char *old_path, char **envp, t_env *env_list)
 {
-	t_env	*temp;
+	t_env	*temp_node;
 
-	temp = find_env_node(env_list, "PWD");
-	free(temp->value);
-	temp->value = getcwd(NULL, 0);
-	if (!temp->value)
+	(void) envp;
+	temp_node = find_env_node(env_list, "PWD");
+	free(temp_node->value);
+	temp_node->value = getcwd(NULL, 0);
+	if (!temp_node->value)
 		return (-1);
-	temp = find_env_node(env_list, "OLDPWD");
-	free(temp->value);
-	temp->value = old_path;
+	temp_node = find_env_node(env_list, "OLDPWD");
+	free(temp_node->value);
+	temp_node->value = old_path;
 	return (0);
 }
 
@@ -61,7 +62,7 @@ int	builtin_cd(char **args, char **envp)
 		error_cd(args[1]);
 	else
 	{
-		if (change_pwd(old_path, env_list) < 0)
+		if (change_pwd(old_path, envp, env_list) < 0)
 			error_malloc();
 	}
 	return (result);

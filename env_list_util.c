@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:46:57 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 15:41:04 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:40:53 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,18 @@ t_env	*find_env_node(t_env *head, char *key)
 		head = head->next;
 	}
 	return (head);
+}
+
+int	find_env_idx(char *key, t_env *head)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (head)
+	{
+		if (ft_strncmp(head->key, key, ft_strlen(key) + 1) == 0)
+			break ;
+		cnt++;
+	}
+	return (cnt);
 }
