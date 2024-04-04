@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/03 16:45:16 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/04 13:45:05 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ man_src = main.c\
 			execute.c\
 			execute_pipe.c\
 			builtin_echo.c\
+			env_util.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)
