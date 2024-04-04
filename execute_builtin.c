@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 16:36:45 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 18:40:00 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	execute_builtin(t_tree *tree, char **envp, int *status)
 	// 	*status = builtin_export();
 	// else if (ft_strncmp(tree->right->data[0], "unset", 6) == 0)
 	// 	*status = builtin_unset();
-	// else if (ft_strncmp(tree->right->data[0], "env", 4) == 0)
-	// 	*status = builtin_env();
+	else if (ft_strncmp(tree->right->data[0], "env", 4) == 0)
+		*status = builtin_env(tree->right->data, envp);
 	// else if (ft_strncmp(tree->right->data[0], "exit", 5) == 0)
 	// 	*status = builtin_exit();
 	dup2(input, STDIN_FILENO);

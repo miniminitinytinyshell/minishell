@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:50:50 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 15:59:29 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:42:51 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_env	*get_envp_list(char **envp)
 		{
 			clear_env_list(&head);
 			free_tab(temp);
-			free(new);
 			return (NULL);
 		}
 		new->key = temp[0];

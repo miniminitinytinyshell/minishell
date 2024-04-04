@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 16:37:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 18:40:29 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 
 // ENV to list && to arr
+char			*envp_join(t_env *curr);
 char			**get_envp_arr(t_env *head);
 t_env			*get_envp_list(char **envp);
 
@@ -68,10 +69,12 @@ t_env			*get_envp_list(char **envp);
 void			add_env_back(t_env **head, t_env *new);
 void			clear_env_list(t_env **head);
 t_env			*find_env_node(t_env *head, char *key);
+int				find_env_idx(char *key, t_env *head);
 
 // BUILTIN
 int				builtin_echo(char **args);
 int				builtin_cd(char **args, char **envp);
+int				builtin_env(char **args, char **envp);
 
 // EXECUTE
 void			execute_rdr(t_tree *tree);
