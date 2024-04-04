@@ -6,7 +6,7 @@
 #    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/04 14:41:35 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/04 15:14:05 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 # **************************************************************************** #
 LIB_DIR = ./libs/libft
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS = -I$(LIB_DIR)
 
 LDFLAGS = -L$(LIB_DIR)
@@ -52,6 +52,7 @@ man_src = main.c\
 			heredoc.c\
 			execute.c\
 			execute_pipe.c\
+			execute_builtin.c\
 			builtin_echo.c\
 			builtin_cd.c\
 			env_util.c\

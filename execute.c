@@ -6,34 +6,12 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 14:50:59 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 15:04:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-int	find_builtin(t_tree *tree, char **envp)
-{
-	(void)envp;
-	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
-		builtin_echo(tree->data);
-	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
-		builtin_cd(tree->data, get_envp_list(envp));
-	// else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
-	// 	builtin_pwd();
-	// else if (ft_strncmp(tree->data[0], "export", 7) == 0)
-	// 	builtin_export();
-	// else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
-	// 	builtin_unset();
-	// else if (ft_strncmp(tree->data[0], "env", 4) == 0)
-	// 	builtin_env();
-	// else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
-	// 	builtin_exit();
-	else
-		return (0);
-	return (1);
-}
 
 void	open_file(t_tree *tree, int *file_in, int *file_out)
 {
@@ -67,6 +45,8 @@ void	execute_rdr(t_tree *tree)
 	int	file_in;
 	int	file_out;
 
+	if (!tree)
+		return ;
 	file_in = 0;
 	file_out = 0;
 	open_file(tree, &file_in, &file_out);
@@ -97,19 +77,22 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 	pid_t	pid;
 
 	expand_tree(tree, envp, *status);
-	if (find_builtin(*tree, envp) == 0	pid = fork();
-	if (pid == -1)
-		error_fork();
-	if (pid == 0)
+	if (find_builtin(*tree, envp, status) == 0)
 	{
-		execute_rdr((*tree)->left);
-		execute_cmd((*tree)->right, envp);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		waitpid(pid, status, 0);
-		*status = WEXITSTATUS(*status);
+		pid = fork();
+		if (pid == -1)
+			error_fork();
+		if (pid == 0)
+		{
+			execute_rdr((*tree)->left);
+			execute_cmd((*tree)->right, envp);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			waitpid(pid, status, 0);
+			*status = WEXITSTATUS(*status);
+		}
 	}
 }
 
