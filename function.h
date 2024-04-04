@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 20:10:05 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:50:45 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int				error_cmd_not_found(char *cmd);
 int				error_no_file(char *cmd);
 void			error_fork(void);
 void			error_pipe(void);
-void			error_cd(char *path);
+int				error_cd(char *path);
 
 // FREE
 char			**free_tab(char **temp);
