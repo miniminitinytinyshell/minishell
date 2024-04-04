@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 20:24:06 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:47:57 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ char			*find_env(char *aim, char **envp);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 
+// ENV to list && to arr
+char			**get_envp_arr(t_env *head);
+t_env			*get_envp_list(char **envp);
+
 // ENVP_Utils
 void			add_env_back(t_env **head, t_env *new);
 void			clear_env_list(t_env **head);
-char			**get_envp_arr(t_env *head);
-t_env			*get_envp_list(char **envp);
 
 // BUILTIN
 int				builtin_echo(char **args);
