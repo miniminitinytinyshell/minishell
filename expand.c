@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 14:41:01 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 18:42:30 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,13 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 		i++;
 	}
 	(*tree)->data[j] = NULL;
-	// i = 1;
-	// while ((*tree)->data[i])
-	// {
-	// 	if (ft_strchr((*tree)->data[i], '*') != NULL)
-	// 		expand_wildcard(tree, i);
-	// 	i++;
-	// }
+	i = 1;
+	while ((*tree)->data[i])
+	{
+		if (ft_strchr((*tree)->data[i], '*'))
+			expand_wildcard(tree, i);
+		i++;
+	}
 	return (1);
 }
 

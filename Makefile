@@ -6,7 +6,7 @@
 #    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/04 15:14:05 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/04 18:36:46 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,13 @@ man_src = main.c\
 			tokenize.c\
 			token_util.c\
 			tree_pipe.c\
-			tree_compound.c\
 			tree_simple.c\
 			tree_standard.c\
+			tree_compound.c\
 			tree_util.c\
 			expand.c\
 			expand_util.c\
+			expand_wildcard.c\
 			free.c\
 			string.c\
 			error.c\

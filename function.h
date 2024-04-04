@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 16:37:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 18:37:10 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_token			*erase_pr(t_token *token);
 
 // EXPAND
 int				expand_tree(t_tree **tree, char **envp, int status);
+int				expand_wildcard(t_tree **tree, int i);
 
 // EXPAND_Utils
 char			*find_env(char *aim, char **envp);
