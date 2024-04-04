@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 14:36:13 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:53:11 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <dirent.h>
 # include <stdbool.h>
 # include <sys/errno.h>
 # include <readline/readline.h>
@@ -86,7 +87,7 @@ char			*strjoin_char(char *str, char c);
 char			*strjoin_free(char *str1, char *str2);
 
 // ERROR
-int				error_malloc(t_token **token);
+int				error_malloc(void);
 int				error_syntax(char *str, t_token **token, int flag);
 int				error_cmd_not_found(char *cmd);
 int				error_no_file(char *cmd);

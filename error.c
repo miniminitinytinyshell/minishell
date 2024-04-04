@@ -6,18 +6,16 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 18:04:27 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:53:04 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	error_malloc(t_token **token)
+int	error_malloc(void)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	if (token)
-		token_clear(token);
 	ft_putendl_fd("malloc error", STDERR_FILENO);
 	return (0);
 }

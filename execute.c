@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 18:24:47 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:50:59 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	find_builtin(t_tree *tree, char **envp)
 	(void)envp;
 	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
 		builtin_echo(tree->data);
-	// else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
-	// 	builtin_cd();
+	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
+		builtin_cd(tree->data, get_envp_list(envp));
 	// else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
 	// 	builtin_pwd();
 	// else if (ft_strncmp(tree->data[0], "export", 7) == 0)
@@ -42,10 +42,7 @@ void	open_file(t_tree *tree, int *file_in, int *file_out)
 	if (ft_strncmp(tree->left->data[0], "<", 1) == 0)
 	{
 		if (*file_in != 0)
-		{
-			close(*file_in);
-			*file_in = 0;
-		}
+			*file_in = close(*file_in);
 		if (ft_strncmp(tree->left->data[0], "<", 2) == 0)
 			*file_in = open(tree->left->data[1], O_RDONLY, 0644);
 		else
@@ -85,17 +82,14 @@ void	execute_cmd(t_tree *tree, char **envp)
 
 	if (!tree)
 		return ;
-	if (find_builtin(tree, envp) == 0)
-	{
-		if (access(tree->data[0], O_RDONLY) == 0)
-			path = ft_strdup(tree->data[0]);
-		else
-			path = get_cmd_path(tree->data[0], get_path(envp));
-		if (!path)
-			error_cmd_not_found(tree->data[0]);
-		if (execve(path, tree->data, envp) == -1)
-			exit(EXIT_FAILURE);
-	}
+	if (access(tree->data[0], O_RDONLY) == 0)
+		path = ft_strdup(tree->data[0]);
+	else
+		path = get_cmd_path(tree->data[0], get_path(envp));
+	if (!path)
+		error_cmd_not_found(tree->data[0]);
+	if (execve(path, tree->data, envp) == -1)
+		exit(EXIT_FAILURE);
 }
 
 void	execute_std_cmd(t_tree **tree, char **envp, int *status)
@@ -103,7 +97,7 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 	pid_t	pid;
 
 	expand_tree(tree, envp, *status);
-	pid = fork();
+	if (find_builtin(*tree, envp) == 0	pid = fork();
 	if (pid == -1)
 		error_fork();
 	if (pid == 0)

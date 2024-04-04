@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 18:40:23 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/04 14:52:53 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	check_smp_cmd(t_tree **tree, t_token *token)
 	(*tree)->type = simple_cmd;
 	(*tree)->data = (char **)malloc(sizeof(char *) * (size + 1));
 	if ((*tree)->data == NULL)
-		return (error_malloc(&token));
+	{
+		token_clear(&token);
+		return (error_malloc());
+	}
 	while (i < size)
 	{
 		(*tree)->data[i] = ft_strdup(cur->data);
