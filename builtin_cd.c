@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 20:50:34 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:05:57 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@
 int	change_pwd(char *old_path, char **envp, t_env *env_list)
 {
 	t_env	*temp_node;
+	char	*temp_str;
 	int		idx;
 
 	temp_node = find_env_node(env_list, "PWD");
 	free(temp_node->value);
 	temp_node->value = getcwd(NULL, 0);
+	if (!temp_node->value)
+		return (-1);
 	temp_node->val_len = ft_strlen(temp_node->value);
+	temp_str = envp_join(temp_node);
+	if (!temp_str)
+		return (-1);
 	idx = find_env_idx("PWD", env_list);
 	free(envp[idx]);
 	envp[idx] = envp_join(temp_node);
@@ -34,6 +40,8 @@ int	change_pwd(char *old_path, char **envp, t_env *env_list)
 	idx = find_env_idx("OLDPWD", env_list);
 	free(envp[idx]);
 	envp[idx] = envp_join(temp_node);
+	if (!temp_node->value)
+		return (-1);
 	return (0);
 }
 
