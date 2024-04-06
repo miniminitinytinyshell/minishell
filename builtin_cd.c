@@ -6,12 +6,29 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/06 14:46:24 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:16:53 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+
+int	get_env_idx(char *target, char **envp)
+{
+	int	idx;
+	char	**head;
+
+	idx = 0;
+	head = envp;
+	while (*envp)
+	{
+		if (ft_strncmp(*envp, target, ft_strlen(target)) == 0)
+			break ;
+		envp++;
+		idx++;
+	}
+	return (idx);
+}
 
 int	change_pwd(char *old_path, char **envp, t_env *env_list)
 {
@@ -19,6 +36,9 @@ int	change_pwd(char *old_path, char **envp, t_env *env_list)
 	char	*temp_str;
 	int		idx;
 
+	idx = get_env_idx("PWD", envp);
+	envp[idx] = getcwd(NULL, 0);
+	printf("%s\n", envp[idx]);
 	temp_node = find_env_node(env_list, "PWD");
 	free(temp_node->value);
 	temp_node->value = getcwd(NULL, 0);
