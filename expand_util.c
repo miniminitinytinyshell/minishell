@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expand_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:40:36 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/06 14:46:10 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-char	*find_env(char *aim, char **envp)
+char	*find_env(char *aim, char **envp, int flag)
 {
 	int		len;
 	char	*result;
@@ -26,7 +26,10 @@ char	*find_env(char *aim, char **envp)
 		{
 			if (*(*envp + len) == '=')
 			{
-				result = ft_strdup(*envp + len + 1);
+				if (flag == VALUE)
+					result = ft_strdup(*envp + len + 1);
+				else if (flag == KEY)
+					result = *envp;
 				break ;
 			}
 		}
@@ -41,7 +44,7 @@ char	**get_path(char **envp)
 	char	**path;
 
 	path = NULL;
-	temp = find_env("PATH", envp);
+	temp = find_env("PATH", envp, VALUE);
 	if (temp)
 	{
 		path = ft_split(temp, ':');

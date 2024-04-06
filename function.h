@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 20:50:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:46:40 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # include <string.h>
 
 # include "libft.h"
+
+//fine_env_val flag
+# define KEY 1
+# define VALUE 2
 
 // TOKENIZE
 // t_token_type	get_token_type(char *data, int len);
@@ -57,7 +61,7 @@ int				expand_tree(t_tree **tree, char **envp, int status);
 int				expand_wildcard(t_tree **tree, int i);
 
 // EXPAND_Utils
-char			*find_env(char *aim, char **envp);
+char			*find_env(char *aim, char **envp, int flag);
 char			**get_path(char **envp);
 char			*get_cmd_path(char *cmd, char **path);
 

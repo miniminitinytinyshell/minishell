@@ -6,17 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:50:50 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/05 17:06:10 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:43:51 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-int	set_env(char *target, char **envp)
-{
-	return (0);
-}
 
 static int	get_envp_cnt(t_env *head)
 {
