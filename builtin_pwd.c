@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:45:00 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/06 18:48:33 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 18:49:03 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	builtin_pwd(void)
 	if (!pwd)
 		return (pwd_error());
 	ft_putendl_fd(pwd, STDOUT_FILENO);
+	free(pwd);
 	return (EXIT_SUCCESS);
 }
