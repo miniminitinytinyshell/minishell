@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   error_system.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:03:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:04:38 by jaeblee          ###   ########.fr       */
+/*   Created: 2024/04/06 14:20:08 by jaeblee           #+#    #+#             */
+/*   Updated: 2024/04/06 14:21:41 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-void	*free_null(void *temp)
+int	error_malloc(void)
 {
-	free(temp);
-	temp = NULL;
-	return (temp);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putendl_fd("malloc error", STDERR_FILENO);
+	return (0);
 }
 
-char	**free_tab(char **temp)
+void	error_fork(void)
 {
-	int	i;
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putendl_fd("fork error", STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
 
-	i = 0;
-	while (temp[i])
-	{
-		free(temp[i]);
-		temp[i] = NULL;
-		i++;
-	}
-	free(temp);
-	temp = NULL;
-	return (temp);
+void	error_pipe(void)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putendl_fd("pipe error", STDERR_FILENO);
+	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 16:35:21 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/06 14:24:57 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,5 @@ void	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
 		else
 			execute_pipe(tree, envp, status);
 	}
+	*tree = free_tree(*tree);
 }

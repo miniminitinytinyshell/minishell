@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/05 17:05:54 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:25:40 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-int	error_malloc(void)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putendl_fd("malloc error", STDERR_FILENO);
-	return (0);
-}
 
 int	error_syntax(char *str, t_token **token, int flag)
 {
@@ -51,20 +44,6 @@ int	error_no_file(char *cmd)
 	exit(127);
 }
 
-void	error_fork(void)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putendl_fd("fork error", STDERR_FILENO);
-	exit(EXIT_FAILURE);
-}
-
-void	error_pipe(void)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putendl_fd("pipe error", STDERR_FILENO);
-	exit(EXIT_FAILURE);
-}
-
 int	error_cd(char *path)
 {
 	ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
@@ -73,3 +52,5 @@ int	error_cd(char *path)
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
+
+

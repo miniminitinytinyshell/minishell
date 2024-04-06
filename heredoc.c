@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 16:28:17 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/06 14:09:09 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	process_heredoc(char *end, int fd)
 	{
 		ft_putstr_fd("heredoc> ", 1);
 		read_line = get_next_line(STDIN_FILENO);
+		if (!read_line)
+			break ;
 		if (ft_strncmp(read_line, eof, ft_strlen(eof) + 1) == 0)
 		{
 			free(read_line);
@@ -47,11 +49,9 @@ void	process_heredoc(char *end, int fd)
 			break ;
 		}
 		ft_putstr_fd(read_line, fd);
-		free(read_line);
-		read_line = NULL;
+		read_line = free_null(read_line);
 	}
-	free(eof);
-	eof = NULL;
+	eof = free_null(eof);
 }
 
 void	here_doc(char *end, int *file_in)

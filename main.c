@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 15:53:44 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/06 14:28:19 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**dup_envp(char **envp)
 int	check_cmd(char *cmd)
 {
 	if (!cmd)
-		return (-1);
+		exit(EXIT_SUCCESS);
 	while (*cmd == ' ')
 		cmd++;
 	if (!(*cmd))
@@ -107,20 +107,17 @@ int	main(int argc, char **argv, char **envp)
 	char	**env;
 	t_token *token;
 	t_tree	*tree;
-	// char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
-	// char	indent[1024] = "";
-	// t_token	*tmp_token;
-	// t_tree	*tmp_tree;
 
-	if (argc > 2)
+	if (argc > 1)
+	{
+		ft_putstr_fd("usage: ", 1);
+		ft_putendl_fd(argv[1], 1);
 		return (0);
-	status = 0;
-	for (int i = 0; argv[i]; i++)
-		printf("%s\n", argv[i]);
+	}
 	env = dup_envp(envp);
 	while (1)
 	{
-		cmd = readline("this is prompt : ");
+		cmd = readline("minishell> ");
 		if (check_cmd(cmd) < 0)
 			continue ;
 		token = NULL;
@@ -129,23 +126,9 @@ int	main(int argc, char **argv, char **envp)
 			printf("#### SYNTAX ERROR | token ####\n");
 		else
 		{
-			// printf("%7s  %18s\n", "type", "data");
-			// printf("-------  ------------------------------------------\n");
-			// tmp_token = token;
-			// while (tmp_token)
-			// {
-			// 	printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
-			// 	tmp_token = tmp_token->next;
-			// }
-			// printf("\n--------------------------tree-----------------------\n");
 			tree = init_tree();
 			if (check_pipe(&tree, token) != 0)
-			{
-				// tmp_tree = tree;
-				// display_tree(tmp_tree, indent, 1);
 				execute_cpd_cmd(&tree, env, &status);
-			}
-			free_tree(tree);
 		}
 		free(cmd);
 		cmd = NULL;
