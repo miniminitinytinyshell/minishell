@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 18:50:32 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:10:32 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	execute_builtin(t_tree *tree, char **envp, int *status)
 	execute_rdr(tree->left);
 	if (ft_strncmp(tree->right->data[0], "echo", 5) == 0)
 		*status =  builtin_echo(tree->right->data);
-	else if (ft_strncmp(tree->right->data[0], "cd", 3) == 0)
-		*status = builtin_cd(tree->right->data, envp);
+	// else if (ft_strncmp(tree->right->data[0], "cd", 3) == 0)
+	// 	*status = builtin_cd(tree->right->data, envp);
 	else if (ft_strncmp(tree->right->data[0], "pwd", 4) == 0)
 		*status = builtin_pwd();
 	// else if (ft_strncmp(tree->right->data[0], "export", 7) == 0)
