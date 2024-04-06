@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 16:37:34 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 18:51:12 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int				find_env_idx(char *key, t_env *head);
 int				builtin_echo(char **args);
 int				builtin_cd(char **args, char **envp);
 int				builtin_env(char **args, char **envp);
+int				builtin_pwd(void);
 
 // EXECUTE
 void			execute_rdr(t_tree *tree);

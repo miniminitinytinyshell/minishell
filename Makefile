@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/06 14:21:01 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/06 18:51:32 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ man_src = main.c\
 			builtin_echo.c\
 			builtin_cd.c\
 			builtin_env.c\
+			builtin_pwd.c\
 			env_util.c\
 			env_list_util.c\
 
