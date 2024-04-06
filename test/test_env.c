@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:48:57 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 08:39:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:08:45 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/errno.h>
 
 int main(int argc, char *argv[])
 {
 	char *name;
 	char *value;
-	
-	name = "PWD";
-	value = getenv(name);
-	if (value == NULL)
-		printf("'%s'를 찾을 수 없습니다.\n", name);
+
+	name = "HOME=";
+	value = getenv("=");
+	if (!value)
+		printf("%s\n", strerror(errno));
 	else
 		printf("%s=%s\n", name, value);
 	return 0;
