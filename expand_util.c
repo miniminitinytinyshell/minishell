@@ -6,14 +6,14 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:46:10 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:35:20 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-char	*find_env(char *aim, char **envp, int flag)
+char	*find_env(char *aim, char **envp)
 {
 	int		len;
 	char	*result;
@@ -26,10 +26,7 @@ char	*find_env(char *aim, char **envp, int flag)
 		{
 			if (*(*envp + len) == '=')
 			{
-				if (flag == VALUE)
-					result = ft_strdup(*envp + len + 1);
-				else if (flag == KEY)
-					result = *envp;
+				result = ft_strdup(*envp + len + 1);
 				break ;
 			}
 		}
@@ -44,7 +41,7 @@ char	**get_path(char **envp)
 	char	**path;
 
 	path = NULL;
-	temp = find_env("PATH", envp, VALUE);
+	temp = find_env("PATH", envp);
 	if (temp)
 	{
 		path = ft_split(temp, ':');

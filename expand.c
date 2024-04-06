@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:47:11 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:37:11 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*expand_env(char *word, char **envp, int *i, int status)
 	if (!temp)
 		env = ft_strdup("$");
 	else
-		env = find_env(temp, envp, VALUE);
+		env = find_env(temp, envp);
 	free(temp);
 	return (env);
 }

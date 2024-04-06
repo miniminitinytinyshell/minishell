@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 20:09:52 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:12:19 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_builtin(t_tree *tree, char **envp, int *status)
 	close(input);
 	close(output);
 }
-	
+
 int	find_builtin(t_tree *tree)
 {
 	if (ft_strncmp(tree->right->data[0], "echo", 5) == 0)
