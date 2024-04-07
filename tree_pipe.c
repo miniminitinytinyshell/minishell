@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:22:32 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 09:03:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 09:04:28 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_pipe(t_tree **tree, t_token *token)
 	t_token	*cur;
 
 	if (!token)
-		return (1); // malloc error 처리를 여기서 해야할 것 같아요
+		return (0); // malloc error 처리를 여기서 해야할 것 같아요
 	cur = token;
 	if (cur->group == sep)
 		if (skip_sep(&cur) == 0)
