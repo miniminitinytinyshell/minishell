@@ -6,14 +6,14 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 19:10:32 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 10:56:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-void	execute_builtin(t_tree *tree, char **envp, int *status)
+void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 {
 	int	input;
 	int	output;
@@ -32,7 +32,7 @@ void	execute_builtin(t_tree *tree, char **envp, int *status)
 	// else if (ft_strncmp(tree->right->data[0], "unset", 6) == 0)
 	// 	*status = builtin_unset();
 	else if (ft_strncmp(tree->right->data[0], "env", 4) == 0)
-		*status = builtin_env(tree->right->data, envp);
+		*status = builtin_env(tree->right->data, envp->data);
 	// else if (ft_strncmp(tree->right->data[0], "exit", 5) == 0)
 	// 	*status = builtin_exit();
 	dup2(input, STDIN_FILENO);

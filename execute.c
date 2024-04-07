@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 18:34:41 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 10:55:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute_rdr(t_tree *tree)
 	close(file_out);
 }
 
-void	execute_cmd(t_tree *tree, char **envp)
+void	execute_cmd(t_tree *tree, t_envp *envp)
 {
 	char	*path;
 
@@ -70,15 +70,15 @@ void	execute_cmd(t_tree *tree, char **envp)
 		path = get_cmd_path(tree->data[0], get_path(envp));
 	if (!path)
 		error_cmd_not_found(tree->data[0]);
-	if (execve(path, tree->data, envp) == -1)
+	if (execve(path, tree->data, envp->data) == -1)
 		exit(EXIT_FAILURE);
 }
 
-void	execute_std_cmd(t_tree **tree, char **envp, int *status)
+void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 {
 	pid_t	pid;
 
-	expand_tree(tree, envp, *status);
+	expand_tree(tree, envp->data, *status);
 	if (find_builtin(*tree))
 		execute_builtin(*tree, envp, status);
 	else
@@ -100,7 +100,7 @@ void	execute_std_cmd(t_tree **tree, char **envp, int *status)
 	}
 }
 
-void	execute_cpd_cmd(t_tree **tree, char **envp, int *status)
+void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 {
 	if ((*tree)->type == standard_cmd)
 		execute_std_cmd(tree, envp, status);

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 09:45:47 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 10:30:03 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,6 @@ typedef enum e_token_group
 // 	out_append,
 // }	t_token_type;
 
-typedef struct s_env
-{
-	int				key_len;
-	int				val_len;
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-} t_env;
-
 typedef struct s_token
 {
 	t_token_group	group;
@@ -83,7 +74,7 @@ typedef struct s_envp
 {
 	int		max_cnt;
 	int		curr_cnt;
-	char	**envp;
+	char	**data;
 }	t_envp;
 
 #endif

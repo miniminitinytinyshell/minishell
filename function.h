@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 18:47:11 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 10:56:06 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <dirent.h>
-# include <signal.h>
+# include <signal.h> //signal()
 # include <stdbool.h>
-# include <termios.h>
+# include <termios.h> //tcgetattr()
 # include <sys/errno.h>
 # include <sys/wait.h>
-# include <readline/readline.h>
+# include <readline/readline.h> //readline()
 # include <readline/history.h>
-# include <string.h>
+# include <string.h> //strerror()
 
 # include "libft.h"
 
@@ -61,7 +61,7 @@ int		expand_wildcard(t_tree **tree, int i);
 
 // EXPAND_Utils
 char	*find_env(char *aim, char **envp);
-char	**get_path(char **envp);
+char	**get_path(t_envp *envp);
 char	*get_cmd_path(char *cmd, char **path);
 
 // BUILTIN
@@ -72,14 +72,14 @@ int		builtin_pwd(void);
 
 // EXECUTE
 void	execute_rdr(t_tree *tree);
-void	execute_pipe(t_tree **tree, char **envp, int *status);
-void	execute_pipe_cmd(t_tree **tree, char **envp, int *status);
-void	execute_std_cmd(t_tree **tree, char **envp, int *status);
-void	execute_cpd_cmd(t_tree **tree, char **envp, int *status);
+void	execute_pipe(t_tree **tree, t_envp *envp, int *status);
+void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status);
+void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status);
+void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status);
 
 // EXECUTE BUILTIN
 int		find_builtin(t_tree *tree);
-void	execute_builtin(t_tree *tree, char **envp, int *status);
+void	execute_builtin(t_tree *tree, t_envp *envp, int *status);
 
 // HERE_DOC
 void	here_doc(char *end, int *file_in);
@@ -97,6 +97,7 @@ int		error_cmd_not_found(char *cmd);
 int		error_no_file(char *cmd);
 void	error_fork(void);
 void	error_pipe(void);
+void	error_syscall(void);
 int		error_cd(char *path);
 
 // FREE

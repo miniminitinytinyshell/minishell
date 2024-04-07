@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 09:36:23 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 10:02:44 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_token	*tokenizer(char *str)
 		if (!new)
 		{
 			token_clear(&token);
-			error_malloc();
+			error_syscall();
 		}
 		token_add_back(&token, new);
 		str += len;

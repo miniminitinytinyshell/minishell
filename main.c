@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 18:24:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 10:46:57 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,24 @@ void	display_tree(t_tree *tree, char *indent, int check)
 	indent[strlen(indent) - 2] = '\0';
 }
 
-char	**dup_envp(char **envp)
+t_envp	set_envp(char **envp)
 {
-	int		i;
-	char	**temp;
+	t_envp	env;
+	int		idx;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	temp = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!temp)
-		return (NULL);
-	i = 0;
-	while (envp[i])
+	idx = 0;
+	while (envp[idx])
+		idx++;
+	env.max_cnt = idx;
+	env.curr_cnt = idx;
+	env.data = ft_calloc(idx + 1, sizeof(char *));
+	idx = 0;
+	while (envp[idx])
 	{
-		temp[i] = ft_strdup(envp[i]);
-		i++;
+		(env.data)[idx] = ft_strdup(envp[idx]);
+		idx++;
 	}
-	temp[i] = NULL;
-	return (temp);
+	return (env);
 }
 
 void	set_signal(void)
@@ -111,13 +110,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		status;
 	char	*cmd;
-	char	**env;
+	t_envp	env;
 	t_tree	*tree;
 
 	if (argc > 1)
 		return (printf("usage: %s\n", argv[0]));
 	set_signal();
-	env = dup_envp(envp);
+	env = set_envp(envp);
 	while (1)
 	{
 		cmd = readline("minishell> ");
@@ -125,7 +124,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		tree = init_tree();
 		if (check_pipe(&tree, tokenizer(cmd)) != 0)
-			execute_cpd_cmd(&tree, env, &status);
+			execute_cpd_cmd(&tree, &env, &status);
 		free(cmd);
 		cmd = NULL;
 		check_leaks();

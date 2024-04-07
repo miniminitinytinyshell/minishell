@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 13:59:40 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 10:48:09 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-void	process_pipe(t_tree **tree, char **envp, int *status)
+void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -40,7 +40,7 @@ void	process_pipe(t_tree **tree, char **envp, int *status)
 	exit(*status);
 }
 
-void	execute_pipe_cmd(t_tree **tree, char **envp, int *status)
+void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
 {
 	if ((*tree)->type == standard_cmd)
 		execute_std_cmd(tree, envp, status);
@@ -63,7 +63,7 @@ void	execute_pipe_cmd(t_tree **tree, char **envp, int *status)
 	}
 }
 
-void	execute_pipe(t_tree **tree, char **envp, int *status)
+void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 {
 	pid_t	pid;
 
