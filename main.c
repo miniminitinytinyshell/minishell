@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 11:00:10 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 11:18:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd;
 	t_envp	env;
 	t_tree	*tree;
+	char	indent[1024] = "";
 
 	if (argc > 1)
 		return (printf("usage: %s\n", argv[0]));
@@ -124,7 +125,10 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		tree = init_tree();
 		if (check_pipe(&tree, tokenizer(cmd)) != 0)
+		{
+			display_tree(tree, indent, 1);
 			execute_cpd_cmd(&tree, &env, &status);
+		}
 		if (cmd)
 			add_history(cmd);
 		cmd = free_null(cmd);

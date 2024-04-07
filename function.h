@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 10:56:06 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 11:04:08 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	**table_dup(char **tab, int size);
 char	**table_join(char **tab, char *data);
 
 // ERROR
-int		error_malloc(void);
 int		error_syntax(char *str, t_token **token, int flag);
 int		error_cmd_not_found(char *cmd);
 int		error_no_file(char *cmd);

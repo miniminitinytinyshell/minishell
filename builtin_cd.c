@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/07 08:48:41 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 11:04:18 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	builtin_cd(char **args, char **envp)
 	// else
 	// {
 	// 	if (change_pwd(old_path, envp, env_list) < 0)
-	// 		error_malloc();
+	// 		error_syscall();
 	// }
 	return (result);
 }

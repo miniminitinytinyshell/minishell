@@ -3,41 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   expand_wildcard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 18:45:57 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 12:15:51 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-static void	find_path(char *str, char **path)
+static void	extract_path(char *str, char **path)
 {
 	int	i;
-	int	j;
 
 	i = ft_strlen(str);
-	while (str[i - 1] != '/' && i > 0)
+	while (i > 0 && str[i - 1] != '/')
 		i--;
-	path[0] = (char *)malloc(sizeof(char) * (i + 1));
-	path[1] = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1 - i));
+	path[0] = ft_calloc(i + 1, sizeof(char));
+	path[1] = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
 	if (!path[0] || !path[1])
-		error_malloc();
+		error_syscall();
 	if (i == 0)
-		path[0] = ft_strdup("./");
+		ft_strlcpy(path[0], "./", 3);
 	else
-	{
-		j = -1;
-		while (++j < i)
-			path[0][j] = str[j];
-		path[0][j] = '\0';
-	}
-	j = 0;
-	while (str[i])
-		path[1][j++] = str[i++];
-	path[1][j] = '\0';
+		ft_strlcpy(path[0], str, i);
+	ft_strlcpy(path[1], str + i, ft_strlen(str) - i + 1);
 }
 
 static int	match(char *pattern, char *str)
@@ -69,8 +60,10 @@ int	expand_wildcard(t_tree **tree, int i)
 	char			**data;
 	struct dirent	*file;
 
-	path = (char **)malloc(sizeof(char *) * 2);
-	find_path((*tree)->data[i], path);
+	path = ft_calloc(2, sizeof(char *));
+	if (!path)
+		error_syscall();
+	extract_path((*tree)->data[i], path);
 	dir = opendir(path[0]);
 	if (!dir)
 		return (0);

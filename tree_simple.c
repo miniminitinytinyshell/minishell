@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 14:52:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 11:05:41 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	check_smp_cmd(t_tree **tree, t_token *token)
 	cur = token;
 	size = get_token_size(token);
 	(*tree)->type = simple_cmd;
-	(*tree)->data = (char **)malloc(sizeof(char *) * (size + 1));
+	(*tree)->data = ft_calloc(size + 1, sizeof(char *));
 	if ((*tree)->data == NULL)
 	{
 		token_clear(&token);
-		return (error_malloc());
+		error_syscall();
 	}
 	while (i < size)
 	{
@@ -66,7 +66,6 @@ int	check_smp_cmd(t_tree **tree, t_token *token)
 		cur = cur->next;
 		i++;
 	}
-	(*tree)->data[i] = NULL;
 	token_clear(&token);
 	return (1);
 }
