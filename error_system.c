@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:20:08 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:21:41 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 18:35:55 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	error_malloc(void)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putendl_fd("malloc error", STDERR_FILENO);
-	return (0);
+	exit(EXIT_FAILURE);
 }
 
 void	error_fork(void)

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 15:08:11 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 18:45:57 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ static void	find_path(char *str, char **path)
 	int	j;
 
 	i = ft_strlen(str);
-	while (i > 0)
-	{
-		if (str[i - 1] == '/')
-			break ;
+	while (str[i - 1] != '/' && i > 0)
 		i--;
-	}
 	path[0] = (char *)malloc(sizeof(char) * (i + 1));
 	path[1] = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1 - i));
+	if (!path[0] || !path[1])
+		error_malloc();
 	if (i == 0)
-		path[0] = ft_strdup(".");
+		path[0] = ft_strdup("./");
 	else
 	{
 		j = -1;
@@ -62,49 +60,6 @@ static int	match(char *pattern, char *str)
 		str++;
 	}
 	return (!(*str));
-}
-
-char	**table_join(char **tab, char *data)
-{
-	int		i;
-	char	**result;
-
-	if (!tab)
-	{
-		result = (char **)malloc(sizeof(char *) * 2);
-		result[0] = data;
-		result[1] = NULL;
-		return (result);
-	}
-	i = 0;
-	while (tab[i])
-		i++;
-	result = (char **)malloc(sizeof(char *) * (i + 2));
-	i = 0;
-	while (tab[i])
-	{
-		result[i] = ft_strdup(tab[i]);
-		i++;
-	}
-	result[i] = data;
-	result[i + 1] = NULL;
-	free_tab(tab);
-	return (result);
-}
-
-char	**table_dup(char **tab, int size)
-{
-	int		i;
-	char	**result;
-
-	i = 0;
-	result = NULL;
-	while (i < size)
-	{
-		result = table_join(result, ft_strdup(tab[i]));
-		i++;
-	}
-	return (result);
 }
 
 int	expand_wildcard(t_tree **tree, int i)

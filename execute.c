@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:24:57 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 18:34:41 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	execute_rdr(t_tree *tree)
 		dup2(file_in, STDIN_FILENO);
 	if (file_out > 0)
 		dup2(file_out, STDOUT_FILENO);
+	close(file_in);
+	close(file_out);
 }
 
 void	execute_cmd(t_tree *tree, char **envp)

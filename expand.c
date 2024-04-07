@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 16:37:11 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 18:36:16 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ static int	expand_rdr(t_tree **tree, char **envp, int status)
 	{
 		fd = open(rdr->data[1], O_RDONLY);
 		if (fd < 0)
-			return (0);
+			error_no_file(rdr->data[1]);
+		close(fd);
 	}
 	if ((*tree)->right)
-		if (expand_rdr(&(*tree)->right, envp, status) == 0)
-			return (0);
+		expand_rdr(&(*tree)->right, envp, status);
 	return (1);
 }
 

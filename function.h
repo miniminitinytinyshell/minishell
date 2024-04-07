@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 09:06:14 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 18:47:11 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	here_doc(char *end, int *file_in);
 // STRING
 char	*strjoin_char(char *str, char c);
 char	*strjoin_free(char *str1, char *str2);
+char	**table_dup(char **tab, int size);
+char	**table_join(char **tab, char *data);
 
 // ERROR
 int		error_malloc(void);
