@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/04 18:53:34 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 15:08:11 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	expand_wildcard(t_tree **tree, int i)
 		if (!file)
 			break ;
 		if (file->d_name[0] != '.' && match(path[1], file->d_name))
-			data = table_join(data, ft_strdup(file->d_name));
+			data = table_join(data, ft_strjoin(path[0], file->d_name));
 	}
 	closedir(dir);
 	while ((*tree)->data[++i])

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:28:19 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 15:07:40 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ char	**dup_envp(char **envp)
 	return (temp);
 }
 
+void	set_signal(void)
+{
+	term_print_off();
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int	check_cmd(char *cmd)
 {
 	if (!cmd)
@@ -109,11 +116,8 @@ int	main(int argc, char **argv, char **envp)
 	t_tree	*tree;
 
 	if (argc > 1)
-	{
-		ft_putstr_fd("usage: ", 1);
-		ft_putendl_fd(argv[1], 1);
-		return (0);
-	}
+		return (printf("usage: %s\n", argv[0]));
+	set_signal();
 	env = dup_envp(envp);
 	while (1)
 	{

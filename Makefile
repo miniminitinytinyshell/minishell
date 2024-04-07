@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/06 18:54:08 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/07 15:09:32 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ GRAY = \033[90m
 
 Q = @
 # **************************************************************************** #
-man_src = main.c\
+man_src =	main.c\
 			tokenize.c\
 			token_util.c\
 			tree_pipe.c\
@@ -49,6 +49,7 @@ man_src = main.c\
 			expand_wildcard.c\
 			free.c\
 			string.c\
+			signal.c\
 			error.c\
 			error_system.c\
 			heredoc.c\
@@ -56,9 +57,9 @@ man_src = main.c\
 			execute_pipe.c\
 			execute_builtin.c\
 			builtin_echo.c\
-			builtin_cd.c\
 			builtin_env.c\
 			builtin_pwd.c\
+			# builtin_cd.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)

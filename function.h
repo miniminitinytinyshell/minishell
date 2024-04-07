@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 18:54:17 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 15:06:32 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <signal.h>
 # include <stdbool.h>
+# include <termios.h>
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -97,5 +99,9 @@ int				error_cd(char *path);
 // FREE
 void			*free_null(void *temp);
 char			**free_tab(char **temp);
+
+// SIGNAL
+void			term_print_off(void);
+void			handle_sigint(int signum);
 
 #endif
