@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:17:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:28:05 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	here_doc(char *end, int *file_in)
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
-		error_pipe();
+		error_syscall();
 	pid = fork();
 	if (pid == -1)
-		error_fork();
+		error_syscall();
 	if (pid == 0)
 	{
 		close(fd[0]);

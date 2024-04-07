@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 11:20:03 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:29:37 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 	{
 		pid = fork();
 		if (pid == -1)
-			error_fork();
+			error_syscall();
 		if (pid == 0)
 		{
 			execute_rdr((*tree)->left);
@@ -122,4 +122,11 @@ void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 			execute_pipe(tree, envp, status);
 	}
 	*tree = free_tree(*tree);
+}
+
+void	error_syscall(void)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	exit(EXIT_FAILURE);
 }

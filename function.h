@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 11:04:08 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:28:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ char	**table_join(char **tab, char *data);
 int		error_syntax(char *str, t_token **token, int flag);
 int		error_cmd_not_found(char *cmd);
 int		error_no_file(char *cmd);
-void	error_fork(void);
-void	error_pipe(void);
 void	error_syscall(void);
-int		error_cd(char *path);
 
 // FREE
 void	*free_null(void *temp);

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 10:48:09 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:27:03 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
-		error_pipe();
+		error_syscall();
 	pid = fork();
 	if (pid == -1)
-		error_fork();
+		error_syscall();
 	if (pid == 0)
 	{
 		close(fd[0]);
@@ -69,7 +69,7 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 
 	pid = fork();
 	if (pid == -1)
-		error_fork();
+		error_syscall();
 	if (pid == 0)
 		process_pipe(tree, envp, status);
 	else
