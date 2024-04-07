@@ -6,24 +6,36 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:54:09 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/05 16:35:05 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 13:32:47 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
+static int	env_arg_error(char *option)
+{
+	if (option[0] == '-')
+	{
+		ft_putstr_fd("env: unrecognized option '", STDERR_FILENO);
+		ft_putstr_fd(option, STDERR_FILENO);
+		ft_putendl_fd("'", STDERR_FILENO);
+		ft_putendl_fd("env : usage: env", STDERR_FILENO);
+		return (125);
+	}
+	else
+	{
+		ft_putendl_fd("env: undefined usage", STDERR_FILENO);
+		return (127);
+	}
+}
+
 int	builtin_env(char **args, char **envp)
 {
 	int	idx;
 
 	if (args[1])
-	{
-		ft_putstr_fd("minishell: env: ", STDERR_FILENO);
-		ft_putendl_fd("feature not supported", STDERR_FILENO);
-		ft_putendl_fd("usage: env", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
+		return (env_arg_error(args[1]));
 	idx = 0;
 	while (envp[idx])
 	{
