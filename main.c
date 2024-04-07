@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 18:24:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 18:58:06 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,9 @@ int	main(int argc, char **argv, char **envp)
 		tree = init_tree();
 		if (check_pipe(&tree, tokenizer(cmd)) != 0)
 			execute_cpd_cmd(&tree, env, &status);
-		free(cmd);
-		cmd = NULL;
+		if (cmd)
+			add_history(cmd);
+		cmd = free_null(cmd);
 		check_leaks();
 	}
 	return (0);
