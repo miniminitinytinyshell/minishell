@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/28 18:59:33 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 12:24:15 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@ t_tree	*init_tree(void)
 {
 	t_tree	*temp;
 
-	temp = (t_tree *)malloc(sizeof(t_tree));
-	temp->oper = NULL;
-	temp->data = NULL;
-	temp->left = NULL;
-	temp->right = NULL;
+	temp = ft_calloc(1, sizeof(t_tree));
 	return (temp);
 }
 

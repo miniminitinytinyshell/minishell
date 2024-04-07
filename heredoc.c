@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:09:09 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 12:17:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@ char	*take_eof(char *str)
 	int		i;
 	char	*eof;
 
+	eof = ft_calloc(ft_strlen(str) + 2, sizeof(char));
 	i = 0;
-	eof = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2));
 	while (str[i])
 	{
 		eof[i] = str[i];
 		i++;
 	}
 	eof[i] = '\n';
-	eof[i + 1] = '\0';
 	return (eof);
 }
 
