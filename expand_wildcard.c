@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:15:51 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:36:59 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static void	extract_path(char *str, char **path)
 	i = ft_strlen(str);
 	while (i > 0 && str[i - 1] != '/')
 		i--;
-	path[0] = ft_calloc(i + 1, sizeof(char));
+	if (i == 0)
+		path[0] = ft_calloc(3, sizeof(char));
+	else
+		path[0] = ft_calloc(i + 1, sizeof(char));
 	path[1] = ft_calloc(ft_strlen(str) - i + 1, sizeof(char));
 	if (!path[0] || !path[1])
 		error_syscall();
