@@ -6,14 +6,14 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:15 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/04 16:43:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:53:03 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	chk_echo_option(char *arg)
+static int	chk_echo_option(char *arg)
 {
 	int	len;
 	int	idx;
@@ -31,7 +31,7 @@ int	chk_echo_option(char *arg)
 	return (1);
 }
 
-void	echo_option(char **args)
+static void	echo_option(char **args)
 {
 	int	idx;
 
@@ -47,7 +47,7 @@ void	echo_option(char **args)
 	}
 }
 
-void	echo_no_option(char **args)
+static void	echo_no_option(char **args)
 {
 	int	idx;
 

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:28:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:51:20 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_cmd_path(char *cmd, char **path);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, char **envp);
 int		builtin_env(char **args, char **envp);
-int		builtin_pwd(void);
+int		builtin_pwd(char **args);
 
 // EXECUTE
 void	execute_rdr(t_tree *tree);

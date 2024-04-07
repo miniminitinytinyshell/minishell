@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 10:56:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:51:06 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 	// else if (ft_strncmp(tree->right->data[0], "cd", 3) == 0)
 	// 	*status = builtin_cd(tree->right->data, envp);
 	else if (ft_strncmp(tree->right->data[0], "pwd", 4) == 0)
-		*status = builtin_pwd();
+		*status = builtin_pwd(tree->right->data);
 	// else if (ft_strncmp(tree->right->data[0], "export", 7) == 0)
 	// 	*status = builtin_export();
 	// else if (ft_strncmp(tree->right->data[0], "unset", 6) == 0)
