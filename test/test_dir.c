@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:30:27 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 14:18:11 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 08:38:40 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/errno.h>
+#include <string.h>
 
 int	main(void)
 {
@@ -29,13 +30,9 @@ int	main(void)
 	pwd2 = getcwd(NULL, 0);
 	printf("%s\n", pwd2);
 	free(pwd2);
-	n = chdir("/Users/hyeunkim/42cursus/minishell/test/test_dir.c");
+	n = chdir("/workspaces/minishell/test/../libs");
 	pwd2 = getcwd(NULL, 0);
-	printf("%d | %d, %s\n", errno, n, pwd2);
-	free(pwd2);
-	n =	chdir("/Users/hyeunkim/Downloads");
-	pwd2 = getcwd(NULL, 0);
-	printf("%d, %s\n", n, pwd2);
+	printf("%s | %d, %s\n", strerror(errno), n, pwd2);
 	free(pwd2);
 	return (0);
 }

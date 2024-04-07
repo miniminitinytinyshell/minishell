@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/01 22:02:31 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 09:01:43 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	token_len(char *str)
 {
 	int	len;
 
-	if (!(*str))
+	if (*str == '\0')
 		return (0);
 	if (ft_strchr("()<>|&", str[0]))
 		len = token_len_meta(str);
@@ -70,11 +70,13 @@ int	token_len(char *str)
 	return (len);
 }
 
-void	tokenizer(t_token **token, char *str)
+t_token	*tokenizer(char *str)
 {
-	int				len;
-	t_token			*new;
+	int		len;
+	t_token	*new;
+	t_token	*token;
 
+	token = NULL;
 	while (*str)
 	{
 		while (*str == ' ')
@@ -82,22 +84,14 @@ void	tokenizer(t_token **token, char *str)
 		len = token_len(str);
 		if (len < 0)
 		{
-			error_syntax(str, token, len * (-1));
-			// token_clear(token);
-			*token = NULL;
-			return ;
+			error_syntax(str, &token, len * (-1));
+			return (NULL);
 		}
 		else if (len == 0)
 			continue ;
-		if (*str == '(' || *str == ')')
-			new = token_new(str, len, sep);
-		else if (*str == '<' || *str == '>')
-			new = token_new(str, len, rdr);
-		else if (*str == '|' || *str == '&')
-			new = token_new(str, len, con);
-		else
-			new = token_new(str, len, word);
+		new = token_new(str, len);
 		str += len;
-		token_add_back(token, new);
+		token_add_back(&token, new);
 	}
+	return (token);
 }

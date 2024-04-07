@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/03/28 19:08:05 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 08:57:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "function.h"
 #include "libft.h"
 
-t_token	*token_new(char *data_start, int len, t_token_group group)
+t_token	*token_new(char *str, int len)
 {
 	t_token	*new;
 
@@ -24,9 +24,15 @@ t_token	*token_new(char *data_start, int len, t_token_group group)
 	new->data = ft_calloc(len + 1, sizeof(char));
 	if (!(new->data))
 		return (NULL);
-	ft_strlcpy(new->data, data_start, len + 1);
-	new->group = group;
-	new->next = NULL;
+	ft_strlcpy(new->data, str, len + 1);
+	if (*str == '(' || *str == ')')
+		new->group = sep;
+	else if (*str == '<' || *str == '>')
+		new->group = rdr;
+	else if (*str == '|' || *str == '&')
+		new->group = con;
+	else
+		new->group = word;
 	return (new);
 }
 

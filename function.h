@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 15:06:32 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 09:02:13 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <termios.h>
 # include <sys/errno.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
@@ -31,13 +32,13 @@
 // TOKENIZE
 // t_token_type	get_token_type(char *data, int len);
 int				token_len(char *str);
-void			tokenizer(t_token **token, char *str);
+t_token			*tokenizer(char *str);
 
 // TOKEN UTIL
 void			token_add_back(t_token **token, t_token *new);
 int				token_clear(t_token **token);
 t_token			*token_free(t_token *token);
-t_token			*token_new(char *data_start, int len, t_token_group group);
+t_token			*token_new(char *data_start, int len);
 
 // TREE
 int				check_pipe(t_tree **tree, t_token *token);

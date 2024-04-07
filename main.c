@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 15:07:40 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 09:01:08 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int	main(int argc, char **argv, char **envp)
 	int		status;
 	char	*cmd;
 	char	**env;
-	t_token *token;
 	t_tree	*tree;
 
 	if (argc > 1)
@@ -124,16 +123,9 @@ int	main(int argc, char **argv, char **envp)
 		cmd = readline("minishell> ");
 		if (check_cmd(cmd) < 0)
 			continue ;
-		token = NULL;
-		tokenizer(&token, cmd);
-		if (!token)
-			printf("#### SYNTAX ERROR | token ####\n");
-		else
-		{
-			tree = init_tree();
-			if (check_pipe(&tree, token) != 0)
-				execute_cpd_cmd(&tree, env, &status);
-		}
+		tree = init_tree();
+		if (check_pipe(&tree, tokenizer(cmd)) != 0)
+			execute_cpd_cmd(&tree, env, &status);
 		free(cmd);
 		cmd = NULL;
 		// check_leaks();

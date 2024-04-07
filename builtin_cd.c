@@ -6,26 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/06 19:02:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 08:48:41 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-int	cd_to_home(char **envp)
-{
-	char	*home_dir;
-	int		result;
-
-	home_dir = getenv("HOME");
-	if (!home_dir)
-		return (-1);
-	result = chdir(home_dir);
-	if (result < 0)
-		cd_error();
-	return (result);
-}
 
 int	builtin_cd(char **args, char **envp)
 {
