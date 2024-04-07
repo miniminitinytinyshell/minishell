@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 10:46:57 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 11:00:10 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,9 @@ int	main(int argc, char **argv, char **envp)
 		tree = init_tree();
 		if (check_pipe(&tree, tokenizer(cmd)) != 0)
 			execute_cpd_cmd(&tree, &env, &status);
-		free(cmd);
-		cmd = NULL;
+		if (cmd)
+			add_history(cmd);
+		cmd = free_null(cmd);
 		check_leaks();
 	}
 	return (0);

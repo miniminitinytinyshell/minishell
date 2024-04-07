@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:03:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 14:04:38 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/07 18:57:45 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	*free_null(void *temp)
 {
+	if (!temp)
+		return (NULL);
 	free(temp);
 	temp = NULL;
 	return (temp);
