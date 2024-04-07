@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/03 20:16:13 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 09:45:47 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,12 @@ typedef struct s_tree
 }	t_tree;
 // data[0] origin;
 // data: with_expansion;
+
+typedef struct s_envp
+{
+	int		max_cnt;
+	int		curr_cnt;
+	char	**envp;
+}	t_envp;
+
 #endif
