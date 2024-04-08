@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:45:00 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/08 13:10:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:29:18 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	pwd_getcwd_error(void)
 {
-	ft_putstr_fd("minishell: pwd: getcwd :", STDERR_FILENO);
+	ft_putstr_fd("minishell: pwd: getcwd: ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
@@ -47,6 +47,7 @@ int	builtin_pwd(char **args)
 	char	*pwd;
 	int		flag;
 
+	flag = 0;
 	if (args[1] && args[1][0] == '-')
 		flag = pwd_chk_option(args[1]);
 	if (flag == 1)
