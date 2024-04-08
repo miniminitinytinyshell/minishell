@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:19:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:12:33 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	**table_join(char **tab, char *data)
 	int		i;
 	char	**result;
 
+	if (!data)
+		return (tab);
 	if (!tab)
 	{
 		result = ft_calloc(2, sizeof(char *));

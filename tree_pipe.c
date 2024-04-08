@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:22:32 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:24:37 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:50:11 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ static int	div_pipe(t_tree **tree, t_token *left, t_token *right)
 	return (1);
 }
 
+int	check_next_pipe(t_tree **tree, t_token *token, t_token *cur)
+{
+	if (cur->next == NULL)
+	{
+		if (check_cpd_cmd(tree, token) == 0)
+			return (0);
+	}
+	else
+		if (div_pipe(tree, token, cur) == 0)
+			return (0);
+	return (1);
+}
+
 int	check_pipe(t_tree **tree, t_token *token)
 {
 	t_token	*cur;
@@ -55,13 +68,7 @@ int	check_pipe(t_tree **tree, t_token *token)
 			if (skip_sep(&cur) == 0)
 				return (error_syntax("(", &token, '('));
 	}
-	if (cur->next == NULL)
-	{
-		if (check_cpd_cmd(tree, token) == 0)
-			return (0);
-	}
-	else
-		if (div_pipe(tree, token, cur) == 0)
-			return (0);
+	if (check_next_pipe(tree, token, cur) == 0)
+		return (0);
 	return (1);
 }

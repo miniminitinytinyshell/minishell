@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 13:47:52 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:06:50 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,23 @@ void	open_file(t_tree *tree, int *file_in, int *file_out)
 		return ;
 	if (ft_strncmp(tree->left->data[0], "<", 1) == 0)
 	{
-		if (*file_in != 0)
-			*file_in = close(*file_in);
+		if (*file_in > 0)
+			close(*file_in);
 		if (ft_strncmp(tree->left->data[0], "<", 2) == 0)
-			*file_in = open(tree->left->data[1], O_RDONLY, 0644);
+			*file_in = open(tree->left->data[1], O_RDONLY);
 		else
 			here_doc(tree->left->data[1], file_in);
 	}
 	else
 	{
-		if (*file_out != 0)
-			*file_out = close(*file_out);
+		if (*file_out > 0)
+			close(*file_out);
 		if (ft_strncmp(tree->left->data[0], ">", 2) == 0)
-			*file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			*file_out = open(tree->left->data[1], \
+			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else
-			*file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+			*file_out = open(tree->left->data[1], \
+			O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	if (*file_in < 0)
 		error_no_file(tree->left->data[1]);
@@ -51,17 +53,25 @@ void	execute_rdr(t_tree *tree)
 	file_out = 0;
 	open_file(tree, &file_in, &file_out);
 	if (file_in > 0)
-		dup2(file_in, STDIN_FILENO);
+	{
+		if (dup2(file_in, STDIN_FILENO) == -1)
+			error_syscall();
+		close(file_in);
+	}
 	if (file_out > 0)
-		dup2(file_out, STDOUT_FILENO);
-	close(file_in);
-	close(file_out);
+	{
+		if (dup2(file_out, STDOUT_FILENO) == -1)
+			error_syscall();
+		close(file_out);
+	}
 }
 
 void	execute_cmd(t_tree *tree, t_envp *envp)
 {
+	int		check;
 	char	*path;
 
+	check = 0;
 	if (!tree)
 		return ;
 	if (access(tree->data[0], O_RDONLY) == 0)
@@ -71,7 +81,7 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 	if (!path)
 		error_cmd_not_found(tree->data[0]);
 	if (execve(path, tree->data, envp->data) == -1)
-		exit(EXIT_FAILURE);
+		error_syscall();
 }
 
 void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
@@ -122,11 +132,4 @@ void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 			execute_pipe(tree, envp, status);
 	}
 	*tree = free_tree(*tree);
-}
-
-void	error_syscall(void)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	exit(EXIT_FAILURE);
 }

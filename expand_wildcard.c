@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 13:40:55 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:22:38 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	extract_path(char *str, char **path)
 	if (i == 0)
 		ft_strlcpy(path[0], "./", 3);
 	else
-		ft_strlcpy(path[0], str, i);
+		ft_strlcpy(path[0], str, i + 1);
 	ft_strlcpy(path[1], str + i, ft_strlen(str) - i + 1);
 }
 
@@ -56,12 +56,30 @@ static int	match(char *pattern, char *str)
 	return (!(*str));
 }
 
+void	add_wildcard_data(char ***data, char **path, DIR *dir)
+{
+	struct dirent	*file;
+
+	while (1)
+	{
+		file = readdir(dir);
+		if (!file)
+			break ;
+		if (file->d_name[0] != '.' && match(path[1], file->d_name))
+		{
+			if (ft_strncmp(path[0], "./", 3) == 0)
+				*data = table_join(*data, ft_strdup(file->d_name));
+			else
+				*data = table_join(*data, ft_strjoin(path[0], file->d_name));
+		}
+	}
+}
+
 void	expand_wildcard(t_tree **tree, int i)
 {
 	DIR				*dir;
 	char			**path;
 	char			**data;
-	struct dirent	*file;
 
 	path = ft_calloc(3, sizeof(char *));
 	if (!path)
@@ -71,14 +89,7 @@ void	expand_wildcard(t_tree **tree, int i)
 	if (!dir)
 		error_syscall();
 	data = table_dup((*tree)->data, i);
-	while (1)
-	{
-		file = readdir(dir);
-		if (!file)
-			break ;
-		if (file->d_name[0] != '.' && match(path[1], file->d_name))
-			data = table_join(data, ft_strjoin(path[0], file->d_name));
-	}
+	add_wildcard_data(&data, path, dir);
 	closedir(dir);
 	while ((*tree)->data[++i])
 		data = table_join(data, ft_strdup((*tree)->data[i]));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 10:55:26 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:15:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static char	*expand_word(char *word, char **envp, int status)
 		else
 			result = strjoin_char(result, word[i++]);
 	}
-	free(word);
 	return (result);
 }
 
@@ -94,18 +93,17 @@ static int	expand_rdr(t_tree **tree, char **envp, int status)
 static int	expand_cmd(t_tree **tree, char **envp, int status)
 {
 	int		i;
-	int		j;
+	char	**data;
 
 	i = 0;
-	j = 0;
+	data = NULL;
 	while ((*tree)->data[i])
 	{
-		(*tree)->data[j] = expand_word((*tree)->data[i], envp, status);
-		if ((*tree)->data[j])
-			j++;
+		data = table_join(data, expand_word((*tree)->data[i], envp, status));
 		i++;
 	}
-	(*tree)->data[j] = NULL;
+	free_tab((*tree)->data);
+	(*tree)->data = data;
 	i = 1;
 	while ((*tree)->data[i])
 	{

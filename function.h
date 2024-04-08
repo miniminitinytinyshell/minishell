@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 13:31:06 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 14:52:16 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,19 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <signal.h> //signal()
+# include <string.h> //strerror()
 # include <stdbool.h>
 # include <termios.h> //tcgetattr()
 # include <sys/errno.h>
 # include <sys/wait.h>
 # include <readline/readline.h> //readline()
 # include <readline/history.h>
-# include <string.h> //strerror()
 
 # include "libft.h"
+
+// TEMP (마지막에 지워야 됨)
+void	check_leaks(void);
+void	display_tree(t_tree *tree, char *indent, int check);
 
 // TOKENIZE
 // t_token_type	get_token_type(char *data, int len);
