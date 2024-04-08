@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 16:32:24 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 18:25:55 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ void	set_signal(void)
 int	check_cmd(char *cmd)
 {
 	if (!cmd)
+	{
+		ft_putstr_fd("\033[1A", STDERR_FILENO);
+		ft_putstr_fd("\033[11C", STDERR_FILENO);
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 		exit(EXIT_SUCCESS);
+	}
 	while (*cmd == ' ')
 		cmd++;
 	if (!(*cmd))
@@ -61,11 +66,11 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc > 1)
 		return (printf("usage: %s\n", argv[0]));
-	set_signal();
 	cmd = NULL;
 	env = set_envp(envp);
 	while (1)
 	{
+		set_signal();
 		if (cmd)
 			cmd = free_null(cmd);
 		cmd = readline("minishell> ");

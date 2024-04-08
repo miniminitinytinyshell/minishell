@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:27:03 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:26:44 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,13 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 	if (pid == -1)
 		error_syscall();
 	if (pid == 0)
+	{
+		set_child_signal();
 		process_pipe(tree, envp, status);
+	}
 	else
 	{
+		set_parent_signal();
 		waitpid(pid, status, 0);
 		*status = WEXITSTATUS(*status);
 	}

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 14:18:01 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 16:11:38 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 18:23:56 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 
 void	term_print_off(void)
 {
-	struct termios	term_attr;
+	struct termios	term;
 
-	tcgetattr(STDIN_FILENO, &term_attr);
-	term_attr.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term_attr);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-void	handle_fork(int signum)
+void	term_print_on(void)
 {
-	if (signum != SIGINT)
-		return ;
-	exit(EXIT_FAILURE);
+	struct termios	term;
+
+	tcgetattr(1, &term);
+	term.c_lflag |= (ECHOCTL);
+	tcsetattr(1, 0, &term);
 }
 
 void	handle_sigint(int signum)
@@ -39,9 +41,27 @@ void	handle_sigint(int signum)
 	rl_redisplay();
 }
 
-void	set_fork_signal(void)
+void	handle_exit(int signum)
 {
-	// printf("HERE\n", STDOUT_FILENO);
-	signal(SIGINT, handle_fork);
+	(void)signum;
+	ft_putstr_fd("\n", STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
+
+void	set_heardoc_signal(void)
+{
+	signal(SIGINT, handle_exit);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	set_child_signal(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	set_parent_signal(void)
+{
+	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }

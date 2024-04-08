@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 16:16:02 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 18:24:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	here_doc(char *end, int *file_in)
 		error_syscall();
 	if (pid == 0)
 	{
-		set_fork_signal();
+		set_heardoc_signal();
 		close(fd[0]);
 		process_heredoc(end, fd[1]);
 		exit(EXIT_SUCCESS);
