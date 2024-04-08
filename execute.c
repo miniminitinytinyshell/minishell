@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:29:37 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:47:52 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	open_file(t_tree *tree, int *file_in, int *file_out)
 	else
 	{
 		if (*file_out != 0)
-			*file_out = close (*file_out);
+			*file_out = close(*file_out);
 		if (ft_strncmp(tree->left->data[0], ">", 2) == 0)
 			*file_out = open(tree->left->data[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else

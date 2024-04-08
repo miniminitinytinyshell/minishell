@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_wildcard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:36:59 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:40:55 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,20 @@ static int	match(char *pattern, char *str)
 	return (!(*str));
 }
 
-int	expand_wildcard(t_tree **tree, int i)
+void	expand_wildcard(t_tree **tree, int i)
 {
 	DIR				*dir;
 	char			**path;
 	char			**data;
 	struct dirent	*file;
 
-	path = ft_calloc(2, sizeof(char *));
+	path = ft_calloc(3, sizeof(char *));
 	if (!path)
 		error_syscall();
 	extract_path((*tree)->data[i], path);
 	dir = opendir(path[0]);
 	if (!dir)
-		return (0);
+		error_syscall();
 	data = table_dup((*tree)->data, i);
 	while (1)
 	{
@@ -83,6 +83,6 @@ int	expand_wildcard(t_tree **tree, int i)
 	while ((*tree)->data[++i])
 		data = table_join(data, ft_strdup((*tree)->data[i]));
 	free_tab((*tree)->data);
+	path = free_tab(path);
 	(*tree)->data = data;
-	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:51:20 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:31:06 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_token	*erase_pr(t_token *token);
 
 // EXPAND
 int		expand_tree(t_tree **tree, char **envp, int status);
-int		expand_wildcard(t_tree **tree, int i);
+void	expand_wildcard(t_tree **tree, int i);
 
 // EXPAND_Utils
 char	*find_env(char *aim, char **envp);
