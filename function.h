@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 15:24:14 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:43:32 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,7 @@ char	**free_tab(char **temp);
 // SIGNAL
 void	term_print_off(void);
 void	handle_sigint(int signum);
+void	handle_fork(int signum);
+void	set_fork_signal(void);
 
 #endif

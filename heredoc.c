@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 14:11:36 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 16:16:02 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	process_heredoc(char *end, int fd)
 		read_line = free_null(read_line);
 	}
 	eof = free_null(eof);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
 }
 
 void	here_doc(char *end, int *file_in)
@@ -65,10 +67,9 @@ void	here_doc(char *end, int *file_in)
 		error_syscall();
 	if (pid == 0)
 	{
+		set_fork_signal();
 		close(fd[0]);
 		process_heredoc(end, fd[1]);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
 		exit(EXIT_SUCCESS);
 	}
 	else
