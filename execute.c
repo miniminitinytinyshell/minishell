@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 18:03:42 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 18:30:03 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 			set_child_signal();
 			execute_rdr((*tree)->left);
 			execute_cmd((*tree)->right, envp);
-			exit(EXIT_SUCCESS);
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
