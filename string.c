@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:19:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:40:12 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*strjoin_char(char *str, char c)
 	if (str)
 	{
 		word = ft_calloc(ft_strlen(str) + 2, sizeof(char));
+		if (!str)
+			error_syscall();
 		while (str[i])
 		{
 			word[i] = str[i];
@@ -30,7 +32,11 @@ char	*strjoin_char(char *str, char c)
 		free(str);
 	}
 	else
+	{
 		word = ft_calloc(2, sizeof(char));
+		if (!word)
+			error_syscall();
+	}
 	word[i] = c;
 	return (word);
 }

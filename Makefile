@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/07 12:29:51 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/08 13:53:29 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,11 @@ man_src =	main.c\
 			execute.c\
 			execute_pipe.c\
 			execute_builtin.c\
+			builtin_cd.c\
 			builtin_echo.c\
 			builtin_env.c\
 			builtin_pwd.c\
-			# builtin_cd.c\
+			builtin_util.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)
