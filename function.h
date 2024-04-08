@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 14:52:16 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:24:14 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,13 @@ char	*get_cmd_path(char *cmd, char **path);
 
 // BUILTIN
 int		builtin_echo(char **args);
-int		builtin_cd(char **args, char **envp);
+int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, char **envp);
 int		builtin_pwd(char **args);
+
+// BUILTIN_Utils
+int		swap_envp_data(char *key, char *value, t_envp *envp);
+int		get_envp_idx(char *key, t_envp *envp);
 
 // EXECUTE
 void	execute_rdr(t_tree *tree);

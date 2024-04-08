@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/08 15:02:27 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:24:01 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ static int	cd_getcwd_error(void)
 	return (EXIT_FAILURE);
 }
 
-int	builtin_cd(char **args, char **envp)
+// void	set_pwd_oldpwd(char *path, char *old_path, char **envp)
+// {
+// }
+
+int	builtin_cd(char **args, t_envp *envp)
 {
 	int		result;
 	char	*path;
@@ -28,11 +32,16 @@ int	builtin_cd(char **args, char **envp)
 
 	old_path = getcwd(NULL, 0);
 	if (!old_path)
-		return (cd_get_cwd_error());
-	if (!args[0])
+		return (cd_getcwd_error());
+	if (!args[1])
 		path = getenv("HOME");
 	else
-		path = ft_strdup(args[1]);
-	if (!path)
-		return (result);
+		path = args[1];
+	result = chdir(path);
+	if (result == 0)
+	{
+		swap_envp_data("PWD", path, envp);
+		swap_envp_data("OLDPWD", old_path, envp);
+	}
+	return (result);
 }
