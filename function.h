@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:42:30 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:02:45 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ void	*free_null(void *temp);
 char	**free_tab(char **temp);
 
 // ERROR
-int		error_syntax(char *str, t_token **token, int flag);
-int		error_cmd_not_found(char *cmd);
-int		error_no_file(char *cmd);
 void	error_syscall(void);
+int		error_no_file(char *cmd);
+int		error_many_args(char *cmd);
+int		error_cmd_not_found(char *cmd);
+int		error_syntax(char *str, t_token **token, int flag);
 
 // STRING
 char	*strjoin_char(char *str, char c);
@@ -104,6 +105,7 @@ int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, char **envp);
 int		builtin_pwd(char **args);
+int		builtin_exit(char **args);
 
 // BUILTIN_Utils
 int		swap_envp_data(char *key, char *value, t_envp *envp);

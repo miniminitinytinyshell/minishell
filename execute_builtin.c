@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:35:20 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:03:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ int	find_builtin(t_tree *tree)
 
 void	proc_builtin(t_tree *tree, t_envp *envp, int *status)
 {
-	if (ft_strncmp(tree->right->data[0], "echo", 5) == 0)
-		*status = builtin_echo(tree->right->data);
-	else if (ft_strncmp(tree->right->data[0], "cd", 3) == 0)
-		*status = builtin_cd(tree->right->data, envp);
-	else if (ft_strncmp(tree->right->data[0], "pwd", 4) == 0)
-		*status = builtin_pwd(tree->right->data);
-	// else if (ft_strncmp(tree->right->data[0], "export", 7) == 0)
+	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
+		*status = builtin_echo(tree->data);
+	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
+		*status = builtin_cd(tree->data, envp);
+	else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
+		*status = builtin_pwd(tree->data);
+	// else if (ft_strncmp(tree->data[0], "export", 7) == 0)
 	// 	*status = builtin_export();
-	// else if (ft_strncmp(tree->right->data[0], "unset", 6) == 0)
+	// else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
 	// 	*status = builtin_unset();
-	else if (ft_strncmp(tree->right->data[0], "env", 4) == 0)
-		*status = builtin_env(tree->right->data, envp->data);
-	// else if (ft_strncmp(tree->right->data[0], "exit", 5) == 0)
-	// 	*status = builtin_exit();
+	else if (ft_strncmp(tree->data[0], "env", 4) == 0)
+		*status = builtin_env(tree->data, envp->data);
+	else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
+		*status = builtin_exit(tree->data);
 }
 
 void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
@@ -62,7 +62,7 @@ void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 	output = dup(STDOUT_FILENO);
 	execute_rdr(tree->left);
 	if (g_signum != SIGINT)
-		proc_builtin(tree, envp, status);
+		proc_builtin(tree->right, envp, status);
 	dup2(input, STDIN_FILENO);
 	dup2(output, STDOUT_FILENO);
 	close(input);
