@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 14:18:01 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:04:11 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:34:56 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-extern int g_signum;
+extern int	g_signum;
 
 void	term_print_off(void)
 {
@@ -49,7 +49,6 @@ void	handle_exit(int signum)
 	ft_putstr_fd("\n", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
-
 
 void	handle_set(int signum)
 {

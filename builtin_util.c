@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:36:03 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/08 13:57:30 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:36:08 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ int	get_envp_idx(char *key, t_envp *envp)
 	}
 	if (idx == envp->curr_cnt)
 		return (-1);
-
 	return (idx);
 }

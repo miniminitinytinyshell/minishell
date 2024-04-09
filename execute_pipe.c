@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:24:54 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:39:37 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 		dup2(fd[0], STDIN_FILENO);
 		execute_cpd_cmd(&(*tree)->right, envp, status);
 		waitpid(pid, status, 0);
-		*status = WEXITSTATUS(*status);
+		set_status(status);
 	}
 	exit(*status);
 }
@@ -79,9 +79,6 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 	{
 		set_parent_signal();
 		waitpid(pid, status, 0);
-		if (WIFSIGNALED(*status))
-			*status = EXIT_SIGNAL;
-		else
-			*status = WEXITSTATUS(*status);
+		set_status(status);
 	}
 }
