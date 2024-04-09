@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:22:59 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 19:13:27 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,14 @@ int	main(int argc, char **argv, char **envp)
 	{
 		g_signum = 0;
 		set_signal();
-		if (cmd)
-			cmd = free_null(cmd);
 		cmd = readline("minishell> ");
 		if (check_cmd(cmd) < 0)
 			continue ;
 		tree = init_tree();
 		if (check_pipe(&tree, tokenizer(cmd)) != 0)
-			execute_cpd_cmd(&tree, &env, &status);
-		if (cmd)
-			add_history(cmd);
+			execute_tree(&tree, &env, &status);
+		add_history(cmd);
+		cmd = free_null(cmd);
 	}
 	return (0);
 }

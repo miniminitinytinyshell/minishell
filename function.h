@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 17:04:28 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 19:13:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**table_dup(char **tab, int size);
 char	**table_join(char **tab, char *data);
 
 // HERE_DOC
-void	here_doc(char *end, int *file_in);
+void	traver_heardoc(t_tree **tree);
 
 // SIGNAL
 void	term_print_on(void);
@@ -117,6 +117,7 @@ void	execute_rdr(t_tree *tree);
 void	execute_cmd(t_tree *tree, t_envp *envp);
 void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status);
 void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status);
+void	execute_tree(t_tree **tree, t_envp *envp, int *status);
 
 // EXCUTE UTIL
 void	set_status(int *status);

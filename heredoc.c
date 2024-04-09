@@ -6,20 +6,22 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 17:29:02 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 19:09:57 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-void	process_heredoc(char *eof, int fd)
+extern int	g_signum;
+
+void	here_doc(char *eof, int fd)
 {
 	char	*read_line;
 
 	while (1)
 	{
-		read_line = readline("heardoc> ");
+		read_line = readline("heredoc> ");
 		if (!read_line)
 			break ;
 		if (ft_strncmp(read_line, eof, ft_strlen(eof) + 1) == 0)
@@ -31,34 +33,40 @@ void	process_heredoc(char *eof, int fd)
 		ft_putendl_fd(read_line, fd);
 		read_line = free_null(read_line);
 	}
-	eof = free_null(eof);
-	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
-void	here_doc(char *end, int *file_in)
+void	make_heardoc(t_tree **tree, int *name)
 {
-	int		fd[2];
-	pid_t	pid;
+	int		fd;
+	char	*path;
 
-	if (pipe(fd) == -1)
-		error_syscall();
-	pid = fork();
-	if (pid == -1)
-		error_syscall();
-	if (pid == 0)
+	path = NULL;
+	if ((*tree)->type == rdr_cmd)
 	{
-		set_heardoc_signal();
-		close(fd[0]);
-		process_heredoc(end, fd[1]);
-		exit(EXIT_SUCCESS);
+		if (ft_strncmp((*tree)->data[0], "<<", 3) == 0)
+		{
+			path = ft_strjoin("/Users/jaeblee/goinfre/temp/tmp_", ft_itoa(*name));
+			fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			here_doc((*tree)->data[1], fd);
+			free((*tree)->data[1]);
+			(*tree)->data[1] = path;
+			*name += 1;
+		}
 	}
 	else
 	{
-		close(fd[1]);
-		waitpid(pid, NULL, 0);
-		*file_in = 100;
-		dup2(fd[0], *file_in);
-		close(fd[0]);
+		if ((*tree)->left)
+			make_heardoc(&(*tree)->left, name);
+		if ((*tree)->right)
+			make_heardoc(&(*tree)->right, name);
 	}
+}
+
+void	traver_heardoc(t_tree **tree)
+{
+	int	name;
+
+	name = 1;
+	make_heardoc(tree, &name);
 }

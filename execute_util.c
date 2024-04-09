@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 15:33:55 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 18:47:58 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ void	open_file(t_tree *tree, int *file_in, int *file_out)
 	{
 		if (*file_in > 0)
 			close(*file_in);
-		if (ft_strncmp(tree->left->data[0], "<", 2) == 0)
-			*file_in = open(tree->left->data[1], O_RDONLY);
-		else
-			here_doc(tree->left->data[1], file_in);
+		*file_in = open(tree->left->data[1], O_RDONLY);
 	}
 	else
 	{
