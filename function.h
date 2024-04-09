@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:38:58 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:42:30 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,39 @@
 void	check_leaks(void);
 void	display_tree(t_tree *tree, char *indent, int check);
 
+// FREE
+void	*free_null(void *temp);
+char	**free_tab(char **temp);
+
+// ERROR
+int		error_syntax(char *str, t_token **token, int flag);
+int		error_cmd_not_found(char *cmd);
+int		error_no_file(char *cmd);
+void	error_syscall(void);
+
+// STRING
+char	*strjoin_char(char *str, char c);
+char	*strjoin_free(char *str1, char *str2);
+char	**table_dup(char **tab, int size);
+char	**table_join(char **tab, char *data);
+
+// HERE_DOC
+void	here_doc(char *end, int *file_in);
+
+// SIGNAL
+void	term_print_off(void);
+void	handle_sigint(int signum);
+void	handle_exit(int signum);
+void	handle_set(int signum);
+
+// SIGNAL SET
+void	set_signal(void);
+void	set_child_signal(void);
+void	set_parent_signal(void);
+void	set_heardoc_signal(void);
+void	set_builtin_signal(void);
+
 // TOKENIZE
-// t_token_type	get_token_type(char *data, int len);
 int		token_len(char *str);
 t_token	*tokenizer(char *str);
 
@@ -92,37 +123,5 @@ void	open_file(t_tree *tree, int *file_in, int *file_out);
 // EXECUTE BUILTIN
 int		find_builtin(t_tree *tree);
 void	execute_builtin(t_tree *tree, t_envp *envp, int *status);
-
-// HERE_DOC
-void	here_doc(char *end, int *file_in);
-
-// STRING
-char	*strjoin_char(char *str, char c);
-char	*strjoin_free(char *str1, char *str2);
-char	**table_dup(char **tab, int size);
-char	**table_join(char **tab, char *data);
-
-// ERROR
-int		error_syntax(char *str, t_token **token, int flag);
-int		error_cmd_not_found(char *cmd);
-int		error_no_file(char *cmd);
-void	error_syscall(void);
-
-// FREE
-void	*free_null(void *temp);
-char	**free_tab(char **temp);
-
-// SIGNAL
-void	term_print_off(void);
-void	handle_sigint(int signum);
-void	handle_exit(int signum);
-void	handle_set(int signum);
-
-// SIGNAL SET
-void	set_signal(void);
-void	set_child_signal(void);
-void	set_parent_signal(void);
-void	set_heardoc_signal(void);
-void	set_builtin_signal(void);
 
 #endif
