@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:30:27 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 13:31:19 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:45:30 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,23 @@
 
 int	main(void)
 {
-	char	pwd[1024];
-	char	*pwd2;
+	char	*pwd;
 	int		n;
+	int		t;
 
-	// if (getcwd(pwd, sizeof(pwd)) != NULL)
-	// 	printf("%s\n", pwd);
-	// chdir("..");
-	// if (getcwd(pwd, sizeof(pwd)) != NULL)
-	// 	printf("%s\n", pwd);
-	pwd2 = getcwd(NULL, 0);
-	printf("%s\n", pwd2);
-	free(pwd2);
-	n = chdir(NULL);
-	pwd2 = getcwd(NULL, 0);
-	printf("%s | %d, %s\n", strerror(errno), n, pwd2);
-	free(pwd2);
+	chdir("/Users/hyeunkim/42cursus/minishell/test/1/2/3");
+	pwd = getcwd(NULL, 0);
+	printf("%s\n", pwd);
+	free(pwd);
+	scanf("%d\n", &n);
+	n = 0;
+	n = chdir("..");
+	scanf("%d\n", &t);
+	pwd = getcwd(NULL, 0);
+	printf("%s(%d) | %d, %s\n", strerror(errno), errno, n, pwd);
+	printf("access: %d\n", access(pwd, F_OK));
+	printf("%s(%d) | %d, %s\n", strerror(errno), errno, n, pwd);
+	free(pwd);
+	scanf("%d\n", &n);
 	return (0);
 }

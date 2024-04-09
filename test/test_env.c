@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:48:57 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/06 19:08:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:59:38 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	char *value;
 
 	name = "HOME=";
-	value = getenv("=");
+	value = getenv("HOME");
 	if (!value)
 		printf("%s\n", strerror(errno));
 	else
