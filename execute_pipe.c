@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 16:49:20 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 17:30:04 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
 {
 	if ((*tree)->type == standard_cmd)
-		execute_std_cmd(tree, envp, status);
+	{
+		signal(SIGINT, SIG_DFL);
+		execute_rdr((*tree)->left);
+		execute_cmd((*tree)->right, envp);
+		exit(EXIT_FAILURE);
+	}
 	else if ((*tree)->type == compound_cmd)
 	{
 		if (ft_strncmp((*tree)->oper, "&&", 3) == 0)
@@ -71,10 +76,7 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 	if (pid == -1)
 		error_syscall();
 	if (pid == 0)
-	{
-		set_child_signal();
-		process_pipe(tree, envp, status);
-	}
+		execute_pipe_cmd(tree, envp, status);
 	else
 	{
 		set_parent_signal();

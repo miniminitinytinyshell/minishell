@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 15:30:45 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 17:04:28 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,17 @@ int		get_envp_idx(char *key, t_envp *envp);
 
 // EXECUTE
 void	execute_rdr(t_tree *tree);
-void	execute_pipe(t_tree **tree, t_envp *envp, int *status);
-void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status);
+void	execute_cmd(t_tree *tree, t_envp *envp);
 void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status);
 void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status);
 
 // EXCUTE UTIL
 void	set_status(int *status);
 void	open_file(t_tree *tree, int *file_in, int *file_out);
+
+// EXECUTE PIPE
+void	execute_pipe(t_tree **tree, t_envp *envp, int *status);
+void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status);
 
 // EXECUTE BUILTIN
 int		find_builtin(t_tree *tree);
