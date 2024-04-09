@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 16:35:03 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:51:09 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	process_heredoc(char *end, int fd)
 void	here_doc(char *end, int *file_in)
 {
 	int		fd[2];
+	int		status;
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
@@ -78,7 +79,7 @@ void	here_doc(char *end, int *file_in)
 	else
 	{
 		close(fd[1]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
 		*file_in = 100;
 		dup2(fd[0], *file_in);
 		close(fd[0]);

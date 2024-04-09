@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 16:36:42 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:57:59 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 			error_syscall();
 		if (pid == 0)
 		{
-			set_parent_signal();
+			signal(SIGINT, SIG_DFL);
 			execute_rdr((*tree)->left);
 			execute_cmd((*tree)->right, envp);
 			exit(EXIT_FAILURE);

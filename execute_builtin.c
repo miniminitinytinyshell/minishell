@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 16:29:33 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:58:54 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 	input = dup(STDIN_FILENO);
 	output = dup(STDOUT_FILENO);
 	execute_rdr(tree->left);
-	if (g_signum != SIGINT)
+	if (g_signum == SIGINT)
+		*status = 130;
+	else
 		proc_builtin(tree->right, envp, status);
 	dup2(input, STDIN_FILENO);
 	dup2(output, STDOUT_FILENO);
