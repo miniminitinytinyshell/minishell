@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 15:30:26 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:36:42 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 	char	*path;
 
 	check = 0;
+	set_child_signal();
 	if (!tree)
 		return ;
 	if (access(tree->data[0], O_RDONLY) == 0)
@@ -51,8 +52,6 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 		path = get_cmd_path(tree->data[0], get_path(envp));
 	if (!path)
 		error_cmd_not_found(tree->data[0]);
-	term_print_on();
-	signal(SIGQUIT, SIG_DFL);
 	if (execve(path, tree->data, envp->data) == -1)
 		error_syscall();
 }
@@ -62,7 +61,7 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 	pid_t	pid;
 
 	expand_tree(tree, envp->data, *status);
-	if (find_builtin(*tree))
+	if (find_builtin((*tree)->right))
 		execute_builtin(*tree, envp, status);
 	else
 	{
@@ -71,7 +70,7 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 			error_syscall();
 		if (pid == 0)
 		{
-			set_child_signal();
+			set_parent_signal();
 			execute_rdr((*tree)->left);
 			execute_cmd((*tree)->right, envp);
 			exit(EXIT_FAILURE);

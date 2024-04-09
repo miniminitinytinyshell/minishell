@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:37:04 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:28:50 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:36:04 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	set_signal(void)
 
 void	set_child_signal(void)
 {
+	term_print_on();
 	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	set_parent_signal(void)
