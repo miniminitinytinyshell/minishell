@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:24:15 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:43:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ t_tree	*free_tree(t_tree *tree)
 {
 	if (tree == NULL)
 		return (NULL);
+	if (tree->oper)
+	{
+		free(tree->oper);
+		tree->oper = NULL;
+	}
+	if (tree->data)
+		tree->data = free_tab(tree->data);
 	if (tree->right)
 		tree->right = free_tree(tree->right);
 	if (tree->left)
 		tree->left = free_tree(tree->left);
-	if (tree->oper)
-		free(tree->oper);
-	if (tree->data)
-		free_tab(tree->data);
 	free(tree);
 	tree = NULL;
 	return (tree);
