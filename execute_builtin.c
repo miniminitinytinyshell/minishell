@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 15:03:26 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:29:33 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@ extern int	g_signum;
 
 int	find_builtin(t_tree *tree)
 {
-	if (ft_strncmp(tree->right->data[0], "echo", 5) == 0)
+	if (!tree)
+		return (0);
+	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
 		return (1);
-	else if (ft_strncmp(tree->right->data[0], "cd", 3) == 0)
+	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
 		return (1);
-	else if (ft_strncmp(tree->right->data[0], "pwd", 4) == 0)
+	else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
 		return (1);
-	else if (ft_strncmp(tree->right->data[0], "export", 7) == 0)
+	else if (ft_strncmp(tree->data[0], "export", 7) == 0)
 		return (1);
-	else if (ft_strncmp(tree->right->data[0], "unset", 6) == 0)
+	else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
 		return (1);
-	else if (ft_strncmp(tree->right->data[0], "env", 4) == 0)
+	else if (ft_strncmp(tree->data[0], "env", 4) == 0)
 		return (1);
-	else if (ft_strncmp(tree->right->data[0], "exit", 5) == 0)
+	else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
 		return (1);
 	return (0);
 }

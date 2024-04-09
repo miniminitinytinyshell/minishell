@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:39:37 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:13:43 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
-		execute_cpd_cmd(&(*tree)->left, envp, status);
+		execute_pipe_cmd(&(*tree)->left, envp, status);
 	}
 	else
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
-		execute_cpd_cmd(&(*tree)->right, envp, status);
+		execute_pipe_cmd(&(*tree)->right, envp, status);
 		waitpid(pid, status, 0);
 		set_status(status);
 	}
