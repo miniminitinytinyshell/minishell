@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:39:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:30:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 		path = get_cmd_path(tree->data[0], get_path(envp));
 	if (!path)
 		error_cmd_not_found(tree->data[0]);
+	term_print_on();
+	signal(SIGQUIT, SIG_DFL);
 	if (execve(path, tree->data, envp->data) == -1)
 		error_syscall();
 }

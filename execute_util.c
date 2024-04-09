@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:39:03 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:33:55 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@
 void	set_status(int *status)
 {
 	if (WIFSIGNALED(*status))
-		*status = EXIT_SIGNAL;
+	{
+		*status = 128 + WTERMSIG(*status);
+		if (*status == 131)
+			ft_putstr_fd("Quit: 3", STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+	}
 	else
 		*status = WEXITSTATUS(*status);
 }

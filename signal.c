@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 14:18:01 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:34:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:30:48 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 
 extern int	g_signum;
 
-void	term_print_off(void)
-{
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-}
-
 void	term_print_on(void)
 {
 	struct termios	term;
@@ -31,6 +22,15 @@ void	term_print_on(void)
 	tcgetattr(1, &term);
 	term.c_lflag |= (ECHOCTL);
 	tcsetattr(1, 0, &term);
+}
+
+void	term_print_off(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 void	handle_sigint(int signum)

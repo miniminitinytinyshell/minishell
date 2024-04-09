@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 15:02:45 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:30:45 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	**table_join(char **tab, char *data);
 void	here_doc(char *end, int *file_in);
 
 // SIGNAL
+void	term_print_on(void);
 void	term_print_off(void);
 void	handle_sigint(int signum);
 void	handle_exit(int signum);
