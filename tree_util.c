@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 15:43:26 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 16:00:58 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_tree	*init_tree(void)
 
 t_tree	*free_tree(t_tree *tree)
 {
-	if (tree == NULL)
+	if (!tree)
 		return (NULL);
 	if (tree->oper)
 	{
