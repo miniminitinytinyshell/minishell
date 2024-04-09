@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 18:42:21 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:27:31 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 			set_parent_signal();
 			waitpid(pid, status, 0);
 			if (WIFSIGNALED(*status))
-				*status = WTERMSIG(*status);
+				*status = EXIT_SIGNAL;
 			else
 				*status = WEXITSTATUS(*status);
 		}

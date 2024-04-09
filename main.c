@@ -6,12 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 18:25:55 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:22:59 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+
+int	g_signum;
 
 t_envp	set_envp(char **envp)
 {
@@ -31,13 +33,6 @@ t_envp	set_envp(char **envp)
 		idx++;
 	}
 	return (env);
-}
-
-void	set_signal(void)
-{
-	term_print_off();
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 int	check_cmd(char *cmd)
@@ -70,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
 	env = set_envp(envp);
 	while (1)
 	{
+		g_signum = 0;
 		set_signal();
 		if (cmd)
 			cmd = free_null(cmd);

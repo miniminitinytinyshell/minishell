@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/08 13:53:29 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/09 13:59:58 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ man_src =	main.c\
 			free.c\
 			string.c\
 			signal.c\
+			signal_set.c\
 			error.c\
 			heredoc.c\
 			execute.c\

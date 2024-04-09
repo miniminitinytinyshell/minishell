@@ -1,4 +1,3 @@
 구현 해야할 것들
 	- ctrl + C, D, \ 구현 (signal)
-		-> 자식 프로세스 작동 중간에 시그널 들어올 때, 자식 프로세스 kill
 	- builtin 함수 구현 (cd, export, unset, exit)

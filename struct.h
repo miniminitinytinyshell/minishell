@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 10:30:03 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:24:48 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define T_WORD 0
 # define T_OPER 1
+
+# define EXIT_SIGNAL 130
 
 typedef enum e_token_group
 {

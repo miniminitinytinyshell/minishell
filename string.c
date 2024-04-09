@@ -6,10 +6,9 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 15:24:24 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:33:40 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "struct.h"
 #include "function.h"

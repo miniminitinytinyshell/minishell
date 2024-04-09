@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 18:18:01 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:29:28 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,13 @@ char	**free_tab(char **temp);
 void	term_print_off(void);
 void	handle_sigint(int signum);
 void	handle_exit(int signum);
-void	set_heardoc_signal(void);
+void	handle_set(int signum);
+
+// SIGNAL SET
+void	set_signal(void);
 void	set_child_signal(void);
 void	set_parent_signal(void);
+void	set_heardoc_signal(void);
+void	set_builtin_signal(void);
 
 #endif
