@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:36:03 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/09 14:36:08 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/09 20:52:02 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	swap_envp_data(char *key, char *value, t_envp *envp)
 	ft_strlcpy(new_env, key, ft_strlen(key) + 1);
 	new_env[ft_strlen(key)] = '=';
 	ft_strlcat(new_env, value, ft_strlen(key) + ft_strlen(value) + 2);
-	printf("%s\n", new_env);
 	temp = envp->data[idx];
 	envp->data[idx] = new_env;
 	free(temp);
