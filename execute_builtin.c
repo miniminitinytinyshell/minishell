@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 16:58:54 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/11 05:56:46 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 	int	input;
 	int	output;
 
-	set_builtin_signal();
 	input = dup(STDIN_FILENO);
 	output = dup(STDOUT_FILENO);
 	execute_rdr(tree->left);

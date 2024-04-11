@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:37:04 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 16:56:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/11 05:57:30 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_heardoc_signal(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	set_builtin_signal(void)
+void	set_global_signal(void)
 {
 	signal(SIGINT, handle_set);
 	signal(SIGQUIT, SIG_IGN);

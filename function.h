@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 19:13:05 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/11 06:19:49 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ char	*strjoin_free(char *str1, char *str2);
 char	**table_dup(char **tab, int size);
 char	**table_join(char **tab, char *data);
 
-// HERE_DOC
-void	traver_heardoc(t_tree **tree);
-
 // SIGNAL
 void	term_print_on(void);
 void	term_print_off(void);
@@ -65,7 +62,7 @@ void	set_signal(void);
 void	set_child_signal(void);
 void	set_parent_signal(void);
 void	set_heardoc_signal(void);
-void	set_builtin_signal(void);
+void	set_global_signal(void);
 
 // TOKENIZE
 int		token_len(char *str);
@@ -111,6 +108,10 @@ int		builtin_exit(char **args);
 // BUILTIN_Utils
 int		swap_envp_data(char *key, char *value, t_envp *envp);
 int		get_envp_idx(char *key, t_envp *envp);
+
+// HERE_DOC
+void	create_heardoc(t_tree **tree, int *name);
+void	delete_heardoc(t_tree **tree);
 
 // EXECUTE
 void	execute_rdr(t_tree *tree);

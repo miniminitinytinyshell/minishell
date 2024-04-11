@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 20:30:49 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/11 06:30:53 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+
+extern int	g_signum;
 
 void	execute_rdr(t_tree *tree)
 {
@@ -39,10 +41,8 @@ void	execute_rdr(t_tree *tree)
 
 void	execute_cmd(t_tree *tree, t_envp *envp)
 {
-	int		check;
 	char	*path;
 
-	check = 0;
 	set_child_signal();
 	if (!tree)
 		return ;
@@ -105,13 +105,17 @@ void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 		else
 			execute_pipe(tree, envp, status);
 	}
-	*tree = free_tree(*tree);
 }
 
 void	execute_tree(t_tree **tree, t_envp *envp, int *status)
 {
-	traver_heardoc(tree);
-	execute_cpd_cmd(tree, envp, status);
-	// delete_heardoc();
+	int	file_name;
+
+	file_name = 1;
+	create_heardoc(tree, &file_name);
+	if (g_signum != SIGINT)
+		execute_cpd_cmd(tree, envp, status);
+	if (file_name > 1)
+		delete_heardoc(tree);
 	*tree = free_tree(*tree);
 }
