@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/11 06:19:49 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 14:36:46 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, char **envp);
 int		builtin_pwd(char **args);
 int		builtin_exit(char **args);
+int		builtin_unset(char **args, t_envp *envp);
 
 // BUILTIN_Utils
 int		swap_envp_data(char *key, char *value, t_envp *envp);
