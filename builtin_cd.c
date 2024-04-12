@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/12 17:29:13 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:03:17 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,16 @@ void	set_pwd(char *path, t_envp *envp)
 	char	*tmp_path;
 	char	*old_path;
 
+	(void)path;
 	old_path = envp->pwd;
-	swap_envp_data("OLDPWD", old_path, envp);
-	if (*path != '/')
+	tmp_path = getcwd(NULL, 0);
+	if (!tmp_path)
 	{
-		old_path = strjoin_char(old_path, '/');
+		if (old_path[ft_strlen(old_path)] != '/')
+			old_path = strjoin_char(old_path, '/');
 		tmp_path = ft_strjoin(old_path, path);
 	}
-	else
-	{
-		free(old_path);
-		tmp_path = ft_strdup(path);
-	}
-	if (!tmp_path)
-		error_syscall();
+	swap_envp_data("OLDPWD", old_path, envp);
 	swap_envp_data("PWD", tmp_path, envp);
 	envp->pwd = tmp_path;
 }
@@ -84,9 +80,6 @@ int	builtin_cd(char **args, t_envp *envp)
 	else
 		path = args[1];
 	result = chdir(path);
-	if (result == 0)
-		set_pwd(path, envp);
-	else if (result < 0)
-		return (cd_pwd_error(path));
+	set_pwd(path, envp);
 	return (result);
 }
