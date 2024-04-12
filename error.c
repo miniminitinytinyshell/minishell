@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 14:54:40 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 16:03:37 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	error_no_file(char *cmd)
 int	error_many_args(char *cmd)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("no such file or directory: ", STDERR_FILENO);
+	ft_putstr_fd("too many arguments: ", STDERR_FILENO);
 	ft_putendl_fd(cmd, STDERR_FILENO);
 	return (1);
 }
