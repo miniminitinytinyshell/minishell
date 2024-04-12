@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 15:15:36 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 13:38:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	check_numeric(char *arg)
 	{
 		if (arg[i] < '0' || arg[i] > '9')
 		{
-			ft_putstr_fd("minishell: numeric argument required: ", STDERR_FILENO);
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
+			ft_putstr_fd("numeric argument required: ", STDERR_FILENO);
 			ft_putendl_fd(arg, STDERR_FILENO);
 			exit(255);
 		}

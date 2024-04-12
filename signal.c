@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 14:18:01 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/11 05:16:59 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 13:35:56 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	handle_sigint(int signum)
 void	handle_exit(int signum)
 {
 	(void)signum;
+	ft_putstr_fd("\n", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 

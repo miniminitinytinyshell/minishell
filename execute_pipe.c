@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 17:30:04 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 13:36:07 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,7 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
 {
 	if ((*tree)->type == standard_cmd)
-	{
-		signal(SIGINT, SIG_DFL);
-		execute_rdr((*tree)->left);
-		execute_cmd((*tree)->right, envp);
-		exit(EXIT_FAILURE);
-	}
+		execute_std_cmd(tree, envp, status);
 	else if ((*tree)->type == compound_cmd)
 	{
 		if (ft_strncmp((*tree)->oper, "&&", 3) == 0)

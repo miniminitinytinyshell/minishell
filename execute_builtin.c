@@ -6,14 +6,12 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/11 05:56:46 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 13:38:57 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-extern int	g_signum;
 
 int	find_builtin(t_tree *tree)
 {
@@ -62,10 +60,7 @@ void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 	input = dup(STDIN_FILENO);
 	output = dup(STDOUT_FILENO);
 	execute_rdr(tree->left);
-	if (g_signum == SIGINT)
-		*status = 130;
-	else
-		proc_builtin(tree->right, envp, status);
+	proc_builtin(tree->right, envp, status);
 	dup2(input, STDIN_FILENO);
 	dup2(output, STDOUT_FILENO);
 	close(input);
