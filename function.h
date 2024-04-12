@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 14:36:46 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 14:39:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*get_cmd_path(char *cmd, char **path);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, char **envp);
-int		builtin_pwd(char **args);
+int		builtin_pwd(char **args, t_envp *envp);
 int		builtin_exit(char **args);
 int		builtin_unset(char **args, t_envp *envp);
 

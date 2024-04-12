@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:45:00 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/08 15:02:35 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 14:40:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,21 @@ static int	pwd_chk_option(char *option)
 	return (1);
 }
 
-int	builtin_pwd(char **args)
+int	builtin_pwd(char **args, t_envp *envp)
 {
 	char	*pwd;
 	int		flag;
+	int		pwd_idx;
 
 	flag = 0;
 	if (args[1] && args[1][0] == '-')
 		flag = pwd_chk_option(args[1]);
 	if (flag == 1)
 		return (pwd_option_error(args[1]));
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
+	pwd_idx = get_envp_idx("PWD", envp);
+	if (pwd_idx < 0)
 		return (pwd_getcwd_error());
+	pwd = envp->data[pwd_idx];
 	ft_putendl_fd(pwd, STDOUT_FILENO);
-	free(pwd);
 	return (EXIT_SUCCESS);
 }
