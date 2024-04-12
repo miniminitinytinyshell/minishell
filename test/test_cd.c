@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:46:37 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 17:55:35 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 18:38:55 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@
 
 int main(void)
 {
+	int		check;
 	char	*temp;
 	char	*cmd[] = {"ls", NULL};
 
 	temp = getcwd(NULL, 0);
 	printf("pwd: %s\n", temp);
-	chdir("/Users/jaeblee");
+	check = chdir("..");
+	printf("check = %d\n", check);
 	temp = getcwd(NULL, 0);
 	printf("pwd: %s\n", temp);
-	chdir("goinfre");
+	check = chdir("..");
+	printf("check = %d\n", check);
 	temp = getcwd(NULL, 0);
 	printf("pwd: %s\n", temp);
-	execve("/bin/ls", cmd, NULL);
 	return (0);
 }
