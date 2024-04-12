@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/12 18:03:17 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 18:30:09 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	set_pwd(char *path, t_envp *envp)
 	char	*tmp_path;
 	char	*old_path;
 
-	(void)path;
 	old_path = envp->pwd;
 	tmp_path = getcwd(NULL, 0);
 	if (!tmp_path)
@@ -62,24 +61,47 @@ void	set_pwd(char *path, t_envp *envp)
 	envp->pwd = tmp_path;
 }
 
+char	*set_rel_path(char *pwd, char *target)
+{
+	char	*rel_path;
+	char	*tmp;
+	int		pwd_len;
+
+	pwd_len = ft_strlen(pwd);
+	if (pwd[pwd_len - 1] == '/')
+		tmp = ft_strdup(pwd);
+	else
+		tmp = ft_strjoin(pwd, "/");
+	rel_path = ft_strjoin(tmp, target);
+	free(tmp);
+	return (rel_path);
+}
+
+char	*set_path(char *arg1, t_envp *envp)
+{
+	char	*path;
+
+	if (!arg1)
+		path = ft_strchr(envp->data[get_envp_idx("HOME", envp)], '=') + 1;
+	else
+	{
+		path = set_rel_path(envp->pwd, arg1);
+		if (access(path, F_OK) < 0)
+			path = ft_strdup(arg1);
+	}
+	return (path);
+}
+
 // 우선 단순하게 문제 없는 상황에 대해서만 만들고,
 // 상위디렉토리가 삭제되는 경우에는 다른 함수 호출하게 만들어보자...
 int	builtin_cd(char **args, t_envp *envp)
 {
 	int		result;
-	int		path_idx;
 	char	*path;
 
-	if (!args[1])
-	{
-		path_idx = get_envp_idx("HOME", envp);
-		if (path_idx < 0)
-			return (cd_home_error());
-		path = ft_strchr(envp->data[path_idx], '=') + 1;
-	}
-	else
-		path = args[1];
+	path = set_path(args[1], envp);
 	result = chdir(path);
 	set_pwd(path, envp);
+	free(path);
 	return (result);
 }
