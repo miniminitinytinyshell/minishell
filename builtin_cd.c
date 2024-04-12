@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/12 14:37:02 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:44:31 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ int	builtin_cd(char **args, t_envp *envp)
 		return (cd_getcwd_error(0));
 	if (!args[1])
 	{
-		printf("searching home\n");
 		path_idx = get_envp_idx("HOME", envp);
 		if (path_idx < 0)
 			return (cd_home_error());
-		path = envp->data[path_idx];
+		path = ft_strchr(envp->data[path_idx], '=') + 1;
 	}
 	else
 		path = args[1];

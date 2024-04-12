@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:45:00 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/12 14:40:33 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:43:54 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	builtin_pwd(char **args, t_envp *envp)
 	pwd_idx = get_envp_idx("PWD", envp);
 	if (pwd_idx < 0)
 		return (pwd_getcwd_error());
-	pwd = envp->data[pwd_idx];
+	pwd = ft_strchr(envp->data[pwd_idx], '=') + 1;
 	ft_putendl_fd(pwd, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
