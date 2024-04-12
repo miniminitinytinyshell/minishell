@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/12 18:54:48 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:01:21 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,16 @@ char	*set_rel_path(char *pwd, char *target)
 int	builtin_cd(char **args, t_envp *envp)
 {
 	int		result;
+	int		idx;
 	char	*path;
 
 	if (!args[1])
-		path = ft_strchr(envp->data[get_envp_idx("HOME", envp)], '=') + 1;
+	{
+		idx = get_envp_idx("HOME", envp);
+		if (idx < 0)
+			return (cd_home_error());
+		path = ft_strdup(ft_strchr(envp->data[idx], '=') + 1);
+	}
 	else
 	{
 		path = set_rel_path(envp->pwd, args[1]);
@@ -90,7 +96,7 @@ int	builtin_cd(char **args, t_envp *envp)
 	if (result == 0)
 		set_pwd(path, envp);
 	else
-		cd_pwd_error(path);
+		result = cd_pwd_error(path);
 	free(path);
 	return (result);
 }
