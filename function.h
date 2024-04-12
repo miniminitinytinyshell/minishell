@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 14:39:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:13:47 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	error_syscall(void);
 int		error_no_file(char *cmd);
 int		error_many_args(char *cmd);
 int		error_cmd_not_found(char *cmd);
+int		error_not_vaild(char *cmd, char *arg);
 int		error_syntax(char *str, t_token **token, int flag);
 
 // STRING
@@ -99,12 +100,13 @@ char	**get_path(t_envp *envp);
 char	*get_cmd_path(char *cmd, char **path);
 
 // BUILTIN
+int		builtin_exit(char **args);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, char **envp);
 int		builtin_pwd(char **args, t_envp *envp);
-int		builtin_exit(char **args);
 int		builtin_unset(char **args, t_envp *envp);
+int		builtin_export(char **args, t_envp *envp);
 
 // BUILTIN_Utils
 int		swap_envp_data(char *key, char *value, t_envp *envp);

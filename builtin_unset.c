@@ -6,18 +6,19 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 14:39:04 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 15:12:14 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	error_unset(char *cmd)
+int	error_not_vaild(char *cmd, char *arg)
 {
-	ft_putstr_fd("minishell: unset: ", STDERR_FILENO);
-	ft_putstr_fd("not a valid identifier '", STDERR_FILENO);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": not a valid identifier '", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
 	ft_putendl_fd("'", STDERR_FILENO);
 	return (1);
 }
@@ -45,7 +46,7 @@ int	builtin_unset(char **args, t_envp *envp)
 	{
 		idx = -1;
 		if (ft_isdigit(args[i][0]))
-			check = error_unset(args[i]);
+			check = error_not_vaild("unset", args[i]);
 		else
 		{
 			idx = get_envp_idx(args[i], envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 14:40:12 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:14:03 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	proc_builtin(t_tree *tree, t_envp *envp, int *status)
 		*status = builtin_cd(tree->data, envp);
 	else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
 		*status = builtin_pwd(tree->data, envp);
-	// else if (ft_strncmp(tree->data[0], "export", 7) == 0)
-	// 	*status = builtin_export();
+	else if (ft_strncmp(tree->data[0], "export", 7) == 0)
+		*status = builtin_export(tree->data, envp);
 	else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
 		*status = builtin_unset(tree->data, envp);
 	else if (ft_strncmp(tree->data[0], "env", 4) == 0)
