@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/12 19:01:21 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:04:15 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	cd_pwd_error(char *path)
 		ft_putstr_fd("cannot access parent directories: ", STDERR_FILENO);
 		ft_putendl_fd("No such file or directory", STDERR_FILENO);
 	}
+	path = free_null(path);
 	return (EXIT_FAILURE);
 }
 
@@ -55,6 +56,7 @@ void	set_pwd(char *path, t_envp *envp)
 	swap_envp_data("PWD", tmp_path, envp);
 	envp->pwd = tmp_path;
 	free(old_path);
+	path = free_null(path);
 }
 
 char	*set_rel_path(char *pwd, char *target)
@@ -92,11 +94,12 @@ int	builtin_cd(char **args, t_envp *envp)
 		if (access(path, F_OK) < 0)
 			path = ft_strdup(args[1]);
 	}
+	if (!path)
+		error_syscall();
 	result = chdir(path);
 	if (result == 0)
 		set_pwd(path, envp);
 	else
 		result = cd_pwd_error(path);
-	free(path);
 	return (result);
 }
