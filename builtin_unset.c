@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 14:37:54 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 14:39:04 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	builtin_unset(char **args, t_envp *envp)
 			if (idx != -1)
 				unset_envp(envp, idx);
 		}
+		i++;
 	}
 	return (check);
 }
