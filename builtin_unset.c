@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 15:12:14 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 15:27:15 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ int	error_not_vaild(char *cmd, char *arg)
 	ft_putstr_fd(": not a valid identifier '", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
 	ft_putendl_fd("'", STDERR_FILENO);
+	return (1);
+}
+
+int	error_unset_option(char *arg)
+{
+	if (!arg)
+		return (0);
+	if (arg[0] == '-')
+	{
+		ft_putstr_fd("minishell: unset: invalid option: ", STDERR_FILENO);
+		ft_putendl_fd(arg, STDERR_FILENO);
+		ft_putstr_fd("unset: usage: unset [name ...]", STDERR_FILENO);
+		return (0);
+	}
 	return (1);
 }
 
@@ -42,18 +56,21 @@ int	builtin_unset(char **args, t_envp *envp)
 
 	i = 1;
 	check = 0;
-	while (args[i])
+	if (error_unset_option(args[1]))
 	{
-		idx = -1;
-		if (ft_isdigit(args[i][0]))
-			check = error_not_vaild("unset", args[i]);
-		else
+		while (args[i])
 		{
-			idx = get_envp_idx(args[i], envp);
-			if (idx != -1)
-				unset_envp(envp, idx);
+			idx = -1;
+			if (ft_isdigit(args[i][0]))
+				check = error_not_vaild("unset", args[i]);
+			else
+			{
+				idx = get_envp_idx(args[i], envp);
+				if (idx != -1)
+					unset_envp(envp, idx);
+			}
+			i++;
 		}
-		i++;
 	}
 	return (check);
 }
