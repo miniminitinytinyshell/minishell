@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 19:13:27 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 17:01:13 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ t_envp	set_envp(char **envp)
 	env.max_cnt = idx;
 	env.curr_cnt = idx;
 	env.data = ft_calloc(idx + 1, sizeof(char *));
+	env.pwd = getcwd(NULL, 0);
+	if (!env.pwd)
+		error_syscall();
 	idx = 0;
 	while (envp[idx])
 	{
