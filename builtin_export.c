@@ -6,12 +6,29 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 15:12:30 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 15:35:42 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+
+int	error_export_option(char *opt)
+{
+	if (!opt)
+		return (0);
+	if (opt[0] == '-')
+	{
+		ft_putstr_fd("minishell: export: ", STDERR_FILENO);
+		ft_putstr_fd("invalid option: ", STDERR_FILENO);
+		ft_putendl_fd(opt, STDERR_FILENO);
+		ft_putstr_fd("export: usage: ", STDERR_FILENO);
+		ft_putstr_fd("export [name [=value] ...]", STDERR_FILENO);
+		ft_putendl_fd(" or export", STDERR_FILENO);
+		return (0);
+	}
+	return (1);
+}
 
 void	export_envp(char *arg, t_envp *envp)
 {
@@ -55,14 +72,24 @@ int	builtin_export(char **args, t_envp *envp)
 
 	i = 1;
 	check = 0;
-	while (args[i])
+	if (!args[1])
+		return (builtin_env(args, envp->data));
+	else
 	{
-		if (ft_isdigit(args[i][0]))
-			check = error_not_vaild("export", args[i]);
+		if (error_export_option(args[1]))
+		{
+			while (args[i])
+			{
+				if (ft_isdigit(args[i][0]))
+					check = error_not_vaild("export", args[i]);
+				else
+					if (check_envp_arg(args[i], envp) == 0)
+						check = error_not_vaild("export", args[i]);
+				i++;
+			}
+		}
 		else
-			if (check_envp_arg(args[i], envp) == 0)
-				check = error_not_vaild("export", args[i]);
-		i++;
+			check = 1;
 	}
 	return (check);
 }

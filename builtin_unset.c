@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 15:27:15 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/12 15:35:00 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ int	error_not_vaild(char *cmd, char *arg)
 	return (1);
 }
 
-int	error_unset_option(char *arg)
+int	error_unset_option(char *opt)
 {
-	if (!arg)
+	if (!opt)
 		return (0);
-	if (arg[0] == '-')
+	if (opt[0] == '-')
 	{
-		ft_putstr_fd("minishell: unset: invalid option: ", STDERR_FILENO);
-		ft_putendl_fd(arg, STDERR_FILENO);
+		ft_putstr_fd("minishell: unset: ", STDERR_FILENO);
+		ft_putstr_fd("invalid option: ", STDERR_FILENO);
+		ft_putendl_fd(opt, STDERR_FILENO);
 		ft_putstr_fd("unset: usage: unset [name ...]", STDERR_FILENO);
 		return (0);
 	}
@@ -72,5 +73,7 @@ int	builtin_unset(char **args, t_envp *envp)
 			i++;
 		}
 	}
+	else
+		check = 1;
 	return (check);
 }
