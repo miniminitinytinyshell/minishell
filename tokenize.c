@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 10:02:44 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:57:25 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,23 @@ int	token_len(char *str)
 	return (len);
 }
 
+void	token_extend(char *str, int len, t_token **token)
+{
+	t_token	*new;
+
+	new = token_new(str, len);
+	if (!new)
+	{
+		token_clear(token);
+		error_syscall();
+	}
+	token_add_back(token, new);
+}
+
 t_token	*tokenizer(char *str)
 {
 	int		len;
 	t_token	*token;
-	t_token	*new;
 
 	token = NULL;
 	while (*str)
@@ -89,13 +101,7 @@ t_token	*tokenizer(char *str)
 		}
 		else if (len == 0)
 			continue ;
-		new = token_new(str, len);
-		if (!new)
-		{
-			token_clear(&token);
-			error_syscall();
-		}
-		token_add_back(&token, new);
+		token_extend(str, len, &token);
 		str += len;
 	}
 	return (token);
