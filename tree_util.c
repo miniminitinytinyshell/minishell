@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/09 16:00:58 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/13 11:17:59 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ t_tree	*init_tree(void)
 	t_tree	*temp;
 
 	temp = ft_calloc(1, sizeof(t_tree));
+	temp->data = NULL;
+	temp->oper = NULL;
+	temp->left = NULL;
+	temp->right = NULL;
 	return (temp);
 }
 
@@ -26,10 +30,7 @@ t_tree	*free_tree(t_tree *tree)
 	if (!tree)
 		return (NULL);
 	if (tree->oper)
-	{
-		free(tree->oper);
-		tree->oper = NULL;
-	}
+		tree->oper = free_null(tree->oper);
 	if (tree->data)
 		tree->data = free_tab(tree->data);
 	if (tree->right)

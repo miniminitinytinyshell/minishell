@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/12 19:04:15 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:17:54 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	set_pwd(char *path, t_envp *envp)
 	path = free_null(path);
 }
 
-char	*set_rel_path(char *pwd, char *target)
+char	*set_path(char *pwd, char *target)
 {
-	char	*rel_path;
+	char	*path;
 	char	*tmp;
 	int		pwd_len;
 
@@ -70,9 +70,14 @@ char	*set_rel_path(char *pwd, char *target)
 		tmp = ft_strdup(pwd);
 	else
 		tmp = ft_strjoin(pwd, "/");
-	rel_path = ft_strjoin(tmp, target);
+	path = ft_strjoin(tmp, target);
 	free(tmp);
-	return (rel_path);
+	if (access(path, F_OK) < 0)
+	{
+		free(path);
+		path = ft_strdup(target);
+	}
+	return (path);
 }
 
 int	builtin_cd(char **args, t_envp *envp)
@@ -89,11 +94,7 @@ int	builtin_cd(char **args, t_envp *envp)
 		path = ft_strdup(ft_strchr(envp->data[idx], '=') + 1);
 	}
 	else
-	{
-		path = set_rel_path(envp->pwd, args[1]);
-		if (access(path, F_OK) < 0)
-			path = ft_strdup(args[1]);
-	}
+		path = set_path(envp->pwd, args[1]);
 	if (!path)
 		error_syscall();
 	result = chdir(path);
