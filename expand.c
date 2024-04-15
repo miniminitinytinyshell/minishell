@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 14:00:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:27:34 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,14 @@ static char	*expand_word(char *word, char **envp, int status)
 static int	expand_rdr(t_tree **tree, char **envp, int status)
 {
 	int		fd;
+	char	*file;
 	t_tree	*rdr;
 
 	fd = 0;
 	rdr = (*tree)->left;
-	rdr->data[1] = expand_word(rdr->data[1], envp, status);
+	file = expand_word(rdr->data[1], envp, status);
+	free(rdr->data[1]);
+	rdr->data[1] = file;
 	if ((*tree)->right)
 		expand_rdr(&(*tree)->right, envp, status);
 	return (1);
