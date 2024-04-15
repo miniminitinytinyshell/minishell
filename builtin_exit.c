@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 15:11:46 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 19:39:29 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+
+int	error_many_args(void)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putendl_fd("too many arguments", STDERR_FILENO);
+	return (1);
+}
 
 int	check_numeric(char *arg)
 {
@@ -27,12 +34,11 @@ int	check_numeric(char *arg)
 		i++;
 	}
 	while (arg[i] && arg[i] != '\n')
-	{	
+	{
 		if (arg[i] < '0' || arg[i] > '9')
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
-			ft_putstr_fd("numeric argument required: ", STDERR_FILENO);
-			ft_putendl_fd(arg, STDERR_FILENO);
+			ft_putendl_fd("numeric argument required", STDERR_FILENO);
 			exit(255);
 		}
 		i++;
@@ -50,12 +56,12 @@ int	builtin_exit(char **args)
 		c++;
 	if (c == 1)
 	{
-		ft_putendl_fd("exit", STDERR_FILENO);
+		ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(EXIT_SUCCESS);
 	}
 	else if (c == 2)
 	{
-		ft_putendl_fd("exit", STDERR_FILENO);
+		ft_putendl_fd("exit", STDOUT_FILENO);
 		num = check_numeric(args[1]);
 		if (num < 256)
 			exit(num);
@@ -63,5 +69,5 @@ int	builtin_exit(char **args)
 			exit(num % 256);
 	}
 	else
-		return (error_many_args(args[0]));
+		return (error_many_args());
 }

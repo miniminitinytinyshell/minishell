@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 16:43:10 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 19:38:46 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**free_tab(char **temp);
 // ERROR
 void	error_syscall(void);
 int		error_no_file(char *cmd);
-int		error_many_args(char *cmd);
+int		error_many_args(void);
 int		error_permission(char *file);
 int		error_is_directory(char *path);
 int		error_cmd_not_found(char *cmd);
