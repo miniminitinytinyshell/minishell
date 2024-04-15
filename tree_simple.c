@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/07 12:20:11 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:21:42 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_rdr_cmd(t_tree **tree, t_token *token)
 {
 	(*tree)->type = rdr_cmd;
 	(*tree)->data = ft_calloc(3, sizeof(char *));
+	if (!(*tree)->data)
+		error_syscall();
 	(*tree)->data[0] = ft_strdup(token->data);
 	(*tree)->data[1] = ft_strdup(token->next->data);
 	token_clear(&token);
