@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/13 11:17:54 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 19:41:45 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	cd_pwd_error(char *path)
 	{
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putendl_fd(": No such file of directory", STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
 	else
 	{
