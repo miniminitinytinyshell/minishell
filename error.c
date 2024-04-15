@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 15:45:21 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:08:35 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	error_cmd_not_found(char *cmd)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putendl_fd(cmd, STDERR_FILENO);
-	return (127);
+	exit (127);
 }
 
 int	error_syntax(char *str, t_token **token, int flag)

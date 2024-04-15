@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 15:43:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:08:39 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void	create_heardoc(t_tree **tree, int *name);
 void	delete_heardoc(t_tree **tree);
 
 // EXECUTE
-void	execute_rdr(t_tree *tree, int *status);
-void	execute_cmd(t_tree *tree, t_envp *envp, int *status);
+int		execute_rdr(t_tree *tree, int *status);
+void	execute_cmd(t_tree *tree, t_envp *envp);
 void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status);
 void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status);
 void	execute_tree(t_tree **tree, t_envp *envp, int *status);

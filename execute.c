@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 15:43:19 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:09:14 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 extern int	g_signum;
 
-void	execute_rdr(t_tree *tree, int *status)
+int	execute_rdr(t_tree *tree, int *status)
 {
 	int	file_in;
 	int	file_out;
 
 	if (!tree)
-		return ;
+		return (1);
 	file_in = 0;
 	file_out = 0;
 	*status = open_file(tree, &file_in, &file_out);
@@ -37,19 +37,32 @@ void	execute_rdr(t_tree *tree, int *status)
 			error_syscall();
 		close(file_out);
 	}
+	if (*status != 0)
+		return (0);
+	return (1);
 }
 
-void	execute_cmd(t_tree *tree, t_envp *envp, int *status)
+void	execute_cmd(t_tree *tree, t_envp *envp)
 {
 	char	*path;
 
+	path = NULL;
 	set_child_signal();
 	if (!tree)
 		return ;
-	if (*status != 0)
-		return ;
-	if (access(tree->data[0], O_RDONLY) == 0)
-		path = ft_strdup(tree->data[0]);
+	if (access(tree->data[0], F_OK) == 0)
+	{
+		if (ft_strncmp(tree->data[0], "/", 1) == 0 \
+			|| ft_strncmp(tree->data[0], "./", 2) == 0)
+		{
+			if (access(tree->data[0], X_OK) != 0)
+			{
+				error_permission(tree->data[0]);
+				exit(126);
+			}
+			path = ft_strdup(tree->data[0]);	
+		}
+	}
 	else
 		path = get_cmd_path(tree->data[0], get_path(envp));
 	if (!path)
@@ -73,8 +86,8 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 		if (pid == 0)
 		{
 			signal(SIGINT, SIG_DFL);
-			execute_rdr((*tree)->left, status);
-			execute_cmd((*tree)->right, envp, status);
+			if (execute_rdr((*tree)->left, status))
+				execute_cmd((*tree)->right, envp);
 			exit(*status);
 		}
 		else
