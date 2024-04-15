@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 14:27:34 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:49:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,14 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 	int		i;
 	char	**data;
 
+	i = 1;
+	while ((*tree)->data[i])
+	{
+		if (ft_strchr((*tree)->data[i], '*'))
+			if ((*tree)->data[i][0] != '\"' && (*tree)->data[i][0] != '\'')
+				expand_wildcard(tree, i);
+		i++;
+	}
 	i = 0;
 	data = NULL;
 	while ((*tree)->data[i])
@@ -100,13 +108,6 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 	}
 	free_tab((*tree)->data);
 	(*tree)->data = data;
-	i = 1;
-	while ((*tree)->data[i])
-	{
-		if (ft_strchr((*tree)->data[i], '*'))
-			expand_wildcard(tree, i);
-		i++;
-	}
 	return (1);
 }
 
