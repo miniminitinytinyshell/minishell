@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/11 06:36:34 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:32:34 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	create_heardoc(t_tree **tree, int *name)
 	{
 		if (ft_strncmp((*tree)->data[0], "<<", 3) == 0)
 		{
-			path = strjoin_free(ft_strdup("./temp/temp_"), ft_itoa(*name));
+			path = strjoin_free(ft_strdup("./.temp_"), ft_itoa(*name));
 			fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			fork_heredoc((*tree)->data[1], fd);
 			close(fd);
