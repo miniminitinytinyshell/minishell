@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 15:15:26 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:00:43 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,6 @@ static int	expand_rdr(t_tree **tree, char **envp, int status)
 	fd = 0;
 	rdr = (*tree)->left;
 	rdr->data[1] = expand_word(rdr->data[1], envp, status);
-	if (ft_strncmp(rdr->data[0], "<", 2) == 0)
-	{
-		fd = open(rdr->data[1], O_RDONLY);
-		if (fd < 0)
-			error_no_file(rdr->data[1]);
-		close(fd);
-	}
 	if ((*tree)->right)
 		expand_rdr(&(*tree)->right, envp, status);
 	return (1);
