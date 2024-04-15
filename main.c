@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 14:15:08 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:05:14 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc > 1)
 		return (printf("usage: %s\n", argv[0]));
+	status = 0;
 	cmd = NULL;
 	env = set_envp(envp);
 	while (1)
@@ -79,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 		add_history(cmd);
 		cmd = free_null(cmd);
 		tree = free_tree(tree);
-		check_leaks();
 	}
 	return (0);
 }

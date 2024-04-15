@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 13:38:05 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:11:46 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,18 @@
 int	check_numeric(char *arg)
 {
 	int	i;
+	int	sign;
 
-	i = 0;
-	while (arg[i] && arg[i] != '\n')
+	i = 1;
+	sign = 1;
+	if (arg[0] == '+' || arg[0] == '-')
 	{
+		if (arg[0] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (arg[i] && arg[i] != '\n')
+	{	
 		if (arg[i] < '0' || arg[i] > '9')
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
