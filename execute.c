@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/11 06:30:53 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 13:57:07 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,4 @@ void	execute_tree(t_tree **tree, t_envp *envp, int *status)
 		execute_cpd_cmd(tree, envp, status);
 	if (file_name > 1)
 		delete_heardoc(tree);
-	*tree = free_tree(*tree);
 }
