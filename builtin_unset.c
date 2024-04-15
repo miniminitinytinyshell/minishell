@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 15:35:00 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:06:14 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	error_not_vaild(char *cmd, char *arg)
 int	error_unset_option(char *opt)
 {
 	if (!opt)
-		return (0);
+		return (1);
 	if (opt[0] == '-')
 	{
 		ft_putstr_fd("minishell: unset: ", STDERR_FILENO);

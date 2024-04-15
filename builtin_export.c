@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 15:35:42 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:06:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	error_export_option(char *opt)
 {
 	if (!opt)
-		return (0);
+		return (1);
 	if (opt[0] == '-')
 	{
 		ft_putstr_fd("minishell: export: ", STDERR_FILENO);
@@ -80,7 +80,7 @@ int	builtin_export(char **args, t_envp *envp)
 		{
 			while (args[i])
 			{
-				if (ft_isdigit(args[i][0]))
+				if (ft_isdigit(args[i][0]) || args[i][0] == '=')
 					check = error_not_vaild("export", args[i]);
 				else
 					if (check_envp_arg(args[i], envp) == 0)
