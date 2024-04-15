@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 16:09:14 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:14:36 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 				error_permission(tree->data[0]);
 				exit(126);
 			}
-			path = ft_strdup(tree->data[0]);	
+			path = ft_strdup(tree->data[0]);
 		}
 	}
 	else
