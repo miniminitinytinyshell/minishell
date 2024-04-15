@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/11 06:17:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:39:04 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	set_status(int *status)
 		*status = WEXITSTATUS(*status);
 }
 
-void	open_file(t_tree *tree, int *file_in, int *file_out)
+int	open_file(t_tree *tree, int *file_in, int *file_out)
 {
 	if (!tree)
-		return ;
+		return (0);
 	if (ft_strncmp(tree->left->data[0], "<", 1) == 0)
 	{
 		if (*file_in > 0)
@@ -48,6 +48,9 @@ void	open_file(t_tree *tree, int *file_in, int *file_out)
 			O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	if (*file_in < 0)
-		error_no_file(tree->left->data[1]);
-	open_file(tree->right, file_in, file_out);
+		return (error_no_file(tree->left->data[1]));
+	else if (*file_out < 0)
+		return (error_permission(tree->left->data[1]));
+	else
+		return (open_file(tree->right, file_in, file_out));
 }

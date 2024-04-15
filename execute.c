@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 13:57:07 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:43:19 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 extern int	g_signum;
 
-void	execute_rdr(t_tree *tree)
+void	execute_rdr(t_tree *tree, int *status)
 {
 	int	file_in;
 	int	file_out;
@@ -24,7 +24,7 @@ void	execute_rdr(t_tree *tree)
 		return ;
 	file_in = 0;
 	file_out = 0;
-	open_file(tree, &file_in, &file_out);
+	*status = open_file(tree, &file_in, &file_out);
 	if (file_in > 0)
 	{
 		if (dup2(file_in, STDIN_FILENO) == -1)
@@ -39,12 +39,14 @@ void	execute_rdr(t_tree *tree)
 	}
 }
 
-void	execute_cmd(t_tree *tree, t_envp *envp)
+void	execute_cmd(t_tree *tree, t_envp *envp, int *status)
 {
 	char	*path;
 
 	set_child_signal();
 	if (!tree)
+		return ;
+	if (*status != 0)
 		return ;
 	if (access(tree->data[0], O_RDONLY) == 0)
 		path = ft_strdup(tree->data[0]);
@@ -71,9 +73,9 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 		if (pid == 0)
 		{
 			signal(SIGINT, SIG_DFL);
-			execute_rdr((*tree)->left);
-			execute_cmd((*tree)->right, envp);
-			exit(EXIT_FAILURE);
+			execute_rdr((*tree)->left, status);
+			execute_cmd((*tree)->right, envp, status);
+			exit(*status);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 15:13:47 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:43:13 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	**free_tab(char **temp);
 void	error_syscall(void);
 int		error_no_file(char *cmd);
 int		error_many_args(char *cmd);
+int		error_permission(char *file);
 int		error_cmd_not_found(char *cmd);
 int		error_not_vaild(char *cmd, char *arg);
 int		error_syntax(char *str, t_token **token, int flag);
@@ -117,15 +118,15 @@ void	create_heardoc(t_tree **tree, int *name);
 void	delete_heardoc(t_tree **tree);
 
 // EXECUTE
-void	execute_rdr(t_tree *tree);
-void	execute_cmd(t_tree *tree, t_envp *envp);
+void	execute_rdr(t_tree *tree, int *status);
+void	execute_cmd(t_tree *tree, t_envp *envp, int *status);
 void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status);
 void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status);
 void	execute_tree(t_tree **tree, t_envp *envp, int *status);
 
 // EXCUTE UTIL
 void	set_status(int *status);
-void	open_file(t_tree *tree, int *file_in, int *file_out);
+int		open_file(t_tree *tree, int *file_in, int *file_out);
 
 // EXECUTE PIPE
 void	execute_pipe(t_tree **tree, t_envp *envp, int *status);

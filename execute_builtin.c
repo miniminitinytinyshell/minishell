@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:57:10 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 15:14:03 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:44:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 
 	input = dup(STDIN_FILENO);
 	output = dup(STDOUT_FILENO);
-	execute_rdr(tree->left);
-	proc_builtin(tree->right, envp, status);
+	execute_rdr(tree->left, status);
+	if (*status != 0)
+		proc_builtin(tree->right, envp, status);
 	dup2(input, STDIN_FILENO);
 	dup2(output, STDOUT_FILENO);
 	close(input);
