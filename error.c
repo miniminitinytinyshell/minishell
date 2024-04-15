@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 16:46:38 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 18:41:46 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	error_syscall(void)
 int	error_no_file(char *cmd)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("no such file or directory: ", STDERR_FILENO);
+	ft_putstr_fd("No such file or directory: ", STDERR_FILENO);
 	ft_putendl_fd(cmd, STDERR_FILENO);
 	return (1);
 }
