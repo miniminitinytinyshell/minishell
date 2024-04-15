@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 16:08:39 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:43:10 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 # include <string.h> //strerror()
 # include <stdbool.h>
 # include <termios.h> //tcgetattr()
-# include <sys/errno.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
+# include <sys/errno.h>
 # include <readline/readline.h> //readline()
 # include <readline/history.h>
 
@@ -42,6 +43,7 @@ void	error_syscall(void);
 int		error_no_file(char *cmd);
 int		error_many_args(char *cmd);
 int		error_permission(char *file);
+int		error_is_directory(char *path);
 int		error_cmd_not_found(char *cmd);
 int		error_not_vaild(char *cmd, char *arg);
 int		error_syntax(char *str, t_token **token, int flag);
@@ -126,6 +128,7 @@ void	execute_tree(t_tree **tree, t_envp *envp, int *status);
 
 // EXCUTE UTIL
 void	set_status(int *status);
+char	*check_file(char *file);
 int		open_file(t_tree *tree, int *file_in, int *file_out);
 
 // EXECUTE PIPE

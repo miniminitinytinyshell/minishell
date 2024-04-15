@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 15:39:04 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:47:41 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,31 @@ int	open_file(t_tree *tree, int *file_in, int *file_out)
 		return (error_permission(tree->left->data[1]));
 	else
 		return (open_file(tree->right, file_in, file_out));
+}
+
+char	*check_file(char *file)
+{
+	struct stat	file_stat;
+	
+	if (ft_strncmp(file, "/", 1) == 0 || ft_strncmp(file, "./", 2) == 0)
+	{
+		if (stat(file, &file_stat) == 0)
+		{
+			if (S_ISDIR(file_stat.st_mode))
+			{
+				error_is_directory(file);
+				exit(126);
+			}
+		}
+		else
+			error_syscall();
+		if (access(file, X_OK) != 0)
+		{
+			error_permission(file);
+			exit(126);
+		}
+	}
+	else
+		return (NULL);
+	return (file);
 }

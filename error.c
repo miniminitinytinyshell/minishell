@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 16:08:35 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:46:38 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ int	error_permission(char *file)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("Permisiion denied: ", STDERR_FILENO);
 	ft_putendl_fd(file, STDERR_FILENO);
+	return (1);
+}
+
+int	error_is_directory(char *path)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("is a directory: ", STDERR_FILENO);
+	ft_putendl_fd(path, STDERR_FILENO);
 	return (1);
 }
 

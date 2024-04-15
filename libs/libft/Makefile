@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 12:49:20 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/15 14:33:23 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/15 16:44:29 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
