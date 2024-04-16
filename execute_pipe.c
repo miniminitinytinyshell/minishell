@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 15:50:05 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 16:29:15 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ static pid_t	proc_fork(t_tree *tree, t_envp *envp, int *status)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		execute_cpd_cmd(&tree->left, envp, status);
+		ft_putnbr_fd(*status, STDERR_FILENO);
+		ft_putstr_fd(", ", STDERR_FILENO);
+		ft_putendl_fd("HERE", STDERR_FILENO);
 		exit(*status);
 	}
 	else
 	{
-		close(STDIN_FILENO);
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
@@ -58,7 +60,7 @@ static pid_t	proc_fork(t_tree *tree, t_envp *envp, int *status)
 	return (pid);
 }
 
-pid_t	last_fork(t_tree *tree, t_envp *envp, int *status)
+static pid_t	last_fork(t_tree *tree, t_envp *envp, int *status)
 {
 	pid_t	pid;
 	
@@ -68,6 +70,9 @@ pid_t	last_fork(t_tree *tree, t_envp *envp, int *status)
 	if (pid == 0)
 	{
 		execute_cpd_cmd(&tree, envp, status);
+		ft_putnbr_fd(*status, STDERR_FILENO);
+		ft_putstr_fd(", ", STDERR_FILENO);
+		ft_putendl_fd("HERE", STDERR_FILENO);
 		exit(*status);
 	}
 	else
@@ -106,13 +111,10 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 {
 	int	input;
-	int	output;
 
 	input = dup(STDIN_FILENO);
-	output = dup(STDOUT_FILENO);
+	signal(SIGPIPE, SIG_IGN);
 	process_pipe(tree, envp, status);
 	dup2(input, STDIN_FILENO);
-	dup2(output, STDOUT_FILENO);
 	close(input);
-	close(output);
 }
