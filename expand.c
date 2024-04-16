@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 20:39:37 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:34:25 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ char	*expand_word(char *word, char **envp, int status)
 
 static int	expand_rdr(t_tree **tree, char **envp, int status)
 {
-	int		fd;
 	char	*file;
 	t_tree	*rdr;
 
-	fd = 0;
 	rdr = (*tree)->left;
 	file = expand_word(rdr->data[1], envp, status);
 	free(rdr->data[1]);

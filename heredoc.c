@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 20:38:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:37:06 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	heredoc_env(char *str, int fd, t_envp *envp)
 
 void	read_heredoc(char *eof, int fd, t_envp *envp)
 {
-	char	*read_line;
 	int		idx;
+	char	*read_line;
 
 	while (1)
 	{
