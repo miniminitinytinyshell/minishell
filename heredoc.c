@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 14:32:34 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:14:28 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	read_heredoc(char *eof, int fd)
 void	fork_heredoc(char *eof, int fd)
 {
 	pid_t	pid;
+	char	*exp_eof;
 
 	pid = fork();
 	if (pid == -1)
@@ -46,7 +47,9 @@ void	fork_heredoc(char *eof, int fd)
 	if (pid == 0)
 	{
 		set_heardoc_signal();
-		read_heredoc(eof, fd);
+		exp_eof = expand_word(eof, NULL, 0);
+		read_heredoc(exp_eof, fd);
+		free(exp_eof);
 	}
 	else
 	{

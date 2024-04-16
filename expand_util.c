@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 18:41:52 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:12:53 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*find_env(char *aim, char **envp)
 
 	len = ft_strlen(aim);
 	result = NULL;
+	if (!envp)
+		return (result);
 	while (*envp)
 	{
 		if (ft_strncmp(aim, *envp, len) == 0)
