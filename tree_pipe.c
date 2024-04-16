@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:22:32 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:16:35 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 17:24:35 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_pipe(t_tree **tree, t_token *token)
 	t_token	*cur;
 
 	if (!token)
-		error_syscall();
+		return (0);
 	cur = token;
 	if (cur->group == sep)
 		if (skip_sep(&cur) == 0)
