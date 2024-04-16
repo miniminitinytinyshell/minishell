@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:20:26 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:17:16 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fork_heredoc(char *eof, int fd)
 		error_syscall();
 	if (pid == 0)
 	{
-		set_heardoc_signal();
+		set_heredoc_signal();
 		exp_eof = expand_word(eof, NULL, 0);
 		if (!exp_eof)
 			read_heredoc(eof, fd);
@@ -61,7 +61,7 @@ void	fork_heredoc(char *eof, int fd)
 	}
 }
 
-void	create_heardoc(t_tree **tree, int *name)
+void	create_heredoc(t_tree **tree, int *name)
 {
 	int		fd;
 	char	*path;
@@ -83,13 +83,13 @@ void	create_heardoc(t_tree **tree, int *name)
 	else
 	{
 		if ((*tree)->left && g_signum != SIGINT)
-			create_heardoc(&(*tree)->left, name);
+			create_heredoc(&(*tree)->left, name);
 		if ((*tree)->right && g_signum != SIGINT)
-			create_heardoc(&(*tree)->right, name);
+			create_heredoc(&(*tree)->right, name);
 	}
 }
 
-void	delete_heardoc(t_tree **tree)
+void	delete_heredoc(t_tree **tree)
 {
 	if (!tree && !(*tree))
 		return ;
@@ -100,8 +100,8 @@ void	delete_heardoc(t_tree **tree)
 	else
 	{
 		if ((*tree)->left)
-			delete_heardoc(&(*tree)->left);
+			delete_heredoc(&(*tree)->left);
 		if ((*tree)->right)
-			delete_heardoc(&(*tree)->right);
+			delete_heredoc(&(*tree)->right);
 	}
 }

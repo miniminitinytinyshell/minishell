@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:13:38 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:17:16 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	handle_set(int signum);
 void	set_signal(void);
 void	set_child_signal(void);
 void	set_parent_signal(void);
-void	set_heardoc_signal(void);
+void	set_heredoc_signal(void);
 void	set_global_signal(void);
 
 // TOKENIZE
@@ -117,8 +117,8 @@ int		swap_envp_data(char *key, char *value, t_envp *envp);
 int		get_envp_idx(char *key, t_envp *envp);
 
 // HERE_DOC
-void	create_heardoc(t_tree **tree, int *name);
-void	delete_heardoc(t_tree **tree);
+void	create_heredoc(t_tree **tree, int *name);
+void	delete_heredoc(t_tree **tree);
 
 // EXECUTE
 int		execute_rdr(t_tree *tree, int *status);

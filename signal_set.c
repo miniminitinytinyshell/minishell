@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_set.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:37:04 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/11 05:57:30 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 18:17:16 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	set_parent_signal(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	set_heardoc_signal(void)
+void	set_heredoc_signal(void)
 {
 	signal(SIGINT, handle_exit);
 	signal(SIGQUIT, SIG_IGN);
