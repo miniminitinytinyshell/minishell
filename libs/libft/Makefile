@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 12:49:20 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/16 15:14:33 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/16 21:28:55 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = libft.a
 # **************************************************************************** #
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -O0 -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -MP #-O0 -g3 -fsanitize=address
 # **************************************************************************** #
 RESET = \033[0m
 
