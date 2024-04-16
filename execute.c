@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 18:37:59 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:56:35 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 	set_child_signal();
 	if (!tree)
 		return ;
-	if (access(tree->data[0], F_OK) == 0)
+	if (tree->data[0][0] == '\0')
+		path = NULL;
+	else if (access(tree->data[0], F_OK) == 0)
 		path = check_file(tree->data[0]);
 	else
 		path = get_cmd_path(tree->data[0], get_path(envp));
