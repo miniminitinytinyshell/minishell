@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/08 15:22:38 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 19:04:54 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ static int	match(char *pattern, char *str)
 	return (!(*str));
 }
 
-void	add_wildcard_data(char ***data, char **path, DIR *dir)
+static int	add_wildcard_data(char ***data, char **path, DIR *dir)
 {
+	int				cnt;
 	struct dirent	*file;
 
+	cnt = 0;
 	while (1)
 	{
 		file = readdir(dir);
@@ -71,28 +73,45 @@ void	add_wildcard_data(char ***data, char **path, DIR *dir)
 				*data = table_join(*data, ft_strdup(file->d_name));
 			else
 				*data = table_join(*data, ft_strjoin(path[0], file->d_name));
+			cnt++;
 		}
 	}
+	if (cnt == 0)
+	{
+		*data = table_join(*data, ft_strdup(path[1]));
+		cnt++;
+	}
+	return (cnt);
 }
 
-void	expand_wildcard(t_tree **tree, int i)
+void	expand_wildcard(t_tree **tree, int *i)
 {
+	int				idx;
+	int				cnt;
 	DIR				*dir;
 	char			**path;
 	char			**data;
 
+	idx = *i + 1;
 	path = ft_calloc(3, sizeof(char *));
 	if (!path)
 		error_syscall();
-	extract_path((*tree)->data[i], path);
+	extract_path((*tree)->data[*i], path);
 	dir = opendir(path[0]);
 	if (!dir)
-		error_syscall();
-	data = table_dup((*tree)->data, i);
-	add_wildcard_data(&data, path, dir);
+	{
+		free_tab(path);
+		return ;
+	}
+	data = table_dup((*tree)->data, *i);
+	cnt = add_wildcard_data(&data, path, dir);
 	closedir(dir);
-	while ((*tree)->data[++i])
-		data = table_join(data, ft_strdup((*tree)->data[i]));
+	while ((*tree)->data[idx])
+	{
+		data = table_join(data, ft_strdup((*tree)->data[idx]));
+		idx++;
+	}
+	*i += cnt - 1;
 	free_tab((*tree)->data);
 	path = free_tab(path);
 	(*tree)->data = data;
