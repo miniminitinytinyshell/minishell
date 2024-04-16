@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 18:17:16 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:01:15 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_token	*erase_pr(t_token *token);
 
 // EXPAND
 int		expand_tree(t_tree **tree, char **envp, int status);
-void	expand_wildcard(t_tree **tree, int i);
+void	expand_wildcard(t_tree **tree, int *i);
 char	*expand_word(char *word, char **envp, int status);
 
 // EXPAND_Utils

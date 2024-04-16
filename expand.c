@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:53:20 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:05:31 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 	{
 		if (ft_strchr((*tree)->data[i], '*'))
 			if ((*tree)->data[i][0] != '\"' && (*tree)->data[i][0] != '\'')
-				expand_wildcard(tree, i);
+				expand_wildcard(tree, &i);
 		i++;
 	}
 	i = 0;
