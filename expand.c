@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 14:49:23 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 17:13:17 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*expand_env(char *word, char **envp, int *i, int status)
 	return (env);
 }
 
-static char	*expand_word(char *word, char **envp, int status)
+char	*expand_word(char *word, char **envp, int status)
 {
 	int		i;
 	char	quote;
