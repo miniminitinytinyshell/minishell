@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 19:38:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:14:09 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ int		open_file(t_tree *tree, int *file_in, int *file_out);
 
 // EXECUTE PIPE
 void	execute_pipe(t_tree **tree, t_envp *envp, int *status);
-void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status);
 
 // EXECUTE BUILTIN
 int		find_builtin(t_tree *tree);
