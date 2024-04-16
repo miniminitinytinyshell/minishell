@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 16:47:41 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 20:42:27 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	open_file(t_tree *tree, int *file_in, int *file_out)
 char	*check_file(char *file)
 {
 	struct stat	file_stat;
-	
+
 	if (ft_strncmp(file, "/", 1) == 0 || ft_strncmp(file, "./", 2) == 0)
 	{
 		if (stat(file, &file_stat) == 0)

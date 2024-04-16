@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 16:50:42 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 20:42:54 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static pid_t	proc_fork(t_tree *tree, t_envp *envp, int *status)
 static pid_t	last_fork(t_tree *tree, t_envp *envp, int *status)
 {
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == -1)
 		error_syscall();
@@ -100,7 +100,6 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 	}
 	set_status(status);
 }
-
 
 void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 {
