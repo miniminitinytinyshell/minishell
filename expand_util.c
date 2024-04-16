@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 20:32:41 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:03:32 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*get_cmd_path(char *cmd, char **path)
 
 	i = 0;
 	if (!path)
-		exit(error_no_file(cmd) + 126);
+		exit(error_with_str(cmd, CMD_NFOUND));
 	temp_cmd = ft_strjoin("/", cmd);
 	while (path[i])
 	{

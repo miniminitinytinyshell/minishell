@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 20:42:27 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:24:10 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	open_file(t_tree *tree, int *file_in, int *file_out)
 			O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	if (*file_in < 0)
-		return (error_no_file(tree->left->data[1]));
+		return (error_with_str(tree->left->data[1], 0));
 	else if (*file_out < 0)
-		return (error_permission(tree->left->data[1]));
+		return (error_with_str(tree->left->data[1], 0));
 	else
 		return (open_file(tree->right, file_in, file_out));
 }
@@ -64,18 +64,12 @@ char	*check_file(char *file)
 		if (stat(file, &file_stat) == 0)
 		{
 			if (S_ISDIR(file_stat.st_mode))
-			{
-				error_is_directory(file);
-				exit(126);
-			}
+				exit(error_with_str(file, IS_DIR));
 		}
 		else
 			error_syscall();
 		if (access(file, X_OK) != 0)
-		{
-			error_permission(file);
-			exit(126);
-		}
+			exit(error_with_str(file, 0) + 125);
 	}
 	else
 		return (NULL);

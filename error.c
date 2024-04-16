@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:06:30 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 21:27:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,25 @@ void	error_syscall(void)
 	exit(EXIT_FAILURE);
 }
 
-int	error_no_file(char *cmd)
+int	error_with_str(char *str, int flag)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("No such file or directory: ", STDERR_FILENO);
-	ft_putendl_fd(cmd, STDERR_FILENO);
-	return (1);
-}
-
-int	error_permission(char *file)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("Permisiion denied: ", STDERR_FILENO);
-	ft_putendl_fd(file, STDERR_FILENO);
-	return (1);
-}
-
-int	error_is_directory(char *path)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("is a directory: ", STDERR_FILENO);
-	ft_putendl_fd(path, STDERR_FILENO);
-	return (1);
-}
-
-int	error_cmd_not_found(char *cmd)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("command not found: ", STDERR_FILENO);
-	ft_putendl_fd(cmd, STDERR_FILENO);
-	exit (127);
+	if (flag == CMD_NFOUND)
+		ft_putstr_fd("command not found: ", STDERR_FILENO);
+	else if (flag == IS_DIR)
+		ft_putstr_fd("is a directory: ", STDERR_FILENO);
+	else
+	{
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	ft_putendl_fd(str, STDERR_FILENO);
+	if (flag == CMD_NFOUND)
+		return (127);
+	if (flag == IS_DIR)
+		return (126);
+	else
+		return (1);
 }
 
 int	error_syntax(char *str, t_token **token, int flag)
@@ -65,4 +54,14 @@ int	error_syntax(char *str, t_token **token, int flag)
 	if (token)
 		token_clear(token);
 	return (0);
+}
+
+int	error_not_vaild(char *cmd, char *arg)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": not a valid identifier '", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putendl_fd("'", STDERR_FILENO);
+	return (1);
 }

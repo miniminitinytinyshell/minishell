@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 16:58:44 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:01:57 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define T_WORD 0
 # define T_OPER 1
+
+# define CMD_NFOUND 1
+# define IS_DIR 2
 
 typedef struct s_envp
 {

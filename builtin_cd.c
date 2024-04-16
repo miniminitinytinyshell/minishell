@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/15 19:41:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:02:47 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ int	cd_home_error(void)
 int	cd_pwd_error(char *path)
 {
 	if (path)
-	{
-		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-	}
+		error_with_str(path, 0);
 	else
 	{
 		ft_putstr_fd("cd: error retrieving current directory: ", STDERR_FILENO);

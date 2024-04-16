@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 18:21:19 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:08:59 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 	else
 		path = get_cmd_path(tree->data[0], get_path(envp));
 	if (!path)
-		error_cmd_not_found(tree->data[0]);
+		exit(error_with_str(tree->data[0], CMD_NFOUND));
 	if (execve(path, tree->data, envp->data) == -1)
 		error_syscall();
 }

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 20:39:59 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:27:48 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,9 @@ char	**free_tab(char **temp);
 
 // ERROR
 void	error_syscall(void);
-int		error_no_file(char *cmd);
-int		error_many_args(void);
-int		error_permission(char *file);
-int		error_is_directory(char *path);
-int		error_cmd_not_found(char *cmd);
-int		error_not_vaild(char *cmd, char *arg);
+int		error_with_str(char *str, int flag);
 int		error_syntax(char *str, t_token **token, int flag);
+int		error_not_vaild(char *cmd, char *arg);
 
 // STRING
 char	*strjoin_char(char *str, char c);
@@ -106,6 +102,7 @@ char	*get_cmd_path(char *cmd, char **path);
 
 // BUILTIN
 int		builtin_exit(char **args);
+int		error_many_args(void);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, char **envp);
