@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 18:17:16 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:21:19 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	execute_tree(t_tree **tree, t_envp *envp, int *status)
 	int	file_name;
 
 	file_name = 1;
-	create_heredoc(tree, &file_name);
+	create_heredoc(tree, &file_name, envp);
 	if (g_signum != SIGINT)
 		execute_cpd_cmd(tree, envp, status);
 	if (file_name > 1)

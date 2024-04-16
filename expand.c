@@ -6,14 +6,14 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:53:20 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:25:52 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-static char	*expand_env(char *word, char **envp, int *i, int status)
+char	*expand_env(char *word, char **envp, int *i, int status)
 {
 	char	*env;
 	char	*temp;

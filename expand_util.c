@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:12:53 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:32:41 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	*find_env(char *aim, char **envp)
 			if (*(*envp + len) == '=')
 			{
 				result = ft_strdup(*envp + len + 1);
+				if (!result)
+					error_syscall();
 				break ;
 			}
 		}

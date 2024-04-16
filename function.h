@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 18:17:16 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:25:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_token	*erase_pr(t_token *token);
 int		expand_tree(t_tree **tree, char **envp, int status);
 void	expand_wildcard(t_tree **tree, int i);
 char	*expand_word(char *word, char **envp, int status);
+char	*expand_env(char *word, char **envp, int *i, int status);
 
 // EXPAND_Utils
 char	*find_env(char *aim, char **envp);
@@ -117,7 +118,7 @@ int		swap_envp_data(char *key, char *value, t_envp *envp);
 int		get_envp_idx(char *key, t_envp *envp);
 
 // HERE_DOC
-void	create_heredoc(t_tree **tree, int *name);
+void	create_heredoc(t_tree **tree, int *name, t_envp *envp);
 void	delete_heredoc(t_tree **tree);
 
 // EXECUTE
