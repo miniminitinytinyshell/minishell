@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/02 14:22:29 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 17:16:37 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 
 	cur = right;
 	right = right->next;
+	if (!right->next)
+		return (error_syntax(right->data, &left, 0));
 	cur->next = NULL;
 	(*tree)->oper = ft_strdup(right->data);
 	(*tree)->type = compound_cmd;
@@ -82,10 +84,8 @@ static int	case_etc(t_tree **tree, t_token *token)
 			return (0);
 	}
 	else
-	{
 		if (div_cpd_cmd(tree, token, cur, false) == 0)
 			return (0);
-	}
 	return (1);
 }
 

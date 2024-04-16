@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 19:37:08 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:06:30 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	error_syntax(char *str, t_token **token, int flag)
 	if (flag)
 		ft_putchar_fd((char)flag, STDERR_FILENO);
 	else
-		ft_putchar_fd(*str, STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd("'", STDERR_FILENO);
 	if (token)
 		token_clear(token);

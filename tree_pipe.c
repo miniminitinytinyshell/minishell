@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:22:32 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 05:27:28 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:16:35 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	div_pipe(t_tree **tree, t_token *left, t_token *right)
 
 	cur = right;
 	right = right->next;
+	if (!right->next)
+		return (error_syntax(right->data, &left, 0));
 	cur->next = NULL;
 	(*tree)->oper = ft_strdup(right->data);
 	if (!(*tree)->oper)
