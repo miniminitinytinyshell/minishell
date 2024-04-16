@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 15:52:37 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/16 20:41:16 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,7 @@ t_envp	set_envp(char **envp)
 int	check_cmd(char *cmd)
 {
 	if (!cmd)
-	{
-		// ft_putstr_fd("\033[1A", STDERR_FILENO);
-		// ft_putstr_fd("\033[11C", STDERR_FILENO);
-		// ft_putstr_fd("exit\n", STDERR_FILENO);
 		exit(EXIT_SUCCESS);
-	}
 	while (*cmd == ' ')
 		cmd++;
 	if (!(*cmd))
@@ -71,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		g_signum = 0;
 		set_signal();
-		cmd = readline("minishell> ");
+		cmd = readline("minishell$ ");
 		if (check_cmd(cmd) < 0)
 			continue ;
 		tree = init_tree();
