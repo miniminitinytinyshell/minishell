@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 17:12:54 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:32:14 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ static int	count_pipe(t_tree *tree)
 	return (cnt);
 }
 
+static void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
+{
+	*status = expand_tree(tree, envp->data, *status);
+	if (*status != 0)
+		exit(*status);
+	if (find_builtin((*tree)->right))
+		execute_builtin(*tree, envp, status);
+	else
+	{
+		signal(SIGINT, SIG_DFL);
+		if (execute_rdr((*tree)->left, status))
+			execute_cmd((*tree)->right, envp);
+		exit(*status);
+	}
+}
+
 static pid_t	proc_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 {
 	int		fd[2];
@@ -50,7 +66,7 @@ static pid_t	proc_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 		}
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		execute_cpd_cmd(&(*tree)->left, envp, status);
+		execute_pipe_cmd(&(*tree)->left, envp, status);
 		exit(*status);
 	}
 	close(fd[1]);
@@ -71,7 +87,7 @@ static pid_t	last_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 	{
 		dup2(*old_fd, STDIN_FILENO);
 		close(*old_fd);
-		execute_cpd_cmd(tree, envp, status);
+		execute_pipe_cmd(tree, envp, status);
 		exit(*status);
 	}
 	set_parent_signal();
@@ -93,8 +109,6 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 	while (i < count)
 	{
 		pids[i] = proc_fork(tree, envp, status, &fd);
-		ft_putnbr_fd(fd, 2);
-		ft_putstr_fd("\n", 2);
 		tree = &(*tree)->right;
 		i++;
 	}
@@ -107,9 +121,3 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 	}
 	set_status(status);
 }
-
-// void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
-// {
-// 	// signal(SIGPIPE, SIG_IGN);
-// 	process_pipe(tree, envp, status);
-// }
