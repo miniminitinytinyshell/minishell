@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 19:04:54 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 14:16:35 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,26 @@ static int	add_wildcard_data(char ***data, char **path, DIR *dir)
 	return (cnt);
 }
 
+static char	**add_remain_data(t_tree **tree, char **data, int i)
+{
+	int	idx;
+
+	idx = i + 1;
+	while ((*tree)->data[idx])
+	{
+		data = table_join(data, ft_strdup((*tree)->data[idx]));
+		idx++;
+	}
+	return (data);
+}
+
 void	expand_wildcard(t_tree **tree, int *i)
 {
-	int				idx;
 	int				cnt;
 	DIR				*dir;
 	char			**path;
 	char			**data;
 
-	idx = *i + 1;
 	path = ft_calloc(3, sizeof(char *));
 	if (!path)
 		error_syscall();
@@ -106,11 +117,7 @@ void	expand_wildcard(t_tree **tree, int *i)
 	data = table_dup((*tree)->data, *i);
 	cnt = add_wildcard_data(&data, path, dir);
 	closedir(dir);
-	while ((*tree)->data[idx])
-	{
-		data = table_join(data, ft_strdup((*tree)->data[idx]));
-		idx++;
-	}
+	data = add_remain_data(tree, data, *i);
 	*i += cnt - 1;
 	free_tab((*tree)->data);
 	path = free_tab(path);
