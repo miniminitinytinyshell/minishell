@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 17:39:05 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:39:44 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,10 @@ int		get_envp_idx(char *key, t_envp *envp);
 // HERE_DOC
 void	create_heredoc(t_tree **tree, int *name, t_envp *envp);
 void	delete_heredoc(t_tree **tree);
+
+// SUB_SHELL
+void	proc_subshell(t_tree **tree, t_envp *envp, int *status);
+void	execute_subshell(t_tree **tree, t_envp *envp, int *status);
 
 // EXECUTE
 int		execute_rdr(t_tree *tree, int *status);
