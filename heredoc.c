@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 13:37:06 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 14:27:21 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	heredoc_env(char *str, int fd, t_envp *envp)
 	return (env_len);
 }
 
-void	read_heredoc(char *eof, int fd, t_envp *envp)
+void	read_heredoc(char *eof, int fd, t_envp *envp, int flag)
 {
 	int		idx;
 	char	*read_line;
@@ -56,7 +56,7 @@ void	read_heredoc(char *eof, int fd, t_envp *envp)
 		idx = 0;
 		while (read_line[idx])
 		{
-			if (read_line[idx] == '$')
+			if (flag == 0 && read_line[idx] == '$')
 				idx += heredoc_env(read_line + idx, fd, envp);
 			else
 				ft_putchar_fd(read_line[idx], fd);
@@ -70,6 +70,7 @@ void	read_heredoc(char *eof, int fd, t_envp *envp)
 
 void	fork_heredoc(char *eof, int fd, t_envp *envp)
 {
+	int		flag;
 	pid_t	pid;
 	char	*exp_eof;
 
@@ -78,12 +79,15 @@ void	fork_heredoc(char *eof, int fd, t_envp *envp)
 		error_syscall();
 	if (pid == 0)
 	{
+		flag = 0;
 		set_heredoc_signal();
+		if (ft_strchr(eof, '\'') || ft_strchr(eof, '"'))
+			flag = 1;
 		exp_eof = expand_word(eof, NULL, 0);
 		if (!exp_eof)
-			read_heredoc(eof, fd, envp);
+			read_heredoc(eof, fd, envp, flag);
 		else
-			read_heredoc(exp_eof, fd, envp);
+			read_heredoc(exp_eof, fd, envp, flag);
 		free(exp_eof);
 	}
 	else
