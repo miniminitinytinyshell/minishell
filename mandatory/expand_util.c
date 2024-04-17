@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 15:34:45 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 16:03:43 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-void	test(struct dirent *file, char **path, char ***data)
-{
-	
-}
 
 void	expand_quote(char c, char *quote, char **result)
 {
