@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   expand_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 21:03:32 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:29:57 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
+
+void	expand_quote(char c, char *quote, char **result)
+{
+	if (*quote == 0)
+		*quote = c;
+	else if (*quote == c)
+		*quote = 0;
+	else
+		*result = strjoin_char(*result, c);
+}
 
 char	*find_env(char *aim, char **envp)
 {

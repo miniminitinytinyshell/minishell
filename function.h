@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 21:27:48 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:29:32 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ char	*expand_word(char *word, char **envp, int status);
 char	*expand_env(char *word, char **envp, int *i, int status);
 
 // EXPAND_Utils
-char	*find_env(char *aim, char **envp);
 char	**get_path(t_envp *envp);
+char	*find_env(char *aim, char **envp);
 char	*get_cmd_path(char *cmd, char **path);
+void	expand_quote(char c, char *quote, char **result);
 
 // BUILTIN
 int		builtin_exit(char **args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 12:59:30 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:28:58 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,7 @@ char	*expand_word(char *word, char **envp, int status)
 	{
 		if (word[i] == '\'' || word[i] == '\"')
 		{
-			if (quote == 0)
-				quote = word[i];
-			else if (quote == word[i])
-				quote = 0;
-			else
-				result = strjoin_char(result, word[i]);
+			expand_quote(word[i], &quote, &result);
 			i++;
 		}
 		else if (quote != '\'' && word[i] == '$')
