@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 20:42:54 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:31:42 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	count_pipe(t_tree *tree)
 	return (cnt);
 }
 
-static pid_t	proc_fork(t_tree *tree, t_envp *envp, int *status)
+static pid_t	proc_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -43,21 +43,19 @@ static pid_t	proc_fork(t_tree *tree, t_envp *envp, int *status)
 	if (pid == 0)
 	{
 		close(fd[0]);
+		if (*old_fd != -1)
+			dup2(*old_fd, STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		execute_cpd_cmd(&tree->left, envp, status);
+		execute_cpd_cmd(&(*tree)->left, envp, status);
 		exit(*status);
 	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-	}
+	close(fd[1]);
+	*old_fd = fd[0];
 	return (pid);
 }
 
-static pid_t	last_fork(t_tree *tree, t_envp *envp, int *status)
+static pid_t	last_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 {
 	pid_t	pid;
 
@@ -66,32 +64,33 @@ static pid_t	last_fork(t_tree *tree, t_envp *envp, int *status)
 		error_syscall();
 	if (pid == 0)
 	{
-		execute_cpd_cmd(&tree, envp, status);
+		dup2(*old_fd, STDIN_FILENO);
+		close(*old_fd);
+		execute_cpd_cmd(tree, envp, status);
 		exit(*status);
 	}
-	else
-		close(STDIN_FILENO);
+	close(*old_fd);
 	return (pid);
 }
 
 void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 {
 	int		i;
+	int		fd;
 	int		count;
 	pid_t	*pids;
-	t_tree	*temp;
 
 	i = 0;
-	temp = *tree;
+	fd = -1;
 	count = count_pipe(*tree);
 	pids = ft_calloc(count + 1, sizeof(pid_t));
 	while (i < count)
 	{
-		pids[i] = proc_fork(temp, envp, status);
-		temp = temp->right;
+		pids[i] = proc_fork(tree, envp, status, &fd);
+		tree = &(*tree)->right;
 		i++;
 	}
-	pids[i] = last_fork(temp, envp, status);
+	pids[i] = last_fork(tree, envp, status, &fd);
 	i = 0;
 	while (i <= count)
 	{
@@ -103,11 +102,6 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 
 void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 {
-	int	input;
-
-	input = dup(STDIN_FILENO);
 	// signal(SIGPIPE, SIG_IGN);
 	process_pipe(tree, envp, status);
-	dup2(input, STDIN_FILENO);
-	close(input);
 }
