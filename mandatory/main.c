@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:19:01 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:50:22 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	proc_shell(t_tree **tree, t_envp *envp, int *status, char *cmd)
 		*status = 258;
 }
 
-int test_shell(t_envp envp, int status, char **argv)
+int	test_shell(t_envp envp, int status, char **argv)
 {
 	int		i;
 	char	*cmd;
