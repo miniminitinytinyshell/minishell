@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 17:32:14 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:17:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,31 @@ static int	count_pipe(t_tree *tree)
 
 static void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
 {
-	*status = expand_tree(tree, envp->data, *status);
-	if (*status != 0)
-		exit(*status);
-	if (find_builtin((*tree)->right))
-		execute_builtin(*tree, envp, status);
+	if ((*tree)->type == sub_shell)
+	{
+		char	**test;
+
+		test = NULL;
+		set_child_signal();
+		test = table_join(NULL, ft_strdup("./minishell"));
+		for (int i = 0; (*tree)->data[i]; i++)
+			test = table_join(test, (*tree)->data[i]);
+		execve("minishell", test, envp->data);
+	}
 	else
 	{
-		signal(SIGINT, SIG_DFL);
-		if (execute_rdr((*tree)->left, status))
-			execute_cmd((*tree)->right, envp);
-		exit(*status);
+		*status = expand_tree(tree, envp->data, *status);
+		if (*status != 0)
+			exit(*status);
+		if (find_builtin((*tree)->right))
+			execute_builtin(*tree, envp, status);
+		else
+		{
+			signal(SIGINT, SIG_DFL);
+			if (execute_rdr((*tree)->left, status))
+				execute_cmd((*tree)->right, envp);
+			exit(*status);
+		}
 	}
 }
 

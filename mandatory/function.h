@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:29:32 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:39:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		error_not_vaild(char *cmd, char *arg);
 // STRING
 char	*strjoin_char(char *str, char c);
 char	*strjoin_free(char *str1, char *str2);
+char	*strjoin_shell(char *str1, char *str2);
 char	**table_dup(char **tab, int size);
 char	**table_join(char **tab, char *data);
 
