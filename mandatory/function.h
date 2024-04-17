@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:51:57 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 19:35:15 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@
 # include <readline/history.h>
 
 # include "libft.h"
-
-// TEMP (마지막에 지워야 됨)
-void	check_leaks(void);
-void	display_tree(t_tree *tree, char *indent, int check);
 
 // FREE
 void	*free_null(void *temp);
