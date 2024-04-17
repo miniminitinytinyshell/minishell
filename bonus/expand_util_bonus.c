@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_util.c                                      :+:      :+:    :+:   */
+/*   expand_util_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:29:57 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 15:02:46 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "function.h"
+#include "struct_bonus.h"
+#include "function_bonus.h"
 
 void	expand_quote(char c, char *quote, char **result)
 {

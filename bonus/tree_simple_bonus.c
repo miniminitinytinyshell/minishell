@@ -1,17 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree_simple.c                                      :+:      :+:    :+:   */
+/*   tree_simple_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/15 14:21:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:36:04 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "function.h"
+#include "struct_bonus.h"
+#include "function_bonus.h"
+
+int	check_subshell(t_tree **tree, t_token *token)
+{
+	int		i;
+	int		size;
+	t_token	*cur;
+
+	i = 0;
+	cur = token;
+	size = get_token_size(token);
+	(*tree)->type = sub_shell;
+	(*tree)->data = ft_calloc(size + 1, sizeof(char *));
+	if ((*tree)->data == NULL)
+	{
+		token_clear(&token);
+		error_syscall();
+	}
+	while (i < size)
+	{
+		(*tree)->data[i] = ft_strdup(cur->data);
+		cur = cur->next;
+		i++;
+	}
+	token_clear(&token);
+	return (1);
+}
 
 int	check_rdr_cmd(t_tree **tree, t_token *token)
 {

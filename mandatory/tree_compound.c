@@ -6,13 +6,12 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:49 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 17:16:37 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:53:52 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-// #include "libft.h"
 
 static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 {
@@ -36,8 +35,7 @@ static int	div_cpd_cmd(t_tree **tree, t_token *left, t_token *right, int pr)
 			return (token_clear(&right));
 	}
 	else
-		if (check_cpd_cmd(&(*tree)->left, erase_pr(left)) == 0)
-			return (token_clear(&right));
+		check_subshell(&(*tree)->left, erase_pr(left));
 	if (check_cpd_cmd(&(*tree)->right, right) == 0)
 		return (0);
 	return (1);
@@ -52,8 +50,8 @@ static int	case_sep(t_tree **tree, t_token *token)
 		return (error_syntax("(", &token, '('));
 	if (cur->next == NULL)
 	{
-		if (check_cpd_cmd(tree, erase_pr(token)) == 0)
-			return (0);
+		check_subshell(tree, erase_pr(token));
+		return (1);
 	}
 	else if (cur->next->group == con)
 	{
