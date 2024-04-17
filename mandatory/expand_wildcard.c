@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:16:35 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 15:32:18 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,27 @@ static int	add_wildcard_data(char ***data, char **path, DIR *dir)
 		file = readdir(dir);
 		if (!file)
 			break ;
-		if (file->d_name[0] != '.' && match(path[1], file->d_name))
+		if (path[1][0] == '.')
 		{
-			if (ft_strncmp(path[0], "./", 3) == 0)
-				*data = table_join(*data, ft_strdup(file->d_name));
-			else
-				*data = table_join(*data, ft_strjoin(path[0], file->d_name));
-			cnt++;
+			if (match(path[1], file->d_name))
+			{
+				if (ft_strncmp(path[0], "./", 3) == 0)
+					*data = table_join(*data, ft_strdup(file->d_name));
+				else
+					*data = table_join(*data, ft_strjoin(path[0], file->d_name));
+				cnt++;
+			}
+		}
+		else
+		{
+			if (file->d_name[0] != '.' && match(path[1], file->d_name))
+			{
+				if (ft_strncmp(path[0], "./", 3) == 0)
+					*data = table_join(*data, ft_strdup(file->d_name));
+				else
+					*data = table_join(*data, ft_strjoin(path[0], file->d_name));
+				cnt++;
+			}
 		}
 	}
 	if (cnt == 0)

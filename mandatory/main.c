@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:17:38 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:32:58 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ int	check_cmd(char *cmd)
 		return (0);
 }
 
+static void	proc_shell(t_tree **tree, t_envp *envp, int *status, char *cmd)
+{
+	if (check_pipe(tree, tokenizer(cmd)) != 0)
+		execute_tree(tree, envp, status);
+	else
+		*status = 258;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	int		status;
@@ -70,8 +78,7 @@ int	main(int argc, char **argv, char **envp)
 		if (check_cmd(cmd) < 0)
 			continue ;
 		tree = init_tree();
-		if (check_pipe(&tree, tokenizer(cmd)) != 0)
-			execute_tree(&tree, &env, &status);
+		proc_shell(&tree, &env, &status, cmd);
 		add_history(cmd);
 		cmd = free_null(cmd);
 		tree = free_tree(tree);

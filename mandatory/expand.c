@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:28:58 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 15:19:51 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,20 @@ char	*expand_word(char *word, char **envp, int status)
 
 static int	expand_rdr(t_tree **tree, char **envp, int status)
 {
+	int		i;
 	char	*file;
 	t_tree	*rdr;
 
+	i = 1;
 	rdr = (*tree)->left;
+	if (ft_strchr(rdr->data[1], '*'))
+		if (rdr->data[1][0] != '\"' && rdr->data[1][0] != '\'')
+				expand_wildcard(&rdr, &i);
+	if (i > 2)
+	{
+		ft_putendl_fd("minishell: ambiguous ridirect", STDERR_FILENO);
+		return (0);
+	}
 	file = expand_word(rdr->data[1], envp, status);
 	free(rdr->data[1]);
 	rdr->data[1] = file;
@@ -110,9 +120,9 @@ int	expand_tree(t_tree **tree, char **envp, int status)
 {
 	if ((*tree)->left)
 		if (expand_rdr(&(*tree)->left, envp, status) == 0)
-			return (0);
+			return (1);
 	if ((*tree)->right)
 		if (expand_cmd(&(*tree)->right, envp, status) == 0)
-			return (0);
-	return (1);
+			return (1);
+	return (0);
 }
