@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 16:31:42 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 16:50:16 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,22 @@ static pid_t	proc_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 		error_syscall();
 	if (pid == 0)
 	{
+		close(STDOUT_FILENO);
 		close(fd[0]);
 		if (*old_fd != -1)
+		{
+			close(STDIN_FILENO);
 			dup2(*old_fd, STDIN_FILENO);
+			close(*old_fd);
+		}
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		execute_cpd_cmd(&(*tree)->left, envp, status);
 		exit(*status);
 	}
 	close(fd[1]);
+	if (*old_fd != -1)
+		close(*old_fd);
 	*old_fd = fd[0];
 	return (pid);
 }
@@ -69,11 +76,12 @@ static pid_t	last_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 		execute_cpd_cmd(tree, envp, status);
 		exit(*status);
 	}
+	set_parent_signal();
 	close(*old_fd);
 	return (pid);
 }
 
-void	process_pipe(t_tree **tree, t_envp *envp, int *status)
+void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 {
 	int		i;
 	int		fd;
@@ -87,6 +95,8 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 	while (i < count)
 	{
 		pids[i] = proc_fork(tree, envp, status, &fd);
+		ft_putnbr_fd(fd, 2);
+		ft_putstr_fd("\n", 2);
 		tree = &(*tree)->right;
 		i++;
 	}
@@ -100,8 +110,8 @@ void	process_pipe(t_tree **tree, t_envp *envp, int *status)
 	set_status(status);
 }
 
-void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
-{
-	// signal(SIGPIPE, SIG_IGN);
-	process_pipe(tree, envp, status);
-}
+// void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
+// {
+// 	// signal(SIGPIPE, SIG_IGN);
+// 	process_pipe(tree, envp, status);
+// }
