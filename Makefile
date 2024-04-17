@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/03/22 15:44:27 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/15 14:15:16 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,13 +36,36 @@ GRAY = \033[90m
 
 Q = @
 # **************************************************************************** #
-man_src = main.c\
+man_src =	main.c\
+			free.c\
+			error.c\
+			string.c\
+			heredoc.c\
+			signal.c\
+			signal_set.c\
 			tokenize.c\
 			token_util.c\
-			tree_compound.c\
+			tree_pipe.c\
 			tree_simple.c\
 			tree_standard.c\
+			tree_compound.c\
 			tree_util.c\
+			expand.c\
+			expand_util.c\
+			expand_wildcard.c\
+			execute.c\
+			execute_util.c\
+			execute_pipe.c\
+			execute_builtin.c\
+			builtin_cd.c\
+			builtin_env.c\
+			builtin_pwd.c\
+			builtin_echo.c\
+			builtin_util.c\
+			builtin_exit.c\
+			builtin_unset.c\
+			builtin_export.c\
+			temp.c\
 
 man_objs = $(man_src:.c=.o)
 man_deps = $(man_src:.c=.d)

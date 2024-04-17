@@ -6,75 +6,75 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 22:10:01 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:17:38 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-#include "libft.h"
 
-// int	proc_cmd(char *cmd)
-// {
-// 	split_token();
-// }
+int	g_signum;
 
-void	print_tree(t_tree *tree)
+t_envp	set_envp(char **envp)
 {
-	char	*tree_type[] = {"name", "args", "rdr_op", "redirects", "simple_cmd", "standard_cmd", "compound_cmd"};
+	t_envp	env;
+	int		idx;
 
-	if (tree->data != name)
-		printf("%s: %s\n", tree_type[tree->type], tree->data);
-	else
-		printf("%s\n", tree_type[tree->type]);
-	if (tree->left)
-		print_tree(tree->left);
-	if (tree->right)
-		print_tree(tree->right);
+	idx = 0;
+	while (envp[idx])
+		idx++;
+	env.max_cnt = idx;
+	env.curr_cnt = idx;
+	env.data = ft_calloc(idx + 1, sizeof(char *));
+	env.pwd = getcwd(NULL, 0);
+	if (!env.pwd)
+		error_syscall();
+	idx = 0;
+	while (envp[idx])
+	{
+		(env.data)[idx] = ft_strdup(envp[idx]);
+		idx++;
+	}
+	return (env);
 }
 
-int	main(void)
+int	check_cmd(char *cmd)
 {
+	if (!cmd)
+		exit(EXIT_SUCCESS);
+	while (*cmd == ' ')
+		cmd++;
+	if (!(*cmd))
+		return (-1);
+	else
+		return (0);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	int		status;
 	char	*cmd;
-	t_token *token;
+	t_envp	env;
 	t_tree	*tree;
-	char	*token_type[] = {"word", "sep", "con_op", "rdr_op"};
-	t_token	*tmp_token;
-	t_tree	*tmp_tree;
-	// bool	token_check;
+
+	if (argc > 1)
+		return (printf("usage: %s\n", argv[0]));
+	status = 0;
+	cmd = NULL;
+	env = set_envp(envp);
 	while (1)
 	{
-		cmd = readline("this is prompt : ");
-		if (strcmp(cmd, "exit") == 0)
-		{
-			printf("exit!\n");
-			break;
-		}
-		else
-		{
-			token = NULL;
-			tokenizer(&token, cmd);
-			printf("%7s  %18s\n", "type", "data");
-			printf("-------  ------------------------------------------\n");
-			tmp_token = token;
-			while (tmp_token)
-			{
-				printf("%-7s  %s\n", token_type[tmp_token->group], tmp_token->data);
-				tmp_token = tmp_token->next;
-			}
-			tree = init_tree();
-			printf("--------------------------tree-----------------------\n");
-			if (check_cpd_cmd(&tree, token) == 0)
-				printf("####SYNTAX ERROR####\n");
-			else
-			{
-				tmp_tree = tree;
-				print_tree(tmp_tree);
-			}
-			// token_clear(&token);
-		}
-		free(cmd);
-		cmd = NULL;
+		g_signum = 0;
+		set_signal();
+		cmd = readline("mongshell🐶 ");
+		if (check_cmd(cmd) < 0)
+			continue ;
+		tree = init_tree();
+		if (check_pipe(&tree, tokenizer(cmd)) != 0)
+			execute_tree(&tree, &env, &status);
+		add_history(cmd);
+		cmd = free_null(cmd);
+		tree = free_tree(tree);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/03/22 15:53:12 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/07 08:57:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "function.h"
 #include "libft.h"
 
-t_token	*token_new(char *data_start, int len, t_token_group group)
+t_token	*token_new(char *str, int len)
 {
 	t_token	*new;
 
@@ -24,9 +24,15 @@ t_token	*token_new(char *data_start, int len, t_token_group group)
 	new->data = ft_calloc(len + 1, sizeof(char));
 	if (!(new->data))
 		return (NULL);
-	ft_strlcpy(new->data, data_start, len + 1);
-	new->group = group;
-	new->next = NULL;
+	ft_strlcpy(new->data, str, len + 1);
+	if (*str == '(' || *str == ')')
+		new->group = sep;
+	else if (*str == '<' || *str == '>')
+		new->group = rdr;
+	else if (*str == '|' || *str == '&')
+		new->group = con;
+	else
+		new->group = word;
 	return (new);
 }
 
@@ -45,6 +51,21 @@ void	token_add_back(t_token **token, t_token *new)
 	curr->next = new;
 }
 
+int	get_token_size(t_token *token)
+{
+	int		size;
+	t_token	*cur;
+
+	size = 0;
+	cur = token;
+	while (cur)
+	{
+		cur = cur->next;
+		size++;
+	}
+	return (size);
+}
+
 t_token	*token_free(t_token *token)
 {
 	if (!token)
@@ -55,7 +76,7 @@ t_token	*token_free(t_token *token)
 	return (token);
 }
 
-void	token_clear(t_token **token)
+int	token_clear(t_token **token)
 {
 	t_token	*tmp;
 
@@ -66,4 +87,5 @@ void	token_clear(t_token **token)
 		*token = tmp;
 	}
 	token = NULL;
+	return (0);
 }

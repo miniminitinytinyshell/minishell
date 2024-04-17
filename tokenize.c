@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 14:46:19 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:57:25 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	token_len_meta(char *str)
 		else
 			len = 1;
 	}
+	if (str[0] == '&' && str[1] != str[0])
+		len = -1;
 	return (len);
 }
 
@@ -41,10 +43,14 @@ int	token_len_word(char *str)
 	{
 		if (str[len] == '\'' || str[len] == '"')
 		{
-				quote = str[len];
+			quote = str[len];
+			len++;
+			while (str[len] != quote)
+			{
+				if (str[len] == '\0')
+					return ((int)((-1) * quote));
 				len++;
-				while (str[len] && str[len] != quote)
-					len++;
+			}
 		}
 		len++;
 	}
@@ -55,6 +61,8 @@ int	token_len(char *str)
 {
 	int	len;
 
+	if (*str == '\0')
+		return (0);
 	if (ft_strchr("()<>|&", str[0]))
 		len = token_len_meta(str);
 	else
@@ -62,25 +70,39 @@ int	token_len(char *str)
 	return (len);
 }
 
-void	tokenizer(t_token **token, char *str)
+void	token_extend(char *str, int len, t_token **token)
 {
-	int				len;
-	t_token			*new;
+	t_token	*new;
 
+	new = token_new(str, len);
+	if (!new)
+	{
+		token_clear(token);
+		error_syscall();
+	}
+	token_add_back(token, new);
+}
+
+t_token	*tokenizer(char *str)
+{
+	int		len;
+	t_token	*token;
+
+	token = NULL;
 	while (*str)
 	{
 		while (*str == ' ')
 			str++;
 		len = token_len(str);
-		if (*str == '(' || *str == ')')
-			new = token_new(str, len, sep);
-		else if (*str == '<' || *str == '>')
-			new = token_new(str, len, rdr);
-		else if (*str == '|' || *str == '&')
-			new = token_new(str, len, con);
-		else
-			new = token_new(str, len, word);
+		if (len < 0)
+		{
+			error_syntax(str, &token, len * (-1));
+			return (NULL);
+		}
+		else if (len == 0)
+			continue ;
+		token_extend(str, len, &token);
 		str += len;
-		token_add_back(token, new);
 	}
+	return (token);
 }

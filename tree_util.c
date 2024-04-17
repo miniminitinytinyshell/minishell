@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 18:00:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/03/22 21:46:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:17:59 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,43 +17,30 @@ t_tree	*init_tree(void)
 {
 	t_tree	*temp;
 
-	temp = (t_tree *)malloc(sizeof(t_tree));
+	temp = ft_calloc(1, sizeof(t_tree));
+	temp->data = NULL;
+	temp->oper = NULL;
 	temp->left = NULL;
 	temp->right = NULL;
 	return (temp);
 }
 
-// t_token	*erase_pr(t_token *token)
-// {
-// 	int		cnt;
-// 	t_token	*cur;
-// 	t_token	*temp;
-
-// 	cnt = 1;
-// 	cur = token;
-// 	while (cur->next->group == sep && cur->next->data[0] == '(')
-// 	{
-// 		cnt++;
-// 		cur = cur->next;
-// 	}
-// 	temp = token;
-// 	token = token->next;
-// 	temp = token_free(temp);
-// 	while (cur->next != NULL)
-// 	{
-// 		if (cur->next->group == sep && cur->next->data[0] == '(')
-// 			cnt++;
-// 		if (cur->next->group == sep && cur->next->data[0] == ')')
-// 			cnt--;
-// 		if (cnt == 0)
-// 			break ;
-// 		cur = cur->next;
-// 	}
-// 	temp = cur->next;
-// 	temp = token_free(temp);
-// 	cur->next = NULL;
-// 	return (token);
-// }
+t_tree	*free_tree(t_tree *tree)
+{
+	if (!tree)
+		return (NULL);
+	if (tree->oper)
+		tree->oper = free_null(tree->oper);
+	if (tree->data)
+		tree->data = free_tab(tree->data);
+	if (tree->right)
+		tree->right = free_tree(tree->right);
+	if (tree->left)
+		tree->left = free_tree(tree->left);
+	free(tree);
+	tree = NULL;
+	return (tree);
+}
 
 t_token	*erase_pr(t_token *token)
 {
@@ -71,12 +58,12 @@ t_token	*erase_pr(t_token *token)
 	cur = token;
 	while (cur->next)
 	{
-		if (cur->next->group == sep && cur->next->data[0] =='(')
+		if (cur->next->group == sep && cur->next->data[0] == '(')
 			cnt++;
 		if (cur->next->group == sep && cur->next->data[0] == ')')
 			cnt--;
 		if (cnt == 0)
-			break;
+			break ;
 		cur = cur->next;
 	}
 	temp = cur->next;
