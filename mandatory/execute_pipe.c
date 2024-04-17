@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 16:50:16 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:12:54 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ static pid_t	proc_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 		error_syscall();
 	if (pid == 0)
 	{
-		close(STDOUT_FILENO);
 		close(fd[0]);
 		if (*old_fd != -1)
 		{
-			close(STDIN_FILENO);
 			dup2(*old_fd, STDIN_FILENO);
 			close(*old_fd);
 		}
