@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/16 21:02:47 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:17:48 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	cd_home_error(void)
 {
-	ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
+	ft_putendl_fd("mongshell🐶: cd: HOME not set", STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
 

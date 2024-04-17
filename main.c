@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 20:41:16 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:17:38 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		g_signum = 0;
 		set_signal();
-		cmd = readline("minishell$ ");
+		cmd = readline("mongshell🐶 ");
 		if (check_cmd(cmd) < 0)
 			continue ;
 		tree = init_tree();
