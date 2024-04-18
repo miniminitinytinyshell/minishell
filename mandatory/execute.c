@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 14:41:03 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/18 17:58:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 		return ;
 	if (tree->data[0][0] == '\0')
 		path = NULL;
-	else if (access(tree->data[0], F_OK) == 0)
+	else if (ft_strncmp(tree->data[0], "/", 1) == 0 \
+			|| ft_strncmp(tree->data[0], "./", 2) == 0)
 		path = check_file(tree->data[0]);
 	else
 		path = get_cmd_path(tree->data[0], get_path(envp));
