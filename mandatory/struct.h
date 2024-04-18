@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 17:53:49 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/18 14:39:02 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef enum e_parse_type
 {
 	rdr_cmd = 0,
 	redirects,
-	sub_shell,
 	simple_cmd,
 	standard_cmd,
 	compound_cmd,

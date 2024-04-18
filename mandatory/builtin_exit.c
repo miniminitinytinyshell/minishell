@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:18:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:55:45 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	error_many_args(void)
 {
-	ft_putstr_fd("mongshell🐶: ", STDERR_FILENO);
+	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putendl_fd("too many arguments", STDERR_FILENO);
 	return (1);
 }

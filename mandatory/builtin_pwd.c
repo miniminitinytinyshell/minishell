@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 18:45:00 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/17 14:18:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:55:53 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	pwd_option_error(char *option)
 {
-	ft_putstr_fd("mongshell🐶: pwd: ", STDERR_FILENO);
+	ft_putstr_fd("mongshell: pwd: ", STDERR_FILENO);
 	ft_putchar_fd(option[0], STDERR_FILENO);
 	ft_putchar_fd(option[1], STDERR_FILENO);
 	ft_putendl_fd(": invalid option", STDERR_FILENO);

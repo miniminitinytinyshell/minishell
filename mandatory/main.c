@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:50:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:42:09 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,6 @@ static void	proc_shell(t_tree **tree, t_envp *envp, int *status, char *cmd)
 		*status = 258;
 }
 
-int	test_shell(t_envp envp, int status, char **argv)
-{
-	int		i;
-	char	*cmd;
-	t_tree	*tree;
-
-	i = 1;
-	cmd = NULL;
-	while (argv[i])
-	{
-		cmd = strjoin_shell(cmd, argv[i]);
-		cmd = strjoin_shell(cmd, " ");
-		i++;
-	}
-	tree = init_tree();
-	proc_shell(&tree, &envp, &status, cmd);
-	tree = free_tree(tree);
-	exit(status);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	int		status;
@@ -85,11 +65,11 @@ int	main(int argc, char **argv, char **envp)
 	t_envp	env;
 	t_tree	*tree;
 
+	if (argc > 1)
+		return (printf("usage: %s\n", argv[0]));
 	status = 0;
 	cmd = NULL;
 	env = set_envp(envp);
-	if (argc > 1)
-		test_shell(env, status, argv);
 	while (1)
 	{
 		g_signum = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:18:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:55:48 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	error_export_option(char *opt)
 		return (1);
 	if (opt[0] == '-')
 	{
-		ft_putstr_fd("mongshell🐶: export: ", STDERR_FILENO);
+		ft_putstr_fd("mongshell: export: ", STDERR_FILENO);
 		ft_putstr_fd("invalid option: ", STDERR_FILENO);
 		ft_putendl_fd(opt, STDERR_FILENO);
 		ft_putstr_fd("export: usage: ", STDERR_FILENO);

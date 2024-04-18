@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:06:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:55:26 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 void	error_syscall(void)
 {
-	ft_putstr_fd("mongshell🐶: ", STDERR_FILENO);
+	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
 
 int	error_with_str(char *str, int flag)
 {
-	ft_putstr_fd("mongshell🐶: ", STDERR_FILENO);
+	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	if (flag == CMD_NFOUND)
 		ft_putstr_fd("command not found: ", STDERR_FILENO);
 	else if (flag == IS_DIR)
@@ -68,7 +68,7 @@ static char	count_sep(t_token **token, int flag)
 
 int	error_syntax(char *str, t_token **token, int flag)
 {
-	ft_putstr_fd("mongshell🐶: ", STDERR_FILENO);
+	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putstr_fd("syntax error near unexpected token ", STDERR_FILENO);
 	ft_putchar_fd('\'', STDERR_FILENO);
 	if (flag == '(')
@@ -85,7 +85,7 @@ int	error_syntax(char *str, t_token **token, int flag)
 
 int	error_not_vaild(char *cmd, char *arg)
 {
-	ft_putstr_fd("mongshell🐶: ", STDERR_FILENO);
+	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": not a valid identifier '", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);

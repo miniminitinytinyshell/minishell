@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 19:35:15 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:41:29 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		error_not_vaild(char *cmd, char *arg);
 // STRING
 char	*strjoin_char(char *str, char c);
 char	*strjoin_free(char *str1, char *str2);
-char	*strjoin_shell(char *str1, char *str2);
 char	**table_dup(char **tab, int size);
 char	**table_join(char **tab, char *data);
 
@@ -116,10 +115,6 @@ int		get_envp_idx(char *key, t_envp *envp);
 // HERE_DOC
 void	create_heredoc(t_tree **tree, int *name, t_envp *envp);
 void	delete_heredoc(t_tree **tree);
-
-// SUB_SHELL
-void	proc_subshell(t_tree **tree, t_envp *envp);
-void	execute_subshell(t_tree **tree, t_envp *envp, int *status);
 
 // EXECUTE
 int		execute_rdr(t_tree *tree, int *status);
