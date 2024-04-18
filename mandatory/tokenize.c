@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 18:57:25 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:05:27 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_token	*tokenizer(char *str)
 	token = NULL;
 	while (*str)
 	{
-		while (*str == ' ')
+		while (*str == ' ' || (8 < *str && *str < 14))
 			str++;
 		len = token_len(str);
 		if (len < 0)
