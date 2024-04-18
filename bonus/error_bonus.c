@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:10:05 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:32:56 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	error_with_str(char *str, int flag)
 		ft_putstr_fd("command not found: ", STDERR_FILENO);
 	else if (flag == IS_DIR)
 		ft_putstr_fd("is a directory: ", STDERR_FILENO);
+	else if (flag == AMB_RDR)
+		ft_putstr_fd("ambiguous redirect: ", STDERR_FILENO);
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
