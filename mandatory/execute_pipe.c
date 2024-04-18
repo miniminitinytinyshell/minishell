@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:44:50 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 19:05:45 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
 			signal(SIGINT, SIG_DFL);
 			if (execute_rdr((*tree)->left, status))
 				execute_cmd((*tree)->right, envp);
-			exit(*status);
 		}
+		exit(*status);
 	}
 }
 
@@ -72,7 +72,6 @@ static pid_t	proc_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		execute_pipe_cmd(&(*tree)->left, envp, status);
-		exit(*status);
 	}
 	close(fd[1]);
 	if (*old_fd != -1)
@@ -93,7 +92,6 @@ static pid_t	last_fork(t_tree **tree, t_envp *envp, int *status, int *old_fd)
 		dup2(*old_fd, STDIN_FILENO);
 		close(*old_fd);
 		execute_pipe_cmd(tree, envp, status);
-		exit(*status);
 	}
 	set_parent_signal();
 	close(*old_fd);
