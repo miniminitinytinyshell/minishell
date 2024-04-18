@@ -46,6 +46,7 @@ typedef enum e_parse_type
 {
 	rdr_cmd = 0,
 	redirects,
+	sub_shell,
 	simple_cmd,
 	standard_cmd,
 	compound_cmd,
