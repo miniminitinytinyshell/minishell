@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:36:21 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:44:27 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:56:39 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,23 @@
 
 void	proc_subshell(t_tree **tree, t_envp *envp)
 {
+	int		i;
 	char	**cmds;
 
+	i = 0;
 	set_child_signal();
 	cmds = table_join(NULL, ft_strdup("./minishell"));
-	for (int i = 0; (*tree)->data[i]; i++)
+	while ((*tree)->data[i])
+	{
 		cmds = table_join(cmds, (*tree)->data[i]);
+		i++;
+	}
 	execve("minishell", cmds, envp->data);
 }
 
 void	execute_subshell(t_tree **tree, t_envp *envp, int *status)
 {
 	pid_t	pid;
-
 
 	pid = fork();
 	if (pid == -1)
