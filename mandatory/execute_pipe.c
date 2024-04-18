@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:17:23 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:42:40 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,7 @@ static int	count_pipe(t_tree *tree)
 static void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
 {
 	if ((*tree)->type == sub_shell)
-	{
-		char	**test;
-
-		test = NULL;
-		set_child_signal();
-		test = table_join(NULL, ft_strdup("./minishell"));
-		for (int i = 0; (*tree)->data[i]; i++)
-			test = table_join(test, (*tree)->data[i]);
-		execve("minishell", test, envp->data);
-	}
+		proc_subshell(tree, envp, status);
 	else
 	{
 		*status = expand_tree(tree, envp->data, *status);

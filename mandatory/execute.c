@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:34:22 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:40:08 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,28 +115,7 @@ void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 			execute_pipe(tree, envp, status);
 	}
 	else if ((*tree)->type == sub_shell)
-	{
-		pid_t	pid;
-		char	**test;
-
-		pid = fork();
-		if (pid == -1)
-			error_syscall();
-		if (pid == 0)
-		{
-			set_child_signal();
-			test = table_join(NULL, ft_strdup("./minishell"));
-			for (int i = 0; (*tree)->data[i]; i++)
-				test = table_join(test, (*tree)->data[i]);
-			execve("minishell", test, envp->data);
-		}
-		else
-		{
-			set_parent_signal();
-			waitpid(pid, status, 0);
-			set_status(status);
-		}
-	}
+		execute_subshell(tree, envp, status);
 }
 
 void	execute_tree(t_tree **tree, t_envp *envp, int *status)
