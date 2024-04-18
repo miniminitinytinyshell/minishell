@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:44:22 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:51:57 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		check_pipe(t_tree **tree, t_token *token);
 int		check_cpd_cmd(t_tree **tree, t_token *token);
 int		check_std_cmd(t_tree **tree, t_token *token);
 int		check_smp_cmd(t_tree **tree, t_token *token);
+int		check_subshell(t_tree **tree, t_token *token);
 int		check_redirect(t_tree **tree, t_token *token);
 int		div_std_cmd(t_token **left, t_token **right);
 
