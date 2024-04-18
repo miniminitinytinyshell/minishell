@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 15:02:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:09:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	error_unset_option(char *opt)
 		return (1);
 	if (opt[0] == '-')
 	{
-		ft_putstr_fd("mongshell🐶: unset: ", STDERR_FILENO);
+		ft_putstr_fd("mongshell: unset: ", STDERR_FILENO);
 		ft_putstr_fd("invalid option: ", STDERR_FILENO);
 		ft_putendl_fd(opt, STDERR_FILENO);
 		ft_putstr_fd("unset: usage: unset [name ...]", STDERR_FILENO);

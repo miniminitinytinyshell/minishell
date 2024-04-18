@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 19:25:51 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:18:42 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 		else
 			execute_pipe(tree, envp, status);
 	}
-	else if ((*tree)->type == sub_shell)
-		execute_subshell(tree, envp, status);
 }
 
 void	execute_tree(t_tree **tree, t_envp *envp, int *status)

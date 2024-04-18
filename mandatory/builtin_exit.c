@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 14:55:45 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/18 15:08:22 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_numeric(char *arg)
 	{
 		if (arg[i] < '0' || arg[i] > '9')
 		{
-			ft_putstr_fd("mongshell🐶: exit: ", STDERR_FILENO);
+			ft_putstr_fd("mongshell: exit: ", STDERR_FILENO);
 			ft_putstr_fd("numeric argument required: ", STDERR_FILENO);
 			ft_putendl_fd(arg, STDERR_FILENO);
 			exit(255);

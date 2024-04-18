@@ -43,7 +43,6 @@ int		error_not_vaild(char *cmd, char *arg);
 // STRING
 char	*strjoin_char(char *str, char c);
 char	*strjoin_free(char *str1, char *str2);
-char	*strjoin_shell(char *str1, char *str2);
 char	**table_dup(char **tab, int size);
 char	**table_join(char **tab, char *data);
 
@@ -76,7 +75,6 @@ int		check_pipe(t_tree **tree, t_token *token);
 int		check_cpd_cmd(t_tree **tree, t_token *token);
 int		check_std_cmd(t_tree **tree, t_token *token);
 int		check_smp_cmd(t_tree **tree, t_token *token);
-int		check_subshell(t_tree **tree, t_token *token);
 int		check_redirect(t_tree **tree, t_token *token);
 int		div_std_cmd(t_token **left, t_token **right);
 
@@ -116,10 +114,6 @@ int		get_envp_idx(char *key, t_envp *envp);
 // HERE_DOC
 void	create_heredoc(t_tree **tree, int *name, t_envp *envp);
 void	delete_heredoc(t_tree **tree);
-
-// SUB_SHELL
-void	proc_subshell(t_tree **tree, t_envp *envp);
-void	execute_subshell(t_tree **tree, t_envp *envp, int *status);
 
 // EXECUTE
 int		execute_rdr(t_tree *tree, int *status);

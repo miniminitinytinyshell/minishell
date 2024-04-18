@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 15:02:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:08:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	error_many_args(void)
 {
-	ft_putstr_fd("mongshell🐶: ", STDERR_FILENO);
+	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putendl_fd("too many arguments", STDERR_FILENO);
 	return (1);
 }
@@ -37,7 +37,7 @@ int	check_numeric(char *arg)
 	{
 		if (arg[i] < '0' || arg[i] > '9')
 		{
-			ft_putstr_fd("mongshell🐶: exit: ", STDERR_FILENO);
+			ft_putstr_fd("mongshell: exit: ", STDERR_FILENO);
 			ft_putstr_fd("numeric argument required: ", STDERR_FILENO);
 			ft_putendl_fd(arg, STDERR_FILENO);
 			exit(255);
