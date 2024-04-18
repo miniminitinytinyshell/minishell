@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:36:21 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:39:55 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:44:27 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-void	proc_subshell(t_tree **tree, t_envp *envp, int *status)
+void	proc_subshell(t_tree **tree, t_envp *envp)
 {
 	char	**cmds;
 
@@ -33,7 +33,7 @@ void	execute_subshell(t_tree **tree, t_envp *envp, int *status)
 	if (pid == -1)
 		error_syscall();
 	if (pid == 0)
-		proc_subshell(tree, envp, status);
+		proc_subshell(tree, envp);
 	else
 	{
 		set_parent_signal();

@@ -6,7 +6,7 @@
 #    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/17 18:34:33 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/17 18:44:00 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ src_m =	main.c\
 		error.c\
 		string.c\
 		heredoc.c\
+		subshell.c\
 		signal.c\
 		signal_set.c\
 		tokenize.c\
