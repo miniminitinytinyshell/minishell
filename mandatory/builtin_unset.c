@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 14:55:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/18 18:08:39 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	builtin_unset(char **args, t_envp *envp)
 		while (args[i])
 		{
 			idx = -1;
-			if (ft_isdigit(args[i][0]))
+			if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
 				check = error_not_vaild("unset", args[i]);
 			else
 			{
