@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 18:07:04 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:50:19 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	error_syntax(char *str, t_token **token, int flag)
 	return (0);
 }
 
-int	error_not_vaild(char *cmd, char *arg)
+int	error_not_valid(char *cmd, char *arg)
 {
 	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);

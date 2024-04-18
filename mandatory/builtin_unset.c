@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 18:08:39 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/18 22:20:10 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	builtin_unset(char **args, t_envp *envp)
 		{
 			idx = -1;
 			if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
-				check = error_not_vaild("unset", args[i]);
+				check = error_not_valid("unset", args[i]);
 			else
 			{
 				idx = get_envp_idx(args[i], envp);

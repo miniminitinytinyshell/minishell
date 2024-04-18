@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:54:09 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/07 13:32:47 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 23:15:51 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,19 @@ static int	env_arg_error(char *option)
 	}
 }
 
-int	builtin_env(char **args, char **envp)
+int	builtin_env(char **args, t_envp *envp)
 {
 	int	idx;
 
 	if (args[1])
 		return (env_arg_error(args[1]));
 	idx = 0;
-	while (envp[idx])
+	while (idx < envp->curr_cnt)
 	{
-		ft_putendl_fd(envp[idx], STDOUT_FILENO);
+		if (envp->data[idx])
+			ft_putendl_fd(envp->data[idx], STDOUT_FILENO);
+		else
+			ft_putendl_fd("empty", STDOUT_FILENO);
 		idx++;
 	}
 	return (EXIT_SUCCESS);

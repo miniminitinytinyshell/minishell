@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:17:12 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 23:14:30 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**free_tab(char **temp);
 void	error_syscall(void);
 int		error_with_str(char *str, int flag);
 int		error_syntax(char *str, t_token **token, int flag);
-int		error_not_vaild(char *cmd, char *arg);
+int		error_not_valid(char *cmd, char *arg);
 
 // STRING
 char	*strjoin_char(char *str, char c);
@@ -102,7 +102,7 @@ int		builtin_exit(char **args);
 int		error_many_args(void);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
-int		builtin_env(char **args, char **envp);
+int		builtin_env(char **args, t_envp *envp);
 int		builtin_pwd(char **args, t_envp *envp);
 int		builtin_unset(char **args, t_envp *envp);
 int		builtin_export(char **args, t_envp *envp);
