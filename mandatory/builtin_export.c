@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 23:28:31 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:01:41 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,8 @@ int	set_new_env(char *arg, t_envp *envp)
 	int		idx;
 	char	**tmp;
 
-
 	if (envp->curr_cnt < envp->max_cnt)
-	{
-		tmp = ft_calloc(envp->max_cnt, sizeof(char *));
-		if (!tmp)
-			error_syscall();
-		idx = 0;
-		while (idx < envp->curr_cnt)
-		{
-			tmp[idx] = ft_strdup(envp->data[idx]);
-			idx++;
-		}
-		tmp[idx] = ft_strdup(arg);
-		free_tab(envp->data);
-		envp->data = tmp;
-		envp->curr_cnt += 1;
-	}
+		envp->data[envp->curr_cnt] = ft_strdup(arg);
 	else
 	{
 		tmp = ft_calloc(envp->max_cnt * 2, sizeof(char *));
@@ -104,12 +89,14 @@ int	set_new_env(char *arg, t_envp *envp)
 			tmp[idx] = ft_strdup(envp->data[idx]);
 			idx++;
 		}
+		envp->max_cnt *= 2;
 		tmp[idx] = ft_strdup(arg);
 		free_tab(envp->data);
 		envp->data = tmp;
-		envp->curr_cnt += 1;
-		envp->max_cnt *= 2;
 	}
+	if (!envp->data[envp->curr_cnt])
+		error_syscall();
+	envp->curr_cnt += 1;
 	return (0);
 }
 
