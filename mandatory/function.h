@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 23:14:30 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/19 11:47:32 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,12 @@ t_tree	*init_tree(void);
 t_tree	*free_tree(t_tree *tree);
 t_token	*erase_pr(t_token *token);
 
+// WILDCARD
+void	extract_path(char *str, char **path);
+void	expand_wildcard(t_tree **tree, int i);
+
 // EXPAND
 int		expand_tree(t_tree **tree, char **envp, int status);
-void	expand_wildcard(t_tree **tree, int *i);
 char	*expand_word(char *word, char **envp, int status);
 char	*expand_env(char *word, char **envp, int *i, int status);
 

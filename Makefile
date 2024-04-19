@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/18 15:05:23 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/19 11:48:22 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,8 @@ src_m =	main.c\
 		tree_util.c\
 		expand.c\
 		expand_util.c\
-		expand_wildcard.c\
+		wildcard.c\
+		wildcard_util.c\
 		execute.c\
 		execute_util.c\
 		execute_pipe.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 16:06:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/19 11:37:10 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,14 @@ char	*expand_word(char *word, char **envp, int status)
 
 static int	expand_rdr(t_tree **tree, char **envp, int status)
 {
-	int		i;
 	char	*file;
 	t_tree	*rdr;
 
-	i = 1;
 	rdr = (*tree)->left;
 	if (ft_strchr(rdr->data[1], '*'))
 		if (rdr->data[1][0] != '\"' && rdr->data[1][0] != '\'')
-			expand_wildcard(&rdr, &i);
-	if (i > 2)
+			expand_wildcard(&rdr, 1);
+	if (rdr->data[2])
 	{
 		ft_putendl_fd("minishell: ambiguous ridirect", STDERR_FILENO);
 		return (0);
@@ -96,12 +94,12 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 	int		i;
 	char	**data;
 
-	i = 1;
+	i = 0;
 	while ((*tree)->data[i])
 	{
 		if (ft_strchr((*tree)->data[i], '*'))
 			if ((*tree)->data[i][0] != '\"' && (*tree)->data[i][0] != '\'')
-				expand_wildcard(tree, &i);
+				expand_wildcard(tree, i);
 		i++;
 	}
 	i = 0;

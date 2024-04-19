@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 14:42:31 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/19 11:15:49 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ char	**table_dup(char **tab, int size)
 
 	i = 0;
 	result = NULL;
+	if (size == -1)
+	{
+		size = 0;
+		while (tab[size])
+			size++;
+	}
 	while (i < size)
 	{
 		result = table_join(result, ft_strdup(tab[i]));
