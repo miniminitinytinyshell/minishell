@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 14:27:21 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/20 05:07:16 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,22 +122,5 @@ void	create_heredoc(t_tree **tree, int *name, t_envp *envp)
 			create_heredoc(&(*tree)->left, name, envp);
 		if ((*tree)->right && g_signum != SIGINT)
 			create_heredoc(&(*tree)->right, name, envp);
-	}
-}
-
-void	delete_heredoc(t_tree **tree)
-{
-	if (!tree && !(*tree))
-		return ;
-	if ((*tree)->type == rdr_cmd)
-	{
-		unlink((*tree)->data[1]);
-	}
-	else
-	{
-		if ((*tree)->left)
-			delete_heredoc(&(*tree)->left);
-		if ((*tree)->right)
-			delete_heredoc(&(*tree)->right);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 17:59:32 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/20 05:07:08 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	proc_open(t_tree *tree, int *file_in, int *file_out)
 		if (*file_in > 0)
 			close(*file_in);
 		*file_in = open(tree->data[1], O_RDONLY);
+		if (ft_strncmp(tree->data[0], "<<", 3) == 0)
+			unlink(tree->data[1]);
 	}
 	else
 	{
