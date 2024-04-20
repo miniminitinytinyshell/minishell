@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:45:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/19 11:46:33 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/20 05:02:33 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	find_back_path(char *str, int star)
 	return (idx);
 }
 
-void	extract_path(char *str, char **path)
+int	extract_path(char *str, char **path)
 {
 	int	star;
 	int	f_path;
@@ -77,7 +77,10 @@ void	extract_path(char *str, char **path)
 		star++;
 	f_path = find_front_path(str, star);
 	b_path = find_back_path(str, star);
+	if (b_path == -1)
+		return (1);
 	path[0] = strdup_sf(str, 0, f_path);
 	path[1] = strdup_sf(str, f_path + 1, b_path - 1);
 	path[2] = strdup_sf(str, b_path, strlen(str) - 1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/19 11:47:32 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/19 11:54:48 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_tree	*free_tree(t_tree *tree);
 t_token	*erase_pr(t_token *token);
 
 // WILDCARD
-void	extract_path(char *str, char **path);
+int		extract_path(char *str, char **path);
 void	expand_wildcard(t_tree **tree, int i);
 
 // EXPAND
