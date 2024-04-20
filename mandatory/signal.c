@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 14:18:01 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 13:35:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/20 05:28:22 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	handle_sigint(int signum)
 {
 	if (signum != SIGINT)
 		return ;
+	g_signum = signum;
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);
