@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/20 13:19:01 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:30:29 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	export_option_error(char *opt)
+static int	export_option_error(char *opt)
 {
 	ft_putstr_fd("mongshell: export: ", STDERR_FILENO);
 	ft_putstr_fd("invalid option: ", STDERR_FILENO);
@@ -28,73 +28,76 @@ int	export_option_error(char *opt)
 
 int	declare_env(t_envp *envp)
 {
-	int		idx;
-	int		char_idx;
+	int		i;
+	int		j;
 	char	**data;
 
-	idx = 0;
+	i = 0;
 	data = envp->data;
-	while (data[idx])
+	while (data[i])
 	{
+		j = 0;
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		char_idx = 0;
-		while (data[idx][char_idx] != '=')
+		while (data[i][j] && data[i][j] != '=')
+			ft_putchar_fd(data[i][j++], STDOUT_FILENO);
+		if (data[i][j] == '=')
 		{
-			ft_putchar_fd(data[idx][char_idx], STDOUT_FILENO);
-			char_idx++;
+			ft_putchar_fd(data[i][j], STDOUT_FILENO);
+			ft_putchar_fd('"', STDOUT_FILENO);
+			ft_putstr_fd(&data[i][j + 1], STDOUT_FILENO);
+			ft_putstr_fd("\"", STDOUT_FILENO);
 		}
-		ft_putchar_fd(data[idx][char_idx], STDOUT_FILENO);
-		ft_putchar_fd('"', STDOUT_FILENO);
-		ft_putstr_fd(data[idx] + char_idx + 1, STDOUT_FILENO);
-		ft_putendl_fd("\"", STDOUT_FILENO);
-		idx++;
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		i++;
 	}
 	return (0);
 }
 
-int	check_env_key(char *str)
+char	*check_env_key(char *arg)
 {
-	int	len;
+	int		len;
+	char	*key;
 
-	len = 0;
-	if (!ft_strchr(str, '='))
-		return (DECLARE);
-	if (ft_isdigit(str[len]) || str[len] == '_')
-		return (INVALID_KEY);
-	len++;
-	while (str[len])
+	len = 1;
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
+		return (NULL);
+	while (arg[len])
 	{
-		if (str[len] == '=')
+		if (arg[len] == '=')
 			break ;
-		if (ft_isalnum(str[len]) == 0 && str[len] != '_')
-			return (INVALID_KEY);
+		if (!ft_isalnum(arg[len]) && arg[len] != '_')
+			return (NULL);
 		len++;
 	}
-	return (len);
+	key = ft_calloc(len + 1, sizeof(char));
+	if (!key)
+		error_syscall();
+	ft_strlcpy(key, arg, len + 1);
+	return (key);
 }
 
 int	set_new_env(char *arg, t_envp *envp)
 {
-	int		idx;
-	char	**tmp;
+	int		i;
+	char	**temp;
 
 	if (envp->curr_cnt < envp->max_cnt)
 		envp->data[envp->curr_cnt] = ft_strdup(arg);
 	else
 	{
-		tmp = ft_calloc(envp->max_cnt * 2, sizeof(char *));
-		if (!tmp)
+		temp = ft_calloc(envp->max_cnt * 2, sizeof(char *));
+		if (!temp)
 			error_syscall();
-		idx = 0;
-		while (idx < envp->max_cnt && envp->data[idx])
+		i = 0;
+		while (i < envp->curr_cnt && envp->data[i])
 		{
-			tmp[idx] = ft_strdup(envp->data[idx]);
-			idx++;
+			temp[i] = ft_strdup(envp->data[i]);
+			i++;
 		}
 		envp->max_cnt *= 2;
-		tmp[idx] = ft_strdup(arg);
+		temp[i] = ft_strdup(arg);
 		free_tab(envp->data);
-		envp->data = tmp;
+		envp->data = temp;
 	}
 	if (!envp->data[envp->curr_cnt])
 		error_syscall();
@@ -105,27 +108,29 @@ int	set_new_env(char *arg, t_envp *envp)
 int	builtin_export(char **args, t_envp *envp)
 {
 	int		i;
-	int		len;
 	int		result;
 	char	*key;
+	char	*value;
 
+	i = 1;
 	if (!args[1])
 		return (declare_env(envp));
-	if (args[1] && args[1][0] == '-' && ft_strlen(args[1]) > 1)
+	if (args[1][0] == '-' && ft_strlen(args[1]) > 1)
 		return (export_option_error(args[1]));
-	i = 1;
 	while (args[i])
 	{
-		len = check_env_key(args[i]);
-		if (len == INVALID_KEY)
-			return (error_not_valid("export", args[i]));
-		key = ft_calloc(len + 1, sizeof(char));
+		key = check_env_key(args[i]);
 		if (!key)
-			error_syscall();
-		ft_strlcpy(key, args[i], len + 1);
-		if (swap_envp_data(key, ft_strchr(args[i], '=') + 1, envp) < 0)
-			result = set_new_env(args[i], envp);
-		key = free_null(key);
+			error_not_valid("export", args[i]);
+		else
+		{
+			value = ft_strchr(args[i], '=');
+			if (value)
+				value += 1;
+			if (swap_envp_data(key, value, envp))
+				result = set_new_env(args[i], envp);
+			key = free_null(key);
+		}
 		i++;
 	}
 	return (result);

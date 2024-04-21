@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/20 12:45:41 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:35:42 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,15 @@ static t_envp	set_envp(char **envp)
 		idx++;
 	env.max_cnt = idx;
 	env.curr_cnt = idx;
-	env.dec_max_cnt = idx;
-	env.dec_curr_cnt = idx;
 	env.data = ft_calloc(idx + 1, sizeof(char *));
-	env.declare = ft_calloc(idx + 1, sizeof(char *));
 	env.pwd = getcwd(NULL, 0);
-	if (!env.data || !env.declare || !env.pwd)
+	if (!env.data || !env.pwd)
 		error_syscall();
 	idx = 0;
 	while (envp[idx])
 	{
-		(env.data)[idx] = ft_strdup(envp[idx]);
-		(env.declare)[idx] = ft_strdup(envp[idx]);
-		if (!(env.data)[idx] || !(env.declare)[idx])
+		env.data[idx] = ft_strdup(envp[idx]);
+		if (!env.data[idx])
 			error_syscall();
 		idx++;
 	}

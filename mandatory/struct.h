@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/20 13:21:15 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:33:50 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ typedef struct s_envp
 	int		max_cnt;
 	int		curr_cnt;
 	char	**data;
-	int		dec_max_cnt;
-	int		dec_curr_cnt;
-	char	**declare;
 	char	*pwd;
 }	t_envp;
 
