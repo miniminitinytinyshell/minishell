@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 16:01:41 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:19:01 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,17 @@ int	check_env_key(char *str)
 	int	len;
 
 	len = 0;
-	if (!ft_strchr(str, '=') || ft_isdigit(str[len]) || str[len] == '_')
-		return (-1);
+	if (!ft_strchr(str, '='))
+		return (DECLARE);
+	if (ft_isdigit(str[len]) || str[len] == '_')
+		return (INVALID_KEY);
 	len++;
 	while (str[len])
 	{
 		if (str[len] == '=')
 			break ;
 		if (ft_isalnum(str[len]) == 0 && str[len] != '_')
-			return (-1);
+			return (INVALID_KEY);
 		len++;
 	}
 	return (len);
@@ -115,7 +117,7 @@ int	builtin_export(char **args, t_envp *envp)
 	while (args[i])
 	{
 		len = check_env_key(args[i]);
-		if (len < 0)
+		if (len == INVALID_KEY)
 			return (error_not_valid("export", args[i]));
 		key = ft_calloc(len + 1, sizeof(char));
 		if (!key)
