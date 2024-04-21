@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 14:18:01 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/20 05:28:22 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/21 15:58:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-extern int	g_signum;
+extern volatile sig_atomic_t	g_signum;
 
 void	term_print_on(void)
 {

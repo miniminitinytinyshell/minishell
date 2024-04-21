@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/21 15:35:42 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/21 15:58:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	g_signum;
+volatile sig_atomic_t	g_signum;
 
 static t_envp	set_envp(char **envp)
 {

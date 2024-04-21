@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/20 05:07:38 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/21 15:58:01 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-extern int	g_signum;
+extern volatile sig_atomic_t	g_signum;
 
 int	execute_rdr(t_tree *tree, int *status)
 {

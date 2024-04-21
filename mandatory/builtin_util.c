@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:36:03 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/21 15:39:20 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/21 15:54:41 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,13 @@ int	swap_envp_data(char *key, char *value, t_envp *envp)
 	if (idx < 0)
 		return (1);
 	if (!value)
-		new_env = ft_calloc(ft_strlen(key) + 1, sizeof(char));
-	else
-		new_env = ft_calloc(ft_strlen(key) + ft_strlen(value) + 2, sizeof(char));
+		return (0);
+	new_env = ft_calloc(ft_strlen(key) + ft_strlen(value) + 2, sizeof(char));
 	if (!new_env)
 		error_syscall();
 	ft_strlcpy(new_env, key, ft_strlen(key) + 1);
-	if (value)
-	{
-		new_env[ft_strlen(key)] = '=';
-		ft_strlcat(new_env, value, ft_strlen(key) + ft_strlen(value) + 2);
-	}
+	new_env[ft_strlen(key)] = '=';
+	ft_strlcat(new_env, value, ft_strlen(key) + ft_strlen(value) + 2);
 	temp = envp->data[idx];
 	envp->data[idx] = new_env;
 	free(temp);
