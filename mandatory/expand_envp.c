@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:33:23 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 15:35:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:57:11 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*proc_envp(char *word, char **envp, int status)
 char	**add_token_to_table(char **tab, t_token *token)
 {
 	t_token	*curr;
+
 	while (token)
 	{
 		tab = table_join(tab, token->data);
