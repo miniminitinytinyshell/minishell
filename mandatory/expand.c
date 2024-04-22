@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/19 11:37:10 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/22 20:07:00 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ char	*expand_env(char *word, char **envp, int *i, int status)
 	{
 		if (ft_isalnum(word[*i]) == 0 && word[*i] != '_')
 			break ;
-		temp = strjoin_char(temp, word[*i]);
-		*i += 1;
+		temp = strjoin_char(temp, word[(*i)++]);
 	}
 	if (!temp)
 		env = ft_strdup("$");
 	else
 		env = find_env(temp, envp);
+	if (!env)
+		error_syscall();
 	free(temp);
 	return (env);
 }
