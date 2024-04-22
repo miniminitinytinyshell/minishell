@@ -6,7 +6,7 @@
 #    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/19 11:48:22 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/22 13:40:34 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ src_m =	main.c\
 		tree_compound.c\
 		tree_util.c\
 		expand.c\
+		expand_envp.c\
 		expand_util.c\
 		wildcard.c\
 		wildcard_util.c\

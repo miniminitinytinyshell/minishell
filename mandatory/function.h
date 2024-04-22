@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/20 05:05:31 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/22 13:39:56 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	expand_wildcard(t_tree **tree, int i);
 // EXPAND
 int		expand_tree(t_tree **tree, char **envp, int status);
 char	*expand_word(char *word, char **envp, int status);
-char	*expand_env(char *word, char **envp, int *i, int status);
+char	**expand_envp(t_tree **tree, char **envp, int status);
 
 // EXPAND_Utils
 char	**get_path(t_envp *envp);

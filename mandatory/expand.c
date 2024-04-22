@@ -3,44 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 20:20:02 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:40:01 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-
-char	*expand_env(char *word, char **envp, int *i, int status)
-{
-	char	*env;
-	char	*temp;
-
-	*i += 1;
-	env = NULL;
-	temp = NULL;
-	if (word[*i] == '?')
-	{
-		*i += 1;
-		return (ft_itoa(status));
-	}
-	while (word[*i])
-	{
-		if (ft_isalnum(word[*i]) == 0 && word[*i] != '_')
-			break ;
-		temp = strjoin_char(temp, word[(*i)++]);
-	}
-	if (!temp)
-		env = ft_strdup("$");
-	else
-		env = find_env(temp, envp);
-	if (!env)
-		error_syscall();
-	free(temp);
-	return (env);
-}
 
 char	*expand_word(char *word, char **envp, int status)
 {
@@ -51,6 +22,8 @@ char	*expand_word(char *word, char **envp, int status)
 	i = 0;
 	quote = 0;
 	result = NULL;
+	(void)envp;
+	(void)status;
 	if ((word[0] == '\'' || word[0] == '\"') && word[0] == word[1])
 		return (ft_strdup(""));
 	while (word[i])
@@ -60,8 +33,6 @@ char	*expand_word(char *word, char **envp, int status)
 			expand_quote(word[i], &quote, &result);
 			i++;
 		}
-		else if (quote != '\'' && word[i] == '$')
-			result = strjoin_free(result, expand_env(word, envp, &i, status));
 		else
 			result = strjoin_char(result, word[i++]);
 	}
@@ -97,6 +68,7 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 	int		i;
 	char	**data;
 
+	(*tree)->data = expand_envp(tree, envp, status);
 	i = 0;
 	while ((*tree)->data[i])
 	{
