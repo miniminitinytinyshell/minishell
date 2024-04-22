@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_envp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:33:23 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 13:39:22 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/22 15:35:46 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,19 @@ char	*proc_envp(char *word, char **envp, int status)
 	return (result);
 }
 
+char	**add_token_to_table(char **tab, t_token *token)
+{
+	t_token	*curr;
+	while (token)
+	{
+		tab = table_join(tab, token->data);
+		curr = token;
+		token = token->next;
+		free(curr);
+	}
+	return (tab);
+}
+
 char	**expand_envp(t_tree **tree, char **envp, int status)
 {
 	int		i;
@@ -77,13 +90,10 @@ char	**expand_envp(t_tree **tree, char **envp, int status)
 		{
 			temp = proc_envp((*tree)->data[i], envp, status);
 			token = tokenizer(temp);
-			while (token)
-			{
-				data = table_join(data, token->data);
-				token = token->next;
-			}
+			if (!token)
+				error_syscall();
+			data = add_token_to_table(data, token);
 			temp = free_null(temp);
-			token_clear(&token); // token->next 때문에 제대로 free 안 됨
 		}
 		else
 			data = table_join(data, ft_strdup((*tree)->data[i]));

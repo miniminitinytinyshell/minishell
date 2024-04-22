@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 13:40:01 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:56:47 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	expand_rdr(t_tree **tree, char **envp, int status)
 	t_tree	*rdr;
 
 	rdr = (*tree)->left;
+	rdr->data = expand_envp(&rdr, envp, status);
 	if (ft_strchr(rdr->data[1], '*'))
 		if (rdr->data[1][0] != '\"' && rdr->data[1][0] != '\'')
 			expand_wildcard(&rdr, 1);
