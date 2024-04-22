@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/21 15:30:29 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:39:33 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,6 @@ int	builtin_export(char **args, t_envp *envp)
 		else
 		{
 			value = ft_strchr(args[i], '=');
-			if (value)
-				value += 1;
 			if (swap_envp_data(key, value, envp))
 				result = set_new_env(args[i], envp);
 			key = free_null(key);
