@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 20:07:00 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/22 20:20:02 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ static int	expand_rdr(t_tree **tree, char **envp, int status)
 			expand_wildcard(&rdr, 1);
 	if (rdr->data[2])
 	{
-		ft_putendl_fd("minishell: ambiguous ridirect", STDERR_FILENO);
+		ft_putendl_fd("minishell: ambiguous redirect", STDERR_FILENO);
 		return (0);
 	}
 	file = expand_word(rdr->data[1], envp, status);
+	if (!file)
+		error_syscall();
 	free(rdr->data[1]);
 	rdr->data[1] = file;
 	if ((*tree)->right)
