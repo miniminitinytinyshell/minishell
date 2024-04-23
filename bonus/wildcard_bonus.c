@@ -6,12 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:22:39 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:52:00 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:03:03 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "function.h"
+#include "struct_bonus.h"
+#include "function_bonus.h"
 
 static int	match(char *pattern, char *str)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/22 13:40:34 by jaeblee          ###   ########.fr        #
+#    Updated: 2024/04/23 14:04:59 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ SRCS_M = $(addprefix $(MAN_DIR)/, $(src_m))
 OBJS_M = $(SRCS_M:.c=.o)
 DEPS_M = $(SRCS_M:.c=.d)
 
-src_b =	main_bonus.c\
+src_b =main_bonus.c\
 		free_bonus.c\
 		error_bonus.c\
 		string_bonus.c\
@@ -94,8 +94,10 @@ src_b =	main_bonus.c\
 		tree_compound_bonus.c\
 		tree_util_bonus.c\
 		expand_bonus.c\
+		expand_envp_bonus.c\
 		expand_util_bonus.c\
-		expand_wildcard_bonus.c\
+		wildcard_bonus.c\
+		wildcard_util_bonus.c\
 		execute_bonus.c\
 		execute_util_bonus.c\
 		execute_pipe_bonus.c\
