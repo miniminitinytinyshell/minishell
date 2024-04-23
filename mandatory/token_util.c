@@ -6,13 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/22 15:14:54 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:49:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-#include "libft.h"
 
 t_token	*token_new(char *str, int len)
 {

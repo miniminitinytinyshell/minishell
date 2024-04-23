@@ -6,14 +6,14 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:09:33 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:28:42 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_bonus.h"
 #include "function_bonus.h"
 
-int	error_unset_option(char *opt)
+static int	unset_option_error(char *opt)
 {
 	if (!opt)
 		return (1);
@@ -28,7 +28,7 @@ int	error_unset_option(char *opt)
 	return (1);
 }
 
-void	unset_envp(t_envp *envp, int idx)
+static void	unset_envp(t_envp *envp, int idx)
 {
 	envp->data[idx] = free_null(envp->data[idx]);
 	while (idx < envp->curr_cnt)
@@ -47,13 +47,13 @@ int	builtin_unset(char **args, t_envp *envp)
 
 	i = 1;
 	check = 0;
-	if (error_unset_option(args[1]))
+	if (unset_option_error(args[1]))
 	{
 		while (args[i])
 		{
 			idx = -1;
-			if (ft_isdigit(args[i][0]))
-				check = error_not_vaild("unset", args[i]);
+			if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
+				check = error_not_valid("unset", args[i]);
 			else
 			{
 				idx = get_envp_idx(args[i], envp);

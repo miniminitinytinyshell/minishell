@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:32:56 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:31:37 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	error_syscall(void)
 {
 	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	if (errno == 13)
+		exit (126);
 	exit(EXIT_FAILURE);
 }
 
@@ -75,9 +77,7 @@ int	error_syntax(char *str, t_token **token, int flag)
 	ft_putchar_fd('\'', STDERR_FILENO);
 	if (flag == '(')
 		flag = (int)count_sep(token, flag);
-	if (flag == 1)
-		ft_putchar_fd('&', STDERR_FILENO);
-	else if (flag)
+	if (flag)
 		ft_putchar_fd((char)flag, STDERR_FILENO);
 	else
 		ft_putstr_fd(str, STDERR_FILENO);
@@ -87,7 +87,7 @@ int	error_syntax(char *str, t_token **token, int flag)
 	return (0);
 }
 
-int	error_not_vaild(char *cmd, char *arg)
+int	error_not_valid(char *cmd, char *arg)
 {
 	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);

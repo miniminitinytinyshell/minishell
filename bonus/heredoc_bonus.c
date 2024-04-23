@@ -6,14 +6,14 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 15:02:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:48:21 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_bonus.h"
 #include "function_bonus.h"
 
-extern int	g_signum;
+extern volatile sig_atomic_t	g_signum;
 
 int	heredoc_env(char *str, int fd, t_envp *envp)
 {
@@ -107,7 +107,7 @@ void	create_heredoc(t_tree **tree, int *name, t_envp *envp)
 	{
 		if (ft_strncmp((*tree)->data[0], "<<", 3) == 0)
 		{
-			path = strjoin_free(ft_strdup("./.temp_"), ft_itoa(*name));
+			path = strjoin_free(ft_strdup("/tmp/temp_"), ft_itoa(*name));
 			fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			fork_heredoc((*tree)->data[1], fd, envp);
 			close(fd);
@@ -131,7 +131,8 @@ void	delete_heredoc(t_tree **tree)
 		return ;
 	if ((*tree)->type == rdr_cmd)
 	{
-		unlink((*tree)->data[1]);
+		if (access((*tree)->data[1], F_OK) == 0)
+			unlink((*tree)->data[1]);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:16:58 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/18 15:07:34 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:26:08 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,22 @@ char	*set_path(char *pwd, char *target)
 	char	*tmp;
 	int		pwd_len;
 
-	pwd_len = ft_strlen(pwd);
-	if (pwd[pwd_len - 1] == '/')
-		tmp = ft_strdup(pwd);
-	else
-		tmp = ft_strjoin(pwd, "/");
-	path = ft_strjoin(tmp, target);
-	free(tmp);
-	if (access(path, F_OK) < 0)
-	{
-		free(path);
+	if (pwd[0] == '/')
 		path = ft_strdup(target);
+	else
+	{
+		pwd_len = ft_strlen(pwd);
+		if (pwd[pwd_len - 1] == '/')
+			tmp = ft_strdup(pwd);
+		else
+			tmp = ft_strjoin(pwd, "/");
+		path = ft_strjoin(tmp, target);
+		free(tmp);
+		if (access(path, F_OK) < 0)
+		{
+			free(path);
+			path = ft_strdup(target);
+		}
 	}
 	return (path);
 }

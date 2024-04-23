@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_util_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:37:07 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:35:32 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:46:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	proc_open(t_tree *tree, int *file_in, int *file_out)
 		if (*file_in > 0)
 			close(*file_in);
 		*file_in = open(tree->data[1], O_RDONLY);
+		if (ft_strncmp(tree->data[0], "<<", 3) == 0)
+			unlink(tree->data[1]);
 	}
 	else
 	{
@@ -66,7 +68,7 @@ char	*check_file(char *file)
 {
 	struct stat	file_stat;
 
-	if (ft_strncmp(file, "/", 1) == 0 || ft_strncmp(file, "./", 2) == 0)
+	if (access(file, F_OK) == 0)
 	{
 		if (stat(file, &file_stat) == 0)
 		{
@@ -75,10 +77,8 @@ char	*check_file(char *file)
 		}
 		else
 			error_syscall();
-		if (access(file, X_OK) != 0)
-			exit(error_with_str(file, 0) + 125);
 	}
 	else
-		return (NULL);
+		exit(error_with_str(file, 0) + 126);
 	return (file);
 }

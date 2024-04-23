@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:11:31 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:45:46 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,5 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 		i++;
 	}
 	set_status(status);
+	free(pids);
 }

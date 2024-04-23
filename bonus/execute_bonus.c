@@ -6,124 +6,66 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:18:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:40:01 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_bonus.h"
 #include "function_bonus.h"
 
-extern int	g_signum;
-
-int	execute_rdr(t_tree *tree, int *status)
+int	find_builtin(t_tree *tree)
 {
-	int	file_in;
-	int	file_out;
-
 	if (!tree)
-		return (1);
-	file_in = 0;
-	file_out = 0;
-	*status = open_file(tree, &file_in, &file_out);
-	if (file_in > 0)
-	{
-		if (dup2(file_in, STDIN_FILENO) == -1)
-			error_syscall();
-		close(file_in);
-	}
-	if (file_out > 0)
-	{
-		if (dup2(file_out, STDOUT_FILENO) == -1)
-			error_syscall();
-		close(file_out);
-	}
-	if (*status != 0)
 		return (0);
-	return (1);
+	if (!tree->data)
+		return (1);
+	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
+		return (1);
+	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
+		return (1);
+	else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
+		return (1);
+	else if (ft_strncmp(tree->data[0], "export", 7) == 0)
+		return (1);
+	else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
+		return (1);
+	else if (ft_strncmp(tree->data[0], "env", 4) == 0)
+		return (1);
+	else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
+		return (1);
+	return (0);
 }
 
-void	execute_cmd(t_tree *tree, t_envp *envp)
+void	proc_builtin(t_tree *tree, t_envp *envp, int *status)
 {
-	char	*path;
-
-	path = NULL;
-	set_child_signal();
-	if (!tree)
-		return ;
-	if (tree->data[0][0] == '\0')
-		path = NULL;
-	else if (access(tree->data[0], F_OK) == 0)
-		path = check_file(tree->data[0]);
-	else
-		path = get_cmd_path(tree->data[0], get_path(envp));
-	if (!path)
-		exit(error_with_str(tree->data[0], CMD_NFOUND));
-	if (execve(path, tree->data, envp->data) == -1)
-		error_syscall();
+	if (ft_strncmp(tree->data[0], "echo", 5) == 0)
+		*status = builtin_echo(tree->data);
+	else if (ft_strncmp(tree->data[0], "cd", 3) == 0)
+		*status = builtin_cd(tree->data, envp);
+	else if (ft_strncmp(tree->data[0], "pwd", 4) == 0)
+		*status = builtin_pwd(tree->data, envp);
+	else if (ft_strncmp(tree->data[0], "export", 7) == 0)
+		*status = builtin_export(tree->data, envp);
+	else if (ft_strncmp(tree->data[0], "unset", 6) == 0)
+		*status = builtin_unset(tree->data, envp);
+	else if (ft_strncmp(tree->data[0], "env", 4) == 0)
+		*status = builtin_env(tree->data, envp);
+	else if (ft_strncmp(tree->data[0], "exit", 5) == 0)
+		*status = builtin_exit(tree->data);
 }
 
-void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
+void	execute_builtin(t_tree *tree, t_envp *envp, int *status)
 {
-	pid_t	pid;
+	int	input;
+	int	output;
 
-	if (find_builtin((*tree)->right))
-		execute_builtin(*tree, envp, status);
-	else
-	{
-		pid = fork();
-		if (pid == -1)
-			error_syscall();
-		if (pid == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			if (execute_rdr((*tree)->left, status))
-				execute_cmd((*tree)->right, envp);
-			exit(*status);
-		}
-		else
-		{
-			set_parent_signal();
-			waitpid(pid, status, 0);
-			set_status(status);
-		}
-	}
-}
-
-void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
-{
-	if ((*tree)->type == standard_cmd)
-	{
-		*status = expand_tree(tree, envp->data, *status);
-		if (*status == 0)
-			execute_std_cmd(tree, envp, status);
-	}
-	else if ((*tree)->type == compound_cmd)
-	{
-		if (ft_strncmp((*tree)->oper, "&&", 3) == 0)
-		{
-			execute_cpd_cmd(&(*tree)->left, envp, status);
-			if (*status == 0)
-				execute_cpd_cmd(&(*tree)->right, envp, status);
-		}
-		else if (ft_strncmp((*tree)->oper, "||", 3) == 0)
-		{
-			execute_cpd_cmd(&(*tree)->left, envp, status);
-			if (*status != 0)
-				execute_cpd_cmd(&(*tree)->right, envp, status);
-		}
-		else
-			execute_pipe(tree, envp, status);
-	}
-}
-
-void	execute_tree(t_tree **tree, t_envp *envp, int *status)
-{
-	int	file_name;
-
-	file_name = 1;
-	create_heredoc(tree, &file_name, envp);
-	if (g_signum != SIGINT)
-		execute_cpd_cmd(tree, envp, status);
-	if (file_name > 1)
-		delete_heredoc(tree);
+	input = dup(STDIN_FILENO);
+	output = dup(STDOUT_FILENO);
+	if (tree->right->data)
+		if (execute_rdr(tree->left, status))
+			proc_builtin(tree->right, envp, status);
+	dup2(input, STDIN_FILENO);
+	dup2(output, STDOUT_FILENO);
+	close(input);
+	close(output);
 }
