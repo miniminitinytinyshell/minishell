@@ -6,12 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:33:23 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:47:56 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:05:17 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "function.h"
+#include "struct_bonus.h"
+#include "function_bonus.h"
 
 char	*get_envp(char *word, char **envp, int *i, int status)
 {

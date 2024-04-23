@@ -6,12 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:45:43 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:51:26 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:03:09 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
-#include "function.h"
+#include "struct_bonus.h"
+#include "function_bonus.h"
 
 static char	*strdup_sf(char *str, int s, int f)
 {
