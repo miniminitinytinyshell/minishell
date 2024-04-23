@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 14:04:15 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:21:08 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ int	builtin_export(char **args, t_envp *envp)
 	int		i;
 	int		result;
 	char	*key;
-	char	*value;
 
 	i = 1;
+	result = 0;
 	if (!args[1])
 		return (declare_env(envp));
 	if (args[1][0] == '-' && ft_strlen(args[1]) > 1)
@@ -121,12 +121,11 @@ int	builtin_export(char **args, t_envp *envp)
 	{
 		key = check_env_key(args[i]);
 		if (!key)
-			error_not_valid("export", args[i]);
+			result = error_not_valid("export", args[i]);
 		else
 		{
-			value = ft_strchr(args[i], '=');
-			if (swap_envp_data(key, value, envp))
-				result = set_new_env(args[i], envp);
+			if (swap_envp_data(key, ft_strchr(args[i], '='), envp))
+				set_new_env(args[i], envp);
 			key = free_null(key);
 		}
 		i++;
