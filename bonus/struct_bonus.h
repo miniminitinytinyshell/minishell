@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_bonus.h                                           :+:      :+:    :+:   */
+/*   struct_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/16 21:01:57 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:55:23 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 
 # define CMD_NFOUND 1
 # define IS_DIR 2
+# define AMB_RDR 3
+
+# define DECLARE -2
+# define INVALID_KEY -4
 
 typedef struct s_envp
 {
@@ -46,7 +50,6 @@ typedef enum e_parse_type
 {
 	rdr_cmd = 0,
 	redirects,
-	sub_shell,
 	simple_cmd,
 	standard_cmd,
 	compound_cmd,

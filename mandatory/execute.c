@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:40:08 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:29:56 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-extern int	g_signum;
+extern volatile sig_atomic_t	g_signum;
 
 int	execute_rdr(t_tree *tree, int *status)
 {
@@ -52,7 +52,8 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 		return ;
 	if (tree->data[0][0] == '\0')
 		path = NULL;
-	else if (access(tree->data[0], F_OK) == 0)
+	else if (ft_strncmp(tree->data[0], "/", 1) == 0 \
+			|| ft_strncmp(tree->data[0], "./", 2) == 0)
 		path = check_file(tree->data[0]);
 	else
 		path = get_cmd_path(tree->data[0], get_path(envp));
@@ -114,8 +115,6 @@ void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 		else
 			execute_pipe(tree, envp, status);
 	}
-	else if ((*tree)->type == sub_shell)
-		execute_subshell(tree, envp, status);
 }
 
 void	execute_tree(t_tree **tree, t_envp *envp, int *status)
@@ -126,6 +125,8 @@ void	execute_tree(t_tree **tree, t_envp *envp, int *status)
 	create_heredoc(tree, &file_name, envp);
 	if (g_signum != SIGINT)
 		execute_cpd_cmd(tree, envp, status);
+	else
+		*status = 1;
 	if (file_name > 1)
 		delete_heredoc(tree);
 }

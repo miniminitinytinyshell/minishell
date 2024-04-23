@@ -6,40 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 19:28:50 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:47:29 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_bonus.h"
 #include "function_bonus.h"
-
-char	*expand_env(char *word, char **envp, int *i, int status)
-{
-	char	*env;
-	char	*temp;
-
-	*i += 1;
-	env = NULL;
-	temp = NULL;
-	if (word[*i] == '?')
-	{
-		*i += 1;
-		return (ft_itoa(status));
-	}
-	while (word[*i])
-	{
-		if (ft_isalnum(word[*i]) == 0 && word[*i] != '_')
-			break ;
-		temp = strjoin_char(temp, word[*i]);
-		*i += 1;
-	}
-	if (!temp)
-		env = ft_strdup("$");
-	else
-		env = find_env(temp, envp);
-	free(temp);
-	return (env);
-}
 
 char	*expand_word(char *word, char **envp, int status)
 {
@@ -50,6 +22,8 @@ char	*expand_word(char *word, char **envp, int status)
 	i = 0;
 	quote = 0;
 	result = NULL;
+	(void)envp;
+	(void)status;
 	if ((word[0] == '\'' || word[0] == '\"') && word[0] == word[1])
 		return (ft_strdup(""));
 	while (word[i])
@@ -59,8 +33,6 @@ char	*expand_word(char *word, char **envp, int status)
 			expand_quote(word[i], &quote, &result);
 			i++;
 		}
-		else if (quote != '\'' && word[i] == '$')
-			result = strjoin_free(result, expand_env(word, envp, &i, status));
 		else
 			result = strjoin_char(result, word[i++]);
 	}
@@ -69,21 +41,22 @@ char	*expand_word(char *word, char **envp, int status)
 
 static int	expand_rdr(t_tree **tree, char **envp, int status)
 {
-	int		i;
 	char	*file;
 	t_tree	*rdr;
 
-	i = 1;
 	rdr = (*tree)->left;
+	rdr->data = expand_envp(&rdr, envp, status);
 	if (ft_strchr(rdr->data[1], '*'))
 		if (rdr->data[1][0] != '\"' && rdr->data[1][0] != '\'')
-			expand_wildcard(&rdr, &i);
-	if (i > 2)
+			expand_wildcard(&rdr, 1);
+	if (rdr->data[2] || rdr->data[1][0] == '\0')
 	{
-		ft_putendl_fd("minishell: ambiguous ridirect", STDERR_FILENO);
+		ft_putendl_fd("minishell: ambiguous redirect", STDERR_FILENO);
 		return (0);
 	}
 	file = expand_word(rdr->data[1], envp, status);
+	if (!file)
+		error_syscall();
 	free(rdr->data[1]);
 	rdr->data[1] = file;
 	if ((*tree)->right)
@@ -96,12 +69,13 @@ static int	expand_cmd(t_tree **tree, char **envp, int status)
 	int		i;
 	char	**data;
 
-	i = 1;
+	(*tree)->data = expand_envp(tree, envp, status);
+	i = 0;
 	while ((*tree)->data[i])
 	{
 		if (ft_strchr((*tree)->data[i], '*'))
 			if ((*tree)->data[i][0] != '\"' && (*tree)->data[i][0] != '\'')
-				expand_wildcard(tree, &i);
+				expand_wildcard(tree, i);
 		i++;
 	}
 	i = 0;

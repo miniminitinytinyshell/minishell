@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:54:09 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/07 13:32:47 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:11:09 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,27 @@ static int	env_arg_error(char *option)
 		ft_putstr_fd(option, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
 		ft_putendl_fd("env : usage: env", STDERR_FILENO);
-		return (125);
+		return (1);
 	}
 	else
 	{
 		ft_putendl_fd("env: undefined usage", STDERR_FILENO);
-		return (127);
+		return (126);
 	}
 }
 
-int	builtin_env(char **args, char **envp)
+int	builtin_env(char **args, t_envp *envp)
 {
-	int	idx;
+	int	i;
 
+	i = 0;
 	if (args[1])
 		return (env_arg_error(args[1]));
-	idx = 0;
-	while (envp[idx])
+	while (envp->data[i])
 	{
-		ft_putendl_fd(envp[idx], STDOUT_FILENO);
-		idx++;
+		if (ft_strchr(envp->data[i], '='))
+			ft_putendl_fd(envp->data[i], STDOUT_FILENO);
+		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/17 19:41:01 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/22 13:40:34 by jaeblee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ src_m =	main.c\
 		error.c\
 		string.c\
 		heredoc.c\
-		subshell.c\
 		signal.c\
 		signal_set.c\
 		tokenize.c\
@@ -59,8 +58,10 @@ src_m =	main.c\
 		tree_compound.c\
 		tree_util.c\
 		expand.c\
+		expand_envp.c\
 		expand_util.c\
-		expand_wildcard.c\
+		wildcard.c\
+		wildcard_util.c\
 		execute.c\
 		execute_util.c\
 		execute_pipe.c\
@@ -83,7 +84,6 @@ src_b =	main_bonus.c\
 		error_bonus.c\
 		string_bonus.c\
 		heredoc_bonus.c\
-		subshell_bonus.c\
 		signal_bonus.c\
 		signal_set_bonus.c\
 		tokenize_bonus.c\

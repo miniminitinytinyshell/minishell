@@ -6,13 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:18:32 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/17 15:02:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:49:35 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_bonus.h"
 #include "function_bonus.h"
-#include "libft.h"
 
 t_token	*token_new(char *str, int len)
 {
@@ -83,7 +82,7 @@ int	token_clear(t_token **token)
 	while (*token)
 	{
 		tmp = (*token)->next;
-		token_free(*token);
+		*token = token_free(*token);
 		*token = tmp;
 	}
 	token = NULL;

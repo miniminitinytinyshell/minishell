@@ -6,14 +6,14 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 14:18:01 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 13:35:56 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/21 15:58:05 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-extern int	g_signum;
+extern volatile sig_atomic_t	g_signum;
 
 void	term_print_on(void)
 {
@@ -37,6 +37,7 @@ void	handle_sigint(int signum)
 {
 	if (signum != SIGINT)
 		return ;
+	g_signum = signum;
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);

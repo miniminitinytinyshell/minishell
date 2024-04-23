@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 17:53:49 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/21 15:33:50 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 
 # define CMD_NFOUND 1
 # define IS_DIR 2
+# define AMB_RDR 3
+
+# define DECLARE -2
+# define INVALID_KEY -4
 
 typedef struct s_envp
 {
@@ -46,7 +50,6 @@ typedef enum e_parse_type
 {
 	rdr_cmd = 0,
 	redirects,
-	sub_shell,
 	simple_cmd,
 	standard_cmd,
 	compound_cmd,

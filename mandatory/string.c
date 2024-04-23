@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 17:38:41 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/19 11:15:49 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ char	*strjoin_char(char *str, char c)
 	return (word);
 }
 
-char	*strjoin_shell(char *str1, char *str2)
-{
-	char	*result;
-
-	result = NULL;
-	if (!str1)
-		result = ft_strdup(str2);
-	else
-		result = ft_strjoin(str1, str2);
-	if (str1)
-		free(str1);
-	return (result);
-}
-
 char	*strjoin_free(char *str1, char *str2)
 {
 	char	*result;
@@ -80,6 +66,12 @@ char	**table_dup(char **tab, int size)
 
 	i = 0;
 	result = NULL;
+	if (size == -1)
+	{
+		size = 0;
+		while (tab[size])
+			size++;
+	}
 	while (i < size)
 	{
 		result = table_join(result, ft_strdup(tab[i]));

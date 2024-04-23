@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:36:03 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/09 20:52:02 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:41:43 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int	swap_envp_data(char *key, char *value, t_envp *envp)
 
 	idx = get_envp_idx(key, envp);
 	if (idx < 0)
-		return (-1);
+		return (1);
+	if (!value)
+		return (0);
+	if (value[0] == '=')
+		value += 1;
 	new_env = ft_calloc(ft_strlen(key) + ft_strlen(value) + 2, sizeof(char));
 	if (!new_env)
 		error_syscall();

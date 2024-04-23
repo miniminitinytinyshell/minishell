@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 19:35:15 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:26:40 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ char	**free_tab(char **temp);
 void	error_syscall(void);
 int		error_with_str(char *str, int flag);
 int		error_syntax(char *str, t_token **token, int flag);
-int		error_not_vaild(char *cmd, char *arg);
+int		error_not_valid(char *cmd, char *arg);
 
 // STRING
 char	*strjoin_char(char *str, char c);
 char	*strjoin_free(char *str1, char *str2);
-char	*strjoin_shell(char *str1, char *str2);
 char	**table_dup(char **tab, int size);
 char	**table_join(char **tab, char *data);
 
@@ -76,7 +75,6 @@ int		check_pipe(t_tree **tree, t_token *token);
 int		check_cpd_cmd(t_tree **tree, t_token *token);
 int		check_std_cmd(t_tree **tree, t_token *token);
 int		check_smp_cmd(t_tree **tree, t_token *token);
-int		check_subshell(t_tree **tree, t_token *token);
 int		check_redirect(t_tree **tree, t_token *token);
 int		div_std_cmd(t_token **left, t_token **right);
 
@@ -87,11 +85,14 @@ t_tree	*init_tree(void);
 t_tree	*free_tree(t_tree *tree);
 t_token	*erase_pr(t_token *token);
 
+// WILDCARD
+int		extract_path(char *str, char **path);
+void	expand_wildcard(t_tree **tree, int i);
+
 // EXPAND
 int		expand_tree(t_tree **tree, char **envp, int status);
-void	expand_wildcard(t_tree **tree, int *i);
 char	*expand_word(char *word, char **envp, int status);
-char	*expand_env(char *word, char **envp, int *i, int status);
+char	**expand_envp(t_tree **tree, char **envp, int status);
 
 // EXPAND_Utils
 char	**get_path(t_envp *envp);
@@ -104,7 +105,7 @@ int		builtin_exit(char **args);
 int		error_many_args(void);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
-int		builtin_env(char **args, char **envp);
+int		builtin_env(char **args, t_envp *envp);
 int		builtin_pwd(char **args, t_envp *envp);
 int		builtin_unset(char **args, t_envp *envp);
 int		builtin_export(char **args, t_envp *envp);
@@ -114,12 +115,8 @@ int		swap_envp_data(char *key, char *value, t_envp *envp);
 int		get_envp_idx(char *key, t_envp *envp);
 
 // HERE_DOC
-void	create_heredoc(t_tree **tree, int *name, t_envp *envp);
 void	delete_heredoc(t_tree **tree);
-
-// SUB_SHELL
-void	proc_subshell(t_tree **tree, t_envp *envp);
-void	execute_subshell(t_tree **tree, t_envp *envp, int *status);
+void	create_heredoc(t_tree **tree, int *name, t_envp *envp);
 
 // EXECUTE
 int		execute_rdr(t_tree *tree, int *status);

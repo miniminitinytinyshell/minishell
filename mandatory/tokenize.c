@@ -6,13 +6,12 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/12 18:57:25 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:50:05 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
-#include "libft.h"
 
 int	token_len_meta(char *str)
 {
@@ -39,8 +38,10 @@ int	token_len_word(char *str)
 	int		len;
 
 	len = 0;
-	while (str[len] && !ft_strchr("()<>|& ", str[len]))
+	while (str[len] && !ft_strchr("()<>|&", str[len]))
 	{
+		if (str[len] > 8 && str[len] < 14)
+			break ;
 		if (str[len] == '\'' || str[len] == '"')
 		{
 			quote = str[len];
@@ -89,9 +90,11 @@ t_token	*tokenizer(char *str)
 	t_token	*token;
 
 	token = NULL;
+	if (!str)
+		return (token);
 	while (*str)
 	{
-		while (*str == ' ')
+		while (*str == ' ' || (8 < *str && *str < 14))
 			str++;
 		len = token_len(str);
 		if (len < 0)

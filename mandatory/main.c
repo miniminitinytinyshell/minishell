@@ -6,16 +6,16 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 18:50:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:39:13 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	g_signum;
+volatile sig_atomic_t	g_signum;
 
-t_envp	set_envp(char **envp)
+static t_envp	set_envp(char **envp)
 {
 	t_envp	env;
 	int		idx;
@@ -27,21 +27,33 @@ t_envp	set_envp(char **envp)
 	env.curr_cnt = idx;
 	env.data = ft_calloc(idx + 1, sizeof(char *));
 	env.pwd = getcwd(NULL, 0);
-	if (!env.pwd)
+	if (!env.data || !env.pwd)
 		error_syscall();
 	idx = 0;
 	while (envp[idx])
 	{
-		(env.data)[idx] = ft_strdup(envp[idx]);
+		env.data[idx] = ft_strdup(envp[idx]);
+		if (!env.data[idx])
+			error_syscall();
 		idx++;
 	}
 	return (env);
 }
 
-int	check_cmd(char *cmd)
+static int	check_cmd(char *cmd, int *status)
 {
+	if (g_signum == SIGINT)
+	{
+		g_signum = 0;
+		*status = 1;
+	}
 	if (!cmd)
+	{
+		ft_putstr_fd("\033[1A", STDERR_FILENO);
+		ft_putstr_fd("\033[12C", STDERR_FILENO);
+		ft_putendl_fd("exit", STDERR_FILENO);
 		exit(EXIT_SUCCESS);
+	}
 	while (*cmd == ' ')
 		cmd++;
 	if (!(*cmd))
@@ -50,32 +62,16 @@ int	check_cmd(char *cmd)
 		return (0);
 }
 
-static void	proc_shell(t_tree **tree, t_envp *envp, int *status, char *cmd)
+static void	proc_shell(t_envp *envp, int *status, char *cmd)
 {
-	if (check_pipe(tree, tokenizer(cmd)) != 0)
-		execute_tree(tree, envp, status);
-	else
-		*status = 258;
-}
-
-int	test_shell(t_envp envp, int status, char **argv)
-{
-	int		i;
-	char	*cmd;
 	t_tree	*tree;
 
-	i = 1;
-	cmd = NULL;
-	while (argv[i])
-	{
-		cmd = strjoin_shell(cmd, argv[i]);
-		cmd = strjoin_shell(cmd, " ");
-		i++;
-	}
 	tree = init_tree();
-	proc_shell(&tree, &envp, &status, cmd);
+	if (check_pipe(&tree, tokenizer(cmd)) != 0)
+		execute_tree(&tree, envp, status);
+	else
+		*status = 258;
 	tree = free_tree(tree);
-	exit(status);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -83,25 +79,22 @@ int	main(int argc, char **argv, char **envp)
 	int		status;
 	char	*cmd;
 	t_envp	env;
-	t_tree	*tree;
 
+	if (argc > 1)
+		return (printf("usage: %s\n", argv[0]));
 	status = 0;
 	cmd = NULL;
 	env = set_envp(envp);
-	if (argc > 1)
-		test_shell(env, status, argv);
 	while (1)
 	{
 		g_signum = 0;
 		set_signal();
-		cmd = readline("mongshell🐶 ");
-		if (check_cmd(cmd) < 0)
+		cmd = readline("mongshell🐶> ");
+		if (check_cmd(cmd, &status) < 0)
 			continue ;
-		tree = init_tree();
-		proc_shell(&tree, &env, &status, cmd);
+		proc_shell(&env, &status, cmd);
 		add_history(cmd);
 		cmd = free_null(cmd);
-		tree = free_tree(tree);
 	}
 	return (0);
 }

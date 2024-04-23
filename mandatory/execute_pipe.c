@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 17:29:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 19:05:45 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:53:20 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ static int	count_pipe(t_tree *tree)
 
 static void	execute_pipe_cmd(t_tree **tree, t_envp *envp, int *status)
 {
-	if ((*tree)->type == sub_shell)
-		proc_subshell(tree, envp);
+	if ((*tree)->type == compound_cmd)
+	{
+		ft_putstr_fd("mongshll: ", STDERR_FILENO);
+		ft_putendl_fd("parenthesis only for priorities", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
 	else
 	{
 		*status = expand_tree(tree, envp->data, *status);
@@ -123,4 +127,5 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status)
 		i++;
 	}
 	set_status(status);
+	free(pids);
 }
