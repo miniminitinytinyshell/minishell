@@ -6,18 +6,49 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 15:08:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:01:46 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "function.h"
 
-int	error_many_args(void)
+int	exit_many_args(void)
 {
 	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putendl_fd("too many arguments", STDERR_FILENO);
 	return (1);
+}
+
+int	exit_non_numeric(char *arg)
+{
+	ft_putstr_fd("mongshell: exit: ", STDERR_FILENO);
+	ft_putstr_fd("numeric argument required: ", STDERR_FILENO);
+	ft_putendl_fd(arg, STDERR_FILENO);
+	exit(255);
+}
+
+int	check_longlong_range(char *arg)
+{
+	const char	*long_max = "9223372036854775807";
+	const char	*long_min = "-9223372036854775808";
+	size_t		len;
+
+	len = ft_strlen(arg);
+	if (arg[0] == '-')
+	{
+		if (len > ft_strlen(long_min))
+			return (1);
+		else if (ft_strncmp(long_min, arg, len + 1) < 0)
+			return (1);
+		else
+			return (0);
+	}
+	else if (len > ft_strlen(long_max))
+		return (1);
+	else if (ft_strncmp(long_max, arg, len + 1) < 0)
+		return (1);
+	return (0);
 }
 
 int	check_numeric(char *arg)
@@ -25,6 +56,8 @@ int	check_numeric(char *arg)
 	int	i;
 	int	sign;
 
+	if (check_longlong_range(arg))
+		exit_non_numeric(arg);
 	i = 1;
 	sign = 1;
 	if (arg[0] == '+' || arg[0] == '-')
@@ -35,13 +68,8 @@ int	check_numeric(char *arg)
 	}
 	while (arg[i] && arg[i] != '\n')
 	{
-		if (arg[i] < '0' || arg[i] > '9')
-		{
-			ft_putstr_fd("mongshell: exit: ", STDERR_FILENO);
-			ft_putstr_fd("numeric argument required: ", STDERR_FILENO);
-			ft_putendl_fd(arg, STDERR_FILENO);
-			exit(255);
-		}
+		if (ft_isdigit(arg[i]) == 0)
+			exit_non_numeric(arg);
 		i++;
 	}
 	return (ft_atoi(arg));
@@ -70,5 +98,5 @@ int	builtin_exit(char **args)
 			exit(num % 256);
 	}
 	else
-		return (error_many_args());
+		return (exit_many_args());
 }
