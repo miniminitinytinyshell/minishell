@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:33:23 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 10:03:26 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:38:01 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*get_envp(char *word, char **envp, int *i, int status)
 char	*proc_envp(char *word, char **envp, int status)
 {
 	int		i;
+	char	*temp;
 	char	*result;
 
 	i = 0;
@@ -50,7 +51,13 @@ char	*proc_envp(char *word, char **envp, int status)
 	while (word[i])
 	{
 		if (word[i] == '$')
-			result = strjoin_free(result, get_envp(word, envp, &i, status));
+		{
+			temp = get_envp(word, envp, &i, status);
+			if (!temp)
+				result = strjoin_free(result, ft_strdup(""));
+			else
+				result = strjoin_free(result, temp);
+		}
 		else
 		{
 			result = strjoin_char(result, word[i]);
@@ -64,6 +71,8 @@ char	**add_token_to_table(char **tab, t_token *token)
 {
 	t_token	*curr;
 
+	if (!token)
+		error_syscall();
 	while (token)
 	{
 		tab = table_join(tab, token->data);
@@ -90,7 +99,7 @@ char	**expand_envp(t_tree **tree, char **envp, int status)
 			temp = proc_envp((*tree)->data[i], envp, status);
 			token = tokenizer(temp);
 			if (temp && !token)
-				error_syscall();
+				token = token_new("", 0);
 			data = add_token_to_table(data, token);
 			temp = free_null(temp);
 		}
