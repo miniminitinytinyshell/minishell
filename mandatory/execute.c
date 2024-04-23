@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/21 15:58:01 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:29:56 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,8 @@ void	execute_tree(t_tree **tree, t_envp *envp, int *status)
 	create_heredoc(tree, &file_name, envp);
 	if (g_signum != SIGINT)
 		execute_cpd_cmd(tree, envp, status);
+	else
+		*status = 1;
+	if (file_name > 1)
+		delete_heredoc(tree);
 }

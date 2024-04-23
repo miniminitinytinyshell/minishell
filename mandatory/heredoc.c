@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/21 15:58:04 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:37:36 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	create_heredoc(t_tree **tree, int *name, t_envp *envp)
 	{
 		if (ft_strncmp((*tree)->data[0], "<<", 3) == 0)
 		{
-			path = strjoin_free(ft_strdup("./.temp_"), ft_itoa(*name));
+			path = strjoin_free(ft_strdup("/tmp/temp_"), ft_itoa(*name));
 			fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			fork_heredoc((*tree)->data[1], fd, envp);
 			close(fd);
@@ -122,5 +122,23 @@ void	create_heredoc(t_tree **tree, int *name, t_envp *envp)
 			create_heredoc(&(*tree)->left, name, envp);
 		if ((*tree)->right && g_signum != SIGINT)
 			create_heredoc(&(*tree)->right, name, envp);
+	}
+}
+
+void	delete_heredoc(t_tree **tree)
+{
+	if (!tree && !(*tree))
+		return ;
+	if ((*tree)->type == rdr_cmd)
+	{
+		if (access((*tree)->data[1], F_OK) == 0)
+			unlink((*tree)->data[1]);
+	}
+	else
+	{
+		if ((*tree)->left)
+			delete_heredoc(&(*tree)->left);
+		if ((*tree)->right)
+			delete_heredoc(&(*tree)->right);
 	}
 }
