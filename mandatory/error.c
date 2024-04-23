@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:12:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/18 21:50:19 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:48:44 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	error_syscall(void)
 {
 	ft_putstr_fd("mongshell: ", STDERR_FILENO);
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	if (errno == 13)
+		exit (126);
 	exit(EXIT_FAILURE);
 }
 

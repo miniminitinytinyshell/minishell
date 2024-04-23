@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 19:50:41 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:39:13 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	check_cmd(char *cmd, int *status)
 	if (!cmd)
 	{
 		ft_putstr_fd("\033[1A", STDERR_FILENO);
-		ft_putstr_fd("\033[13C", STDERR_FILENO);
+		ft_putstr_fd("\033[12C", STDERR_FILENO);
 		ft_putendl_fd("exit", STDERR_FILENO);
 		exit(EXIT_SUCCESS);
 	}
