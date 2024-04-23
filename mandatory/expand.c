@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:26 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 14:56:47 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:08:46 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	expand_rdr(t_tree **tree, char **envp, int status)
 	if (ft_strchr(rdr->data[1], '*'))
 		if (rdr->data[1][0] != '\"' && rdr->data[1][0] != '\'')
 			expand_wildcard(&rdr, 1);
-	if (rdr->data[2])
+	if (rdr->data[2] || rdr->data[1][0] == '\0')
 	{
 		ft_putendl_fd("minishell: ambiguous redirect", STDERR_FILENO);
 		return (0);
