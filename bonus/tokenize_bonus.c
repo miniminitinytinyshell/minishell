@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:50:05 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:08:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	token_len_word(char *str)
 	int		len;
 
 	len = 0;
-	while (str[len] && !ft_strchr("()<>|&", str[len]))
+	while (str[len] && !ft_strchr("()<>|& ", str[len]))
 	{
 		if (str[len] > 8 && str[len] < 14)
 			break ;
