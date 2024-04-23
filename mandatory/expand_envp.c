@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:33:23 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 15:57:11 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 09:16:28 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ char	*get_envp(char *word, char **envp, int *i, int status)
 		env = ft_strdup("$");
 	else
 		env = find_env(temp, envp);
-	if (!env)
-		error_syscall();
 	free(temp);
 	return (env);
 }
@@ -91,7 +89,7 @@ char	**expand_envp(t_tree **tree, char **envp, int status)
 		{
 			temp = proc_envp((*tree)->data[i], envp, status);
 			token = tokenizer(temp);
-			if (!token)
+			if (temp && !token)
 				error_syscall();
 			data = add_token_to_table(data, token);
 			temp = free_null(temp);
