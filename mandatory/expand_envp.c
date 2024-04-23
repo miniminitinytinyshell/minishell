@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:33:23 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 09:16:28 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:03:26 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ char	**expand_envp(t_tree **tree, char **envp, int status)
 			data = table_join(data, ft_strdup((*tree)->data[i]));
 		i++;
 	}
+	free_tab((*tree)->data);
 	return (data);
 }
