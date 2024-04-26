@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/26 21:20:55 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:29:20 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static void	proc_shell(t_envp *envp, int *status, char *cmd)
 
 	tree = init_tree();
 	token = tokenizer(cmd);
-	printf("token: %p\n", token);
 	cnt_heredoc(token);
 	if (check_pipe(&tree, token) != 0)
 		execute_tree(&tree, envp, status);
@@ -113,7 +112,6 @@ int	main(int argc, char **argv, char **envp)
 		g_signum = 0;
 		set_signal();
 		cmd = readline("mongshell\001🐶>\002 \033[s");
-		ft_printf("cmd: %p\n", cmd);
 		if (check_cmd(cmd, &status) < 0)
 			continue ;
 		proc_shell(&env, &status, cmd);
