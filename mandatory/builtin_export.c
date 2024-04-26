@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/26 17:23:13 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/26 17:31:22 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	set_new_env(char *arg, t_envp *envp)
 			temp[i] = ft_strdup(envp->data[i]);
 			i++;
 		}
-		envp->max_cnt *= envp->max_cnt * 2 + 1;
+		envp->max_cnt = envp->max_cnt * 2 + 2;
 		temp[i] = ft_strdup(arg);
 		free_tab(envp->data);
 		envp->data = temp;
