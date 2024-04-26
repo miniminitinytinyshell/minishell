@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:33:19 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 14:51:21 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/26 14:38:01 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_token	*tokenizer(char *str)
 		len = token_len(str);
 		if (len < 0)
 		{
-			error_syntax(str, &token, len * (-1));
+			error_syntax(str, &token, 0);
 			return (NULL);
 		}
 		else if (len == 0)
