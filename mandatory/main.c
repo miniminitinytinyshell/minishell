@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 16:35:59 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/26 17:51:57 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,35 @@ static int	check_cmd(char *cmd, int *status)
 		return (0);
 }
 
+static int	cnt_heredoc(t_token *token)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (token)
+	{
+		if (token->group == rdr && ft_strncmp(token->data, "<<", 3) == 0)
+			cnt++;
+		token = token->next;
+	}
+	if (cnt > 16)
+	{
+		ft_putstr_fd("mongshell: ", STDERR_FILENO);
+		ft_putendl_fd("maximum here-document count exceeded", STDERR_FILENO);
+		exit(2);
+	}
+	return (cnt);
+}
+
 static void	proc_shell(t_envp *envp, int *status, char *cmd)
 {
 	t_tree	*tree;
+	t_token	*token;
 
 	tree = init_tree();
-	if (check_pipe(&tree, tokenizer(cmd)) != 0)
+	token = tokenizer(cmd);
+	cnt_heredoc(token);
+	if (check_pipe(&tree, token) != 0)
 		execute_tree(&tree, envp, status);
 	else
 		*status = 258;
