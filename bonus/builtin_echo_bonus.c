@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:15 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/17 15:02:46 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:21:37 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,22 @@ static int	chk_echo_option(char *arg)
 static void	echo_option(char **args)
 {
 	int	idx;
+	int	flag;
 
 	idx = 2;
+	flag = 1;
 	if (!args[idx])
 		ft_putendl_fd("", STDOUT_FILENO);
 	while (args[idx])
 	{
-		ft_putstr_fd(args[idx], STDOUT_FILENO);
-		if (args[idx + 1])
-			ft_putchar_fd(' ', STDOUT_FILENO);
+		if (flag == 1)
+			flag = chk_echo_option(args[idx]);
+		if (flag == 0)
+		{
+			ft_putstr_fd(args[idx], STDOUT_FILENO);
+			if (args[idx + 1])
+				ft_putchar_fd(' ', STDOUT_FILENO);
+		}
 		idx++;
 	}
 }
