@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 16:32:15 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/26 17:23:13 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	set_new_env(char *arg, t_envp *envp)
 		envp->data[envp->curr_cnt] = ft_strdup(arg);
 	else
 	{
-		temp = ft_calloc(envp->max_cnt * 2, sizeof(char *));
+		temp = ft_calloc(envp->max_cnt * 2 + 2, sizeof(char *));
 		if (!temp)
 			error_syscall();
 		i = 0;
@@ -94,7 +94,7 @@ int	set_new_env(char *arg, t_envp *envp)
 			temp[i] = ft_strdup(envp->data[i]);
 			i++;
 		}
-		envp->max_cnt *= 2;
+		envp->max_cnt *= envp->max_cnt * 2 + 1;
 		temp[i] = ft_strdup(arg);
 		free_tab(envp->data);
 		envp->data = temp;
