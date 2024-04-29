@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/26 21:29:20 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:23:11 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ static int	check_cmd(char *cmd, int *status)
 	while (*cmd == ' ')
 		cmd++;
 	if (!(*cmd))
-		return (-1);
+	{
+		cmd = free_null(cmd);
+		return (1);
+	}
 	else
 		return (0);
 }
@@ -112,10 +115,11 @@ int	main(int argc, char **argv, char **envp)
 		g_signum = 0;
 		set_signal();
 		cmd = readline("mongshell\001🐶>\002 \033[s");
-		if (check_cmd(cmd, &status) < 0)
+		if (check_cmd(cmd, &status))
 			continue ;
 		proc_shell(&env, &status, cmd);
-		add_history(cmd);
+		if (cmd)
+			add_history(cmd);
 		cmd = free_null(cmd);
 	}
 	return (0);

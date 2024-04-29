@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:26:40 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/29 14:39:16 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		error_syntax(char *str, t_token **token, int flag);
 int		error_not_valid(char *cmd, char *arg);
 
 // STRING
+int		check_eof(char *rl, char *eof);
 char	*strjoin_char(char *str, char c);
 char	*strjoin_free(char *str1, char *str2);
 char	**table_dup(char **tab, int size);
