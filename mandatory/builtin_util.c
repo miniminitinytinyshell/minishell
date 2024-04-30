@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:36:03 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/22 14:41:43 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:38:25 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,26 @@ int	get_envp_idx(char *key, t_envp *envp)
 	if (idx == envp->curr_cnt)
 		return (-1);
 	return (idx);
+}
+
+void	declare_single_env(char *str)
+{
+	int	idx;
+
+	ft_putstr_fd("declare -x ", STDOUT_FILENO);
+	idx = 0;
+	while (str[idx] && str[idx] != '=')
+	{
+		ft_putchar_fd(str[idx], STDOUT_FILENO);
+		idx++;
+	}
+	if (str[idx] == '=')
+	{
+		ft_putchar_fd(str[idx], STDOUT_FILENO);
+		ft_putchar_fd('"', STDOUT_FILENO);
+		ft_putstr_fd(str + idx + 1, STDOUT_FILENO);
+		ft_putchar_fd('"', STDOUT_FILENO);
+	}
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	idx++;
 }
