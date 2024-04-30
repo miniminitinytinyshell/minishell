@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/26 17:31:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:22:50 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,48 @@ static int	export_option_error(char *opt)
 	return (1);
 }
 
+void	declare_single_env(char *str)
+{
+	int	idx;
+
+	ft_putstr_fd("declare -x ", STDOUT_FILENO);
+	idx = 0;
+	while (str[idx] && str[idx] != '=')
+	{
+		ft_putchar_fd(str[idx], STDOUT_FILENO);
+		idx++;
+	}
+	if (str[idx] == '=')
+	{
+		ft_putchar_fd(str[idx], STDOUT_FILENO);
+		ft_putchar_fd('"', STDOUT_FILENO);
+		ft_putstr_fd(str + idx + 1, STDOUT_FILENO);
+		ft_putchar_fd('"', STDOUT_FILENO);
+	}
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	idx++;
+}
+
 int	declare_env(t_envp *envp)
 {
-	int		i;
-	int		j;
-	char	**data;
+	int		c;
+	int		idx;
+	char	**data = envp->data;
 
-	i = 0;
-	data = envp->data;
-	while (data[i])
+	c = 'A';
+	while (c < 91 || (96 < c && c < 123))
 	{
-		j = 0;
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		while (data[i][j] && data[i][j] != '=')
-			ft_putchar_fd(data[i][j++], STDOUT_FILENO);
-		if (data[i][j] == '=')
+		idx = 0;
+		while (data[idx])
 		{
-			ft_putchar_fd(data[i][j], STDOUT_FILENO);
-			ft_putchar_fd('"', STDOUT_FILENO);
-			ft_putstr_fd(&data[i][j + 1], STDOUT_FILENO);
-			ft_putstr_fd("\"", STDOUT_FILENO);
+			if (data[idx][0] == c)
+				declare_single_env(data[idx]);
+			idx++;
 		}
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		i++;
+		if (c == 'Z')
+			c = 'a';
+		else
+			c++;
 	}
 	return (0);
 }
