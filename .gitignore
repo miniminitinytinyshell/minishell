@@ -4,6 +4,9 @@
 .bonus
 minishell
 
+# Test file names
+a
+
 # Prerequisites
 *.d
 

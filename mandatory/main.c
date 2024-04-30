@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/30 15:45:14 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/30 20:25:34 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,6 @@
 #include "function.h"
 
 volatile sig_atomic_t	g_signum;
-
-static t_envp	set_envp(char **envp)
-{
-	t_envp	env;
-	int		idx;
-
-	idx = 0;
-	while (envp[idx])
-		idx++;
-	env.max_cnt = idx;
-	env.curr_cnt = idx;
-	env.data = ft_calloc(idx + 1, sizeof(char *));
-	env.pwd = getcwd(NULL, 0);
-	if (!env.data || !env.pwd)
-		error_syscall();
-	idx = 0;
-	while (envp[idx])
-	{
-		env.data[idx] = ft_strdup(envp[idx]);
-		if (!env.data[idx])
-			error_syscall();
-		idx++;
-	}
-	return (env);
-}
 
 static int	check_cmd(char *cmd, int *status)
 {
@@ -110,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 		return (printf("usage: %s\n", argv[0]));
 	status = 0;
 	cmd = NULL;
-	env = set_envp(envp);
+	env = init_envp(envp);
 	while (1)
 	{
 		g_signum = 0;

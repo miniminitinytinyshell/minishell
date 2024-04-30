@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/23 14:04:59 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/04/30 21:06:57 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ src_m =	main.c\
 		builtin_exit.c\
 		builtin_unset.c\
 		builtin_export.c\
+		envp_util.c\
 
 SRCS_M = $(addprefix $(MAN_DIR)/, $(src_m))
 OBJS_M = $(SRCS_M:.c=.o)

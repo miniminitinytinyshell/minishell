@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/30 14:11:37 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:49:20 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	expand_quote(char c, char *quote, char **result);
 
 // BUILTIN
 int		builtin_exit(char **args);
-int		error_many_args(void);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, t_envp *envp);
@@ -137,5 +136,9 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status);
 // EXECUTE BUILTIN
 int		find_builtin(t_tree *tree);
 void	execute_builtin(t_tree *tree, t_envp *envp, int *status);
+
+// ENVP utils
+t_envp	init_envp(char **envp);
+void	adjust_envp(t_envp *envp);
 
 #endif
