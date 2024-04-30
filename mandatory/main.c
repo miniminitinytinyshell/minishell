@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/29 14:23:11 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/04/30 15:45:14 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ static int	check_cmd(char *cmd, int *status)
 		ft_putendl_fd("exit", STDERR_FILENO);
 		exit(*status);
 	}
-	while (*cmd == ' ')
-		cmd++;
 	if (!(*cmd))
 	{
-		cmd = free_null(cmd);
+		if (cmd)
+			cmd = free_null(cmd);
 		return (1);
 	}
 	else
@@ -89,9 +88,11 @@ static void	proc_shell(t_envp *envp, int *status, char *cmd)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = init_tree();
 	token = tokenizer(cmd);
+	if (!token)
+		return ;
 	cnt_heredoc(token);
+	tree = init_tree();
 	if (check_pipe(&tree, token) != 0)
 		execute_tree(&tree, envp, status);
 	else
