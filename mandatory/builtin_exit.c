@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 11:06:08 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:52:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_numeric(char *arg)
 
 	if (check_longlong_range(arg))
 		exit_non_numeric(arg);
-	i = 1;
+	i = 0;
 	sign = 1;
 	if (arg[0] == '+' || arg[0] == '-')
 	{
@@ -68,6 +68,8 @@ int	check_numeric(char *arg)
 			sign *= -1;
 		i++;
 	}
+	if (arg[i] == '\0')
+		exit_non_numeric(arg);
 	while (arg[i] == ' ' || (8 < arg[i] && arg[i] < 14))
 		i++;
 	while (arg[i] && arg[i] != '\n')
