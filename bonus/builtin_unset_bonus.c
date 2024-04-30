@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:28:42 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:52:44 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,22 @@ static void	unset_envp(t_envp *envp, int idx)
 	envp->curr_cnt -= 1;
 }
 
+static int	check_unset(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(arg[i]) && arg[i] != '_')
+		return (1);
+	while (arg[i])
+	{
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	builtin_unset(char **args, t_envp *envp)
 {
 	int	i;
@@ -52,7 +68,7 @@ int	builtin_unset(char **args, t_envp *envp)
 		while (args[i])
 		{
 			idx = -1;
-			if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
+			if (check_unset(args[i]))
 				check = error_not_valid("unset", args[i]);
 			else
 			{

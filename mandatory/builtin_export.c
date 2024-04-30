@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/30 13:38:28 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:10:01 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,27 @@ static int	export_option_error(char *opt)
 
 int	declare_env(t_envp *envp)
 {
-	int		c;
-	int		idx;
+	int		i;
+	int		j;
 	char	**data;
 
+	i = 0;
 	data = envp->data;
-	c = 'A';
-	while (c < 91 || (96 < c && c < 123))
+	while (data[i])
 	{
-		idx = 0;
-		while (data[idx])
+		j = 0;
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		while (data[i][j] && data[i][j] != '=')
+			ft_putchar_fd(data[i][j++], STDOUT_FILENO);
+		if (data[i][j] == '=')
 		{
-			if (data[idx][0] == c)
-				declare_single_env(data[idx]);
-			idx++;
+			ft_putchar_fd(data[i][j], STDOUT_FILENO);
+			ft_putchar_fd('"', STDOUT_FILENO);
+			ft_putstr_fd(&data[i][j + 1], STDOUT_FILENO);
+			ft_putstr_fd("\"", STDOUT_FILENO);
 		}
-		if (c == 'Z')
-			c = 'a';
-		else
-			c++;
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		i++;
 	}
 	return (0);
 }

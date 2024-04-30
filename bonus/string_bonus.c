@@ -6,12 +6,27 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:36 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:36:22 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:04:06 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct_bonus.h"
 #include "function_bonus.h"
+
+int	check_eof(char *rl, char *eof)
+{
+	if (!rl)
+	{
+		ft_putstr_fd("\033[u\033[1B\033[1A", STDERR_FILENO);
+		return (1);
+	}
+	if (ft_strncmp(rl, eof, ft_strlen(eof) + 1) == 0)
+	{
+		rl = free_null(rl);
+		return (1);
+	}
+	return (0);
+}
 
 char	*strjoin_char(char *str, char c)
 {
