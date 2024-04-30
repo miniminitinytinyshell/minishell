@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:43:38 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/30 15:52:36 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:20:23 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_numeric(char *arg)
 			sign *= -1;
 		i++;
 	}
-	if (arg[i] == '\0')
+	if (arg[i] < '0' || arg[i] > '9')
 		exit_non_numeric(arg);
 	while (arg[i] == ' ' || (8 < arg[i] && arg[i] < 14))
 		i++;
