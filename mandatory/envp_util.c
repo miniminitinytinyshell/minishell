@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:25:06 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/05/03 21:05:51 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:17:12 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_envp	init_envp(char **envp)
 	idx = 0;
 	while (envp[idx])
 	{
-		if (ft_strncmp(envp[idx], "OLDPWD", ft_strlen("OLDPWD") + 1) == 0)
+		if (ft_strncmp(envp[idx], "OLDPWD", ft_strlen("OLDPWD")) == 0)
 			env.data[idx] = ft_strdup("OLDPWD");
 		else
 			env.data[idx] = ft_strdup(envp[idx]);
@@ -102,7 +102,7 @@ int	get_envp_idx(char *key, t_envp *envp)
 	idx = 0;
 	while (idx < envp->curr_cnt)
 	{
-		if (ft_strncmp(envp->data[idx], key, ft_strlen(key) + 1) == 0)
+		if (ft_strncmp(envp->data[idx], key, ft_strlen(key)) == 0)
 			break ;
 		idx++;
 	}
