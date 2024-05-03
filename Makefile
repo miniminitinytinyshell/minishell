@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/05/03 13:57:42 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/05/03 14:03:29 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,6 @@ src_m =	main.c\
 		builtin_env.c\
 		builtin_pwd.c\
 		builtin_echo.c\
-		builtin_util.c\
 		builtin_exit.c\
 		builtin_unset.c\
 		builtin_export.c\
