@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/05/03 14:01:30 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:17:18 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	proc_shell(t_envp *envp, int *status, char *cmd)
 	t_tree	*tree;
 	t_token	*token;
 
-	token = tokenizer(cmd);
+	token = tokenizer(cmd, status);
 	if (!token)
 		return ;
 	cnt_heredoc(token);

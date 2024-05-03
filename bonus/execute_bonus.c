@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 14:09:01 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:16:13 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ void	execute_cmd(t_tree *tree, t_envp *envp)
 		return ;
 	if (tree->data[0][0] == '\0')
 		path = NULL;
+	else if (ft_strncmp(tree->data[0], ".", 2) == 0)
+	{
+		ft_putendl_fd("mongshell: filename argument required: .", 2);
+		ft_putendl_fd(".: usage: . filename [arguments]", 2);
+		exit(2);
+	}
 	else if (ft_strncmp(tree->data[0], "/", 1) == 0 \
 			|| ft_strncmp(tree->data[0], "./", 2) == 0)
 		path = check_file(tree->data[0]);

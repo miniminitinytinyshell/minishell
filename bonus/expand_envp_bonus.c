@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:33:23 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 14:05:17 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:16:34 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**expand_envp(t_tree **tree, char **envp, int status)
 		if (ft_strchr((*tree)->data[i], '$') && (*tree)->data[i][0] != '\'')
 		{
 			temp = proc_envp((*tree)->data[i], envp, status);
-			token = tokenizer(temp);
+			token = tokenizer(temp, NULL);
 			if (temp && !token)
 				token = token_new("", 0);
 			data = add_token_to_table(data, token);
