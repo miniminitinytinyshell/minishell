@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   function.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/30 21:34:54 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:59:44 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	set_global_signal(void);
 
 // TOKENIZE
 int		token_len(char *str);
-t_token	*tokenizer(char *str);
+t_token	*tokenizer(char *str, int *status);
 
 // TOKEN UTIL
 void	token_add_back(t_token **token, t_token *new);

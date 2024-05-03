@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:35:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/30 20:25:34 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:59:20 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	proc_shell(t_envp *envp, int *status, char *cmd)
 	t_tree	*tree;
 	t_token	*token;
 
-	token = tokenizer(cmd);
+	token = tokenizer(cmd, status);
 	if (!token)
 		return ;
 	cnt_heredoc(token);
