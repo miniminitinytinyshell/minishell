@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/05/03 15:26:17 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:28:25 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	unset_envp(t_envp *envp, char *arg)
 	int	idx;
 
 	idx = get_envp_idx(arg, envp);
-	if (ft_strncmp(arg, "PATH", ft_strlen("PATH")) == 0)
+	if (ft_strncmp(arg, "PATH", 5) == 0)
 		envp->path = free_null(envp->path);
 	if (idx < 0)
 		return ;
