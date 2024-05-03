@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/05/03 18:02:24 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/05/03 21:07:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 {
 	if (!tree || !(*tree))
-		return ; 
+		return ;
 	if ((*tree)->type == standard_cmd)
 	{
 		*status = expand_tree(tree, envp->data, *status);

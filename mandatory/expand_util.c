@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/05/03 15:19:43 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/05/03 21:06:14 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*find_env(char *aim, char **envp)
 		return (result);
 	while (*envp)
 	{
-		if (ft_strncmp(aim, *envp, len) == 0)
+		if (ft_strncmp(aim, *envp, len + 1) == 0)
 		{
 			if (*(*envp + len) == '=')
 			{
