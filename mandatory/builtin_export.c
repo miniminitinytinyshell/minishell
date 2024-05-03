@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/22 14:39:33 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:10:01 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	set_new_env(char *arg, t_envp *envp)
 		envp->data[envp->curr_cnt] = ft_strdup(arg);
 	else
 	{
-		temp = ft_calloc(envp->max_cnt * 2, sizeof(char *));
+		temp = ft_calloc(envp->max_cnt * 2 + 2, sizeof(char *));
 		if (!temp)
 			error_syscall();
 		i = 0;
@@ -94,7 +94,7 @@ int	set_new_env(char *arg, t_envp *envp)
 			temp[i] = ft_strdup(envp->data[i]);
 			i++;
 		}
-		envp->max_cnt *= 2;
+		envp->max_cnt = envp->max_cnt * 2 + 2;
 		temp[i] = ft_strdup(arg);
 		free_tab(envp->data);
 		envp->data = temp;
@@ -110,9 +110,9 @@ int	builtin_export(char **args, t_envp *envp)
 	int		i;
 	int		result;
 	char	*key;
-	char	*value;
 
 	i = 1;
+	result = 0;
 	if (!args[1])
 		return (declare_env(envp));
 	if (args[1][0] == '-' && ft_strlen(args[1]) > 1)
@@ -121,12 +121,11 @@ int	builtin_export(char **args, t_envp *envp)
 	{
 		key = check_env_key(args[i]);
 		if (!key)
-			error_not_valid("export", args[i]);
+			result = error_not_valid("export", args[i]);
 		else
 		{
-			value = ft_strchr(args[i], '=');
-			if (swap_envp_data(key, value, envp))
-				result = set_new_env(args[i], envp);
+			if (swap_envp_data(key, ft_strchr(args[i], '='), envp))
+				set_new_env(args[i], envp);
 			key = free_null(key);
 		}
 		i++;

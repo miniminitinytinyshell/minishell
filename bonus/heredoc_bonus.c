@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:48:21 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:02:48 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,10 @@ void	read_heredoc(char *eof, int fd, t_envp *envp, int flag)
 
 	while (1)
 	{
-		read_line = readline("heredoc> ");
-		if (!read_line || ft_strncmp(read_line, eof, ft_strlen(eof) + 1) == 0)
-		{
-			read_line = free_null(read_line);
-			break ;
-		}
 		idx = 0;
+		read_line = readline("> \033[s");
+		if (check_eof(read_line, eof))
+			break ;
 		while (read_line[idx])
 		{
 			if (flag == 0 && read_line[idx] == '$')
@@ -62,8 +59,8 @@ void	read_heredoc(char *eof, int fd, t_envp *envp, int flag)
 				ft_putchar_fd(read_line[idx], fd);
 			idx++;
 		}
-		ft_putendl_fd("", fd);
 		read_line = free_null(read_line);
+		ft_putstr_fd("\n", fd);
 	}
 	exit(EXIT_SUCCESS);
 }

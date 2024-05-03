@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/17 16:03:43 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:19:43 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,12 @@ char	**get_path(t_envp *envp)
 
 	path = NULL;
 	temp = find_env("PATH", envp->data);
-	if (temp)
+	if (!temp)
+	{
+		if (envp->path)
+			path = ft_split(envp->path, ':');
+	}
+	else
 	{
 		path = ft_split(temp, ':');
 		free(temp);

@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:39:56 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:52:59 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:16:54 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		error_syntax(char *str, t_token **token, int flag);
 int		error_not_valid(char *cmd, char *arg);
 
 // STRING
+int		check_eof(char *rl, char *eof);
 char	*strjoin_char(char *str, char c);
 char	*strjoin_free(char *str1, char *str2);
 char	**table_dup(char **tab, int size);
@@ -62,7 +63,7 @@ void	set_global_signal(void);
 
 // TOKENIZE
 int		token_len(char *str);
-t_token	*tokenizer(char *str);
+t_token	*tokenizer(char *str, int *status);
 
 // TOKEN UTIL
 void	token_add_back(t_token **token, t_token *new);
@@ -102,17 +103,12 @@ void	expand_quote(char c, char *quote, char **result);
 
 // BUILTIN
 int		builtin_exit(char **args);
-int		error_many_args(void);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_envp *envp);
 int		builtin_env(char **args, t_envp *envp);
 int		builtin_pwd(char **args, t_envp *envp);
 int		builtin_unset(char **args, t_envp *envp);
 int		builtin_export(char **args, t_envp *envp);
-
-// BUILTIN_Utils
-int		swap_envp_data(char *key, char *value, t_envp *envp);
-int		get_envp_idx(char *key, t_envp *envp);
 
 // HERE_DOC
 void	delete_heredoc(t_tree **tree);
@@ -136,5 +132,11 @@ void	execute_pipe(t_tree **tree, t_envp *envp, int *status);
 // EXECUTE BUILTIN
 int		find_builtin(t_tree *tree);
 void	execute_builtin(t_tree *tree, t_envp *envp, int *status);
+
+// ENVP utils
+t_envp	init_envp(char **envp);
+void	adjust_envp(t_envp *envp);
+int		swap_envp_data(char *key, char *value, t_envp *envp);
+int		get_envp_idx(char *key, t_envp *envp);
 
 #endif
