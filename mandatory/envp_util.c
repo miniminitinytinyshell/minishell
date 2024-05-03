@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:25:06 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/05/03 13:55:02 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:17:12 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_envp	init_envp(char **envp)
 		idx++;
 	env.max_cnt = idx;
 	env.curr_cnt = idx;
+	env.path = NULL;
 	env.data = ft_calloc(idx + 1, sizeof(char *));
 	if (!env.data)
 		error_syscall();
