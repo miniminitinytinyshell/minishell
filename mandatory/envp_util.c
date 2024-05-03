@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:25:06 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/04/30 21:34:16 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:55:02 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,3 @@ int	get_envp_idx(char *key, t_envp *envp)
 		return (-1);
 	return (idx);
 }
-

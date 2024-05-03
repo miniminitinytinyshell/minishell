@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:10:29 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/23 13:55:23 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:58:36 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_envp
 	int		curr_cnt;
 	char	**data;
 	char	*pwd;
+	char	*path;
 }	t_envp;
 
 typedef enum e_token_group

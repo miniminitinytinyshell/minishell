@@ -6,7 +6,7 @@
 #    By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 21:19:13 by hyeunkim          #+#    #+#              #
-#    Updated: 2024/04/30 21:06:57 by hyeunkim         ###   ########.fr        #
+#    Updated: 2024/05/03 13:57:42 by hyeunkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,10 +107,10 @@ src_b =main_bonus.c\
 		builtin_env_bonus.c\
 		builtin_pwd_bonus.c\
 		builtin_echo_bonus.c\
-		builtin_util_bonus.c\
 		builtin_exit_bonus.c\
 		builtin_unset_bonus.c\
 		builtin_export_bonus.c\
+		envp_util_bonus.c\
 
 SRCS_B = $(addprefix $(BON_DIR)/,$(src_b))
 OBJS_B = $(SRCS_B:.c=.o)
