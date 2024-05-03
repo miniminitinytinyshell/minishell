@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:25:06 by hyeunkim          #+#    #+#             */
-/*   Updated: 2024/05/03 15:17:12 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:23:31 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ int	get_envp_idx(char *key, t_envp *envp)
 	idx = 0;
 	while (idx < envp->curr_cnt)
 	{
-		if (ft_strncmp(envp->data[idx], key, ft_strlen(key)) == 0)
+		if (ft_strncmp(envp->data[idx], key, ft_strlen(key)) == 0 \
+			&& envp->data[idx][ft_strlen(key)] == '=')
 			break ;
 		idx++;
 	}
