@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/05/03 15:28:25 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/05/03 15:29:11 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static int	check_unset(char *arg)
 int	builtin_unset(char **args, t_envp *envp)
 {
 	int	i;
-	int	idx;
 	int	check;
 
 	i = 1;
@@ -74,7 +73,6 @@ int	builtin_unset(char **args, t_envp *envp)
 	{
 		while (args[i])
 		{
-			idx = -1;
 			if (check_unset(args[i]))
 				check = error_not_valid("unset", args[i]);
 			else
