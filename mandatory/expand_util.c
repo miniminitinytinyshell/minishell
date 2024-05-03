@@ -6,7 +6,7 @@
 /*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:27:20 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/30 21:01:50 by hyeunkim         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:10:34 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**get_path(t_envp *envp)
 
 	path = NULL;
 	temp = find_env("PATH", envp->data);
-	if (!temp)
+	if (!temp && envp->path)
 		path = ft_split(envp->path, ':');
 	else
 	{
