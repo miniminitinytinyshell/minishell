@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyeunkim <hyeunkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:41:40 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/04/26 17:04:20 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/05/03 15:26:17 by hyeunkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,15 @@ static int	unset_option_error(char *opt)
 	return (1);
 }
 
-static void	unset_envp(t_envp *envp, int idx)
+static void	unset_envp(t_envp *envp, char *arg)
 {
+	int	idx;
+
+	idx = get_envp_idx(arg, envp);
+	if (ft_strncmp(arg, "PATH", ft_strlen("PATH")) == 0)
+		envp->path = free_null(envp->path);
+	if (idx < 0)
+		return ;
 	envp->data[idx] = free_null(envp->data[idx]);
 	while (idx < envp->curr_cnt)
 	{
@@ -71,11 +78,7 @@ int	builtin_unset(char **args, t_envp *envp)
 			if (check_unset(args[i]))
 				check = error_not_valid("unset", args[i]);
 			else
-			{
-				idx = get_envp_idx(args[i], envp);
-				if (idx != -1)
-					unset_envp(envp, idx);
-			}
+				unset_envp(envp, args[i]);
 			i++;
 		}
 	}
