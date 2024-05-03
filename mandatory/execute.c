@@ -6,7 +6,7 @@
 /*   By: jaeblee <jaeblee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:08:24 by jaeblee           #+#    #+#             */
-/*   Updated: 2024/05/03 16:12:34 by jaeblee          ###   ########.fr       */
+/*   Updated: 2024/05/03 18:02:24 by jaeblee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	execute_std_cmd(t_tree **tree, t_envp *envp, int *status)
 
 void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 {
+	if (!tree || !(*tree))
+		return ; 
 	if ((*tree)->type == standard_cmd)
 	{
 		*status = expand_tree(tree, envp->data, *status);
@@ -106,20 +108,18 @@ void	execute_cpd_cmd(t_tree **tree, t_envp *envp, int *status)
 	}
 	else if ((*tree)->type == compound_cmd)
 	{
-		if (ft_strncmp((*tree)->oper, "&&", 3) == 0)
-		{
-			execute_cpd_cmd(&(*tree)->left, envp, status);
-			if (*status == 0)
-				execute_cpd_cmd(&(*tree)->right, envp, status);
-		}
-		else if (ft_strncmp((*tree)->oper, "||", 3) == 0)
-		{
-			execute_cpd_cmd(&(*tree)->left, envp, status);
-			if (*status != 0)
-				execute_cpd_cmd(&(*tree)->right, envp, status);
-		}
-		else
+		if (ft_strncmp((*tree)->oper, "|", 2) == 0)
 			execute_pipe(tree, envp, status);
+		else
+		{
+			execute_cpd_cmd(&(*tree)->left, envp, status);
+			if (*status == 0 && ft_strncmp((*tree)->oper, "&&", 3) == 0)
+				execute_cpd_cmd(&(*tree)->right, envp, status);
+			else if (*status != 0 && ft_strncmp((*tree)->oper, "||", 3) == 0)
+				execute_cpd_cmd(&(*tree)->right, envp, status);
+			else
+				execute_cpd_cmd(&(*tree)->right->right, envp, status);
+		}
 	}
 }
 
